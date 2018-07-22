@@ -1,13 +1,12 @@
 {
   "private": true,
   "fable": {
-    "entry": "src/Fabulosa.fsproj"
+    "entry": "docs/Fabulosa.Docs/Fabulosa.Docs.fsproj"
   },
   "scripts": {
     "postinstall": "dotnet restore",
-    "build": "cd tools && dotnet fable webpack -- -p --config webpack.config.prod.js",
-    "start": "cd tools && dotnet fable webpack-dev-server -- --config webpack.config.dev.js",
-    "test": "cd test && dotnet run"
+    "build": "cd docs/tools && dotnet fable webpack -- -p --config webpack.config.prod.js",
+    "start": "cd docs/tools && dotnet fable webpack-dev-server -- --config webpack.config.dev.js",
   },
   "devDependencies": {
     "babel-core": "6.26.0",

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <AssemblyName>Test</AssemblyName>
+    <AssemblyName>Fabulosa.Tests</AssemblyName>
     <OutputType>Exe</OutputType>
     <TargetFramework>netcoreapp2.1</TargetFramework>
   </PropertyGroup>
@@ -13,7 +13,7 @@
     <Compile  Include="Components/ButtonTests.fs" />
     <Compile  Include="Main.fs" />
     <None Include="paket.references" />
-    <ProjectReference Include="..\src\Fabulosa.fsproj" />
+    <ProjectReference Include="..\..\src\Fabulosa.fsproj" />
   </ItemGroup>
-  <Import Project="..\.paket\Paket.Restore.targets" />
+  <Import Project="..\..\.paket\Paket.Restore.targets" />
 </Project>
