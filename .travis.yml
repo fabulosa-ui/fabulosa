@@ -6,4 +6,4 @@ mono: latest
 install:
   - mono .paket/paket.exe install
 script:
-  - ./fake build
+  - bash ./fake.sh build
