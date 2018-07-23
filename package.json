@@ -5,7 +5,8 @@
   },
   "scripts": {
     "build": "cd tools && dotnet fable webpack -- -p --config webpack.config.prod.js",
-    "start": "cd tools && dotnet fable webpack-dev-server -- --config webpack.config.dev.js"
+    "start": "cd tools && dotnet fable webpack-dev-server -- --config webpack.config.dev.js",
+    "test": "cd tests/Fabulosa.Tests && dotnet run"
   },
   "devDependencies": {
     "babel-core": "6.26.0",
