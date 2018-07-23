@@ -17,16 +17,19 @@ Target.create "Clean" (fun _ ->
 Target.create "Build" (fun _ ->
     !! "src/**/*.*proj"
     |> Seq.iter (DotNet.build id)
+    |> Trace.logItems "Build-Output: "
 )
 
 Target.create "BuildTests" (fun _ ->
     !! "tests/**/*.*proj"
     |> Seq.iter (DotNet.build id)
+    |> Trace.logItems "BuildTests-Output: "
 )
 
 Target.create "Test" (fun _ ->
     !! "tests/**/*.*proj"
     |> Seq.iter (DotNet.run id)
+    |> Trace.logItems "Test-Output: "
 )
 
 Target.create "All" ignore
