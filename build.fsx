@@ -23,19 +23,19 @@ Target.create "BuildTests" (fun _ ->
     !! "tests/**/*.*proj"
     |> Seq.iter (DotNet.build id)
 )
+let opts (def:DotNet.Options) = def
 
-// Target.create "Test" (fun _ ->
-//     !! "tests/**/*.*proj"
-//     |> Seq.iter (DotNet.exec Dotne "run" "")
-//     |> Trace.logItems "TestBuild-Output: "
-// )
+Target.create "Test" (fun _ ->
+    !! "tests/**/*.*proj"
+    |> Seq.iter (fun proj -> DotNet.exec opts ("run --project " + proj) "" |> ignore)
+)
 
 Target.create "All" ignore
 
 "Clean"
   ==> "Build"
   ==> "BuildTests"
-//   ==> "Test"
+  ==> "Test"
   ==> "All"
 
 Target.runOrDefault "All"
