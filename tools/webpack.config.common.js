@@ -10,10 +10,10 @@ var errorMsg = "{0} missing in package.json";
 
 var config = {
   entry: resolve(path.join("..", forceGet(packageJson, "fable.entry", errorMsg))),
-  publicDir: resolve("../public"),
+  publicDir: resolve("../docs/Fabulosa.Docs/public"),
   buildDir: resolve("../build"),
   nodeModulesDir: resolve("../node_modules"),
-  indexHtmlTemplate: resolve("../src/index.html")
+  indexHtmlTemplate: resolve("../docs/Fabulosa.Docs/index.html")
 }
 
 function resolve(filePath) {
@@ -46,7 +46,7 @@ function getModuleRules(isProduction) {
         loader: "fable-loader",
         options: {
           babel: babelOptions,
-          define: isProduction ? [] : ["DEBUG"]
+          define: isProduction ? [] : ["DEBUG"]
         }
       }
     },

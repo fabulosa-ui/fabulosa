@@ -13,7 +13,7 @@
     <Compile  Include="Components/ButtonTests.fs" />
     <Compile  Include="Main.fs" />
     <None Include="paket.references" />
-    <ProjectReference Include="..\..\src\Fabulosa.fsproj" />
+    <ProjectReference Include="..\..\src\Fabulosa\Fabulosa.fsproj" />
   </ItemGroup>
   <Import Project="..\..\.paket\Paket.Restore.targets" />
 </Project>

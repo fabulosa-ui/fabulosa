@@ -4,8 +4,9 @@ module R = Fable.Helpers.React
 open Fable.Helpers.React.Props
 
 open Grid
+open Fable.Import.React
 
-let cols = seq {
+let cols: seq<ReactElement> = seq {
     for n in 1 .. 11 do
         yield columns [] [] [
             column [ ColumnSize n ] [] [
