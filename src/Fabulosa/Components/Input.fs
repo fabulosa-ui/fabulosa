@@ -32,11 +32,17 @@ module Input =
 [<RequireQualifiedAccess>]
 module IconInput =
 
-    open Fable.Helpers
     open Fable.Import.React
     open ClassNames
     module R = Fable.Helpers.React
     open Fable.Helpers.React.Props
+    open Fable.Helpers
+
+    let extract (reactElement: ReactElement) =
+        match reactElement :?> R.HTMLNode with
+        | R.Node (element, props, children) ->
+            (element, Seq.toList <| Seq.cast<IHTMLProp> props, Seq.toList children)
+        | _ -> ("", [], [])
 
     type Position =
     | Left
@@ -53,9 +59,9 @@ module IconInput =
     type C = { className: string }
     
     let iconInput (props: Prop list) (htmlProps: IHTMLProp list) (children: ReactElement list) =
-        let second = children.[1]
-        let icon: ReactElement = ReactAPIExtensions.cloneElement second { className = "what" } []
-        Fable.Import.Browser.console.log(ReactAPIExtensions.cloneElement)
+        let (iconElement, iconProps, iconChildren) = extract children.[1]
+        let newIconProps = iconProps @ [ClassName "form-icon"]
+        let icon = React.domEl iconElement newIconProps iconChildren
         let newProps = List.map propToClass props |> addClassesToProps <| htmlProps
         R.div newProps [
             children.[0]
