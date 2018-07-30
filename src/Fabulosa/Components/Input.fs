@@ -38,11 +38,12 @@ module IconInput =
     open Fable.Helpers.React.Props
     open Fable.Helpers
 
-    let extract (reactElement: ReactElement) =
-        match reactElement :?> R.HTMLNode with
-        | R.Node (element, props, children) ->
-            (element, Seq.toList <| Seq.cast<IHTMLProp> props, Seq.toList children)
-        | _ -> ("", [], [])
+    type P = { className: string }
+    type T = { props: P }
+
+    let getClasseNames (reactElement: ReactElement) =
+        let element = unbox<T> reactElement
+        element.props.className
 
     type Position =
     | Left
@@ -59,9 +60,9 @@ module IconInput =
     type C = { className: string }
     
     let iconInput (props: Prop list) (htmlProps: IHTMLProp list) (children: ReactElement list) =
-        let (iconElement, iconProps, iconChildren) = extract children.[1]
-        let newIconProps = iconProps @ [ClassName "form-icon"]
-        let icon = React.domEl iconElement newIconProps iconChildren
+        let element = children.[1]
+        let classNames = getClasseNames element
+        let icon = ReactAPIExtensions.cloneElement element {className = "form-icon " + classNames} []
         let newProps = List.map propToClass props |> addClassesToProps <| htmlProps
         R.div newProps [
             children.[0]
