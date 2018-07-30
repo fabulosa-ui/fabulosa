@@ -3,6 +3,7 @@ module FormPage
 module R = Fable.Helpers.React
 open R.Props
 open Fabulosa
+open Fabulosa
 
 let view () =
     Fable.Helpers.React.div [] [
@@ -19,6 +20,13 @@ let view () =
                         Form.group [] [
                             Label.label [] [Fable.Helpers.React.str "Phone"]
                             Input.input [] [Placeholder "Please enter your phone number"; Type "tel"]
+                        ]
+                        Form.group [] [
+                            Label.label [] [Fable.Helpers.React.str "Something"]
+                            IconInput.iconInput [IconInput.Position IconInput.Left] [] [
+                                Input.input [] [Placeholder "Please enter something"]
+                                Icon.i [Icon.Type Icon.Time] [] []
+                            ]
                         ]
                         Form.group [] [
                             Label.label [] [R.str "Profile description"]

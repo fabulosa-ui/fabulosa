@@ -3,7 +3,6 @@ namespace Fabulosa
 [<RequireQualifiedAccess>]
 module Typography =
 
-    open ClassNames
     module R = Fable.Helpers.React 
 
     let h1 = R.h1

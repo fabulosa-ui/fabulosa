@@ -26,6 +26,6 @@ module ClassNames =
     let className x = ClassName x :> IHTMLProp
 
     let addClassesToProps componentClasses htmlProps =
-        let htmlClass = concatStrings <| htmlClasses htmlProps
-        let componentClass = concatStrings componentClasses
-        htmlProps @ [className <| htmlClass + componentClass ]
+        let htmlClasses =  htmlClasses htmlProps
+        let classes =  concatStrings <| htmlClasses @ componentClasses
+        htmlProps @ [className classes]
