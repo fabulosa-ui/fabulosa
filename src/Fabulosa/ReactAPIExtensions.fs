@@ -20,15 +20,15 @@ module ReactAPIExtensions =
 
     let getClasses element =
         match element.props.className with
-        | Some c -> c
+        | Some className -> className
         | None -> ""
 
     let getChildren element =
         match element.props.children with
         | Some element ->
             match element with
-            | Single c -> [c]
-            | Multiple a  -> Array.toList a
+            | Single child -> [child]
+            | Multiple children  -> Array.toList children
         | None -> []
 
     let extract (element: ReactElement) =
