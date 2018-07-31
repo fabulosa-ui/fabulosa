@@ -19,11 +19,6 @@ module Input =
         | Size Small -> "input-sm"
         | Size Large -> "input-lg"
 
-    let mapsAny mapping =
-        List.choose mapping
-        >> List.length
-        >> (<) 0
-
     let input inputProps =
         ["form-input"]
         @ List.map propToClass inputProps
