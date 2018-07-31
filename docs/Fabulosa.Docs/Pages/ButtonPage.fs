@@ -6,7 +6,6 @@ open Fable.Import.Browser
 open Fabulosa
 
 let view () =
-    Button.test
     R.div [ClassName "buttons"] [
         R.h2 [] [R.str "Buttons"]
         R.p [] [R.str "Buttons include simple button styles for actions in different types and sizes."]
