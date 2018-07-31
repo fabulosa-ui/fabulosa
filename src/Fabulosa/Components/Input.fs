@@ -47,7 +47,7 @@ module IconInput =
 
     let makeIcon icon =
         let (element, classes, children) = extract icon
-        React.domEl element [className <| classes + " form-icon"] children
+        React.domEl element [className <| " form-icon"] children
         
     let iconInput props htmlProps (children: ReactElement list) =
         let newProps =

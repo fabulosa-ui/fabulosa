@@ -1,13 +1,9 @@
 namespace Fabulosa
-open MBrace.FsPickler
-open Microsoft.FSharp.Reflection
 
 [<RequireQualifiedAccess>]
 module Label =
 
     open ClassNames
-    open MBrace.FsPickler.Combinators
-
 
     module R = Fable.Helpers.React
 
