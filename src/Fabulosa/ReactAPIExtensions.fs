@@ -4,12 +4,12 @@ module ReactAPIExtensions =
 
     open Fable.Import.React
 
-    type ObjectOrArray =
-    | Obj of ReactElement
-    | Arr of array<ReactElement>
+    type Children =
+    | Single of ReactElement
+    | Multiple of array<ReactElement>
 
     type NativeProps = {
-        children: ObjectOrArray option
+        children: Children option
         className: string option
     }
 
@@ -18,17 +18,17 @@ module ReactAPIExtensions =
         props: NativeProps;
     }
 
-    let getClasses nativeElement =
-        match nativeElement.props.className with
+    let getClasses element =
+        match element.props.className with
         | Some c -> c
         | None -> ""
 
-    let getChildren nativeElement =
-        match nativeElement.props.children with
+    let getChildren element =
+        match element.props.children with
         | Some element ->
             match element with
-            | Obj c -> [c]
-            | Arr a  -> Array.toList a
+            | Single c -> [c]
+            | Multiple a  -> Array.toList a
         | None -> []
 
     let extract (element: ReactElement) =
