@@ -10,6 +10,7 @@
     <Compile Include="Components/Navbar.fs" />
     <Compile Include="Components/Grid.fs" />
     <Compile Include="Components/Label.fs" />
+    <Compile Include="Components/Radio.fs" />
     <Compile Include="Components/Icon.fs" />
     <Compile Include="Components/Input.fs" />
     <Compile Include="Components/Button.fs" />

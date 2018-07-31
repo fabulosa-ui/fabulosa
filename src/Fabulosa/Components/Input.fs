@@ -51,8 +51,8 @@ module IconInput =
         
     let iconInput props htmlProps (children: ReactElement list) =
         let newProps =
-            List.map propToClass props
-            |> addClassesToProps
+            addClassesToProps
+            <| List.map propToClass props
             <| htmlProps
         R.div newProps [
             children.[0]
