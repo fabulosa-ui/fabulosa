@@ -1,10 +1,17 @@
 namespace Fabulosa
+open Fable.Import.Browser
+open Fable.Helpers
+open Fable.Import.React
+open Fable.Core
+open Fable.Core.JsInterop
 
 [<RequireQualifiedAccess>]
 module Button =
 
     open ClassNames
     module R = Fable.Helpers.React
+    open R.Props
+    open ReactAPIExtensions
 
     type Kind =
     | Default
@@ -49,13 +56,31 @@ module Button =
         | Format SquaredAction -> "btn-action"
         | Format RoundAction -> "btn-action circle"
         | _ -> ""
-      
+
     let button props =
         ["btn"] @ List.map propToClass props
         |> addClassesToProps
         >> R.button
 
+    let textButton text =
+        button [] [] [R.str text]
+
     let anchor props =
         ["btn"] @ List.map propToClass props
         |> addClassesToProps
         >> R.a
+
+    let map f c = f c
+
+    let sizeTransformer (element: ReactElement) (size: Size) =
+        let (t, props, children) = extract element
+        let c =
+            match props.className  with
+            | Some c -> Some <| c + propToClass (Size size)
+            | None -> Some <| propToClass (Size size)
+        let result = React.ofFunction (fun _ -> React.domEl t [] []) ({props with className = c}:> obj) children
+        result
+
+    let test =
+        let smallButton =  textButton "text" |> map sizeTransformer <| Small
+        console.log(smallButton)
