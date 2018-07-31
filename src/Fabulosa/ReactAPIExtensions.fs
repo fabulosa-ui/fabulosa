@@ -33,7 +33,7 @@ module ReactAPIExtensions =
 
     let extract (element: ReactElement) =
         let native = unbox<NativeReactElement> element
-        (native.``type``, getClasses native, getChildren native)
+        (native.``type``, native.props, getChildren native)
     
 
 

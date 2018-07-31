@@ -19,9 +19,9 @@ module Input =
         | Size Small -> "input-sm"
         | Size Large -> "input-lg"
 
-    let input inputProps =
+    let input props =
         ["form-input"]
-        @ List.map propToClass inputProps
+        @ List.map propToClass props
         |> addClassesToProps
         >> R.input
 
