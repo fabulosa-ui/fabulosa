@@ -3,23 +3,39 @@ namespace Fabulosa
 module ReactAPIExtensions =
 
     open Fable.Import.React
-    open Fable.Core
 
-    type ObjectOrArray<'a> =
-    | Obj of 'a
-    | Arr of array<'a>
+    type ObjectOrArray =
+    | Obj of ReactElement
+    | Arr of array<ReactElement>
 
-    type NativeProps<'a> = {
-        children: ObjectOrArray<'a> option
+    type NativeProps = {
+        children: ObjectOrArray option
         className: string option
     }
 
     type NativeReactElement = {
-        props: NativeProps<NativeReactElement>;
+        ``type``: string
+        props: NativeProps;
     }
 
-    [<Import("cloneElement", from="react")>]
-    let cloneElement (element: ReactElement) (props: obj) ([<ParamList>] children: obj) = jsNative
+    let getClasses nativeElement =
+        match nativeElement.props.className with
+        | Some c -> c
+        | None -> ""
 
-    let asNative (element: ReactElement) =
-        unbox<NativeReactElement> element
+    let getChildren nativeElement =
+        match nativeElement.props.children with
+        | Some element ->
+            match element with
+            | Obj c -> [c]
+            | Arr a  -> Array.toList a
+        | None -> []
+
+    let extract (element: ReactElement) =
+        let native = unbox<NativeReactElement> element
+        (native.``type``, getClasses native, getChildren native)
+    
+
+
+
+        

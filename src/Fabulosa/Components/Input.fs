@@ -1,5 +1,6 @@
 namespace Fabulosa
 
+open Fable.Helpers
 [<RequireQualifiedAccess>]
 module Input =
 
@@ -32,43 +33,33 @@ module Input =
 [<RequireQualifiedAccess>]
 module IconInput =
 
-    open Fable.Import.React
     open ClassNames
+    open ReactAPIExtensions
+    open Fable.Import.React
     module R = Fable.Helpers.React
-    open Fable.Helpers.React.Props
-    open Fable.Helpers
-
-    type ReactElementProps = { className: string }
-    type ReactElementWithProps = { props: ReactElementProps }
-
-    let getClasseNames (reactElement: ReactElement) =
-        let element = unbox<ReactElementWithProps> reactElement
-        element.props.className
-
+    
     type Position =
     | Left
     | Right
 
     type Prop =
     | Position of Position
-        
+
     let propToClass =
         function
         | Position Left -> "has-icon-left"
         | Position Right -> "has-icon-right"
+
+    let makeIcon icon =
+        let (element, classes, children) = extract icon
+        React.domEl element [className <| classes + " form-icon"] children
         
-    let iconInput (props: Prop list) (htmlProps: IHTMLProp list) (children: ReactElement list) =
-        let element = children.[1]
-        let testElement = R.div [] [
-            R.p [] [R.str "paragraph"]
-            R.span [] [R.str "span"]
-        ]
-        let native = ReactAPIExtensions.asNative testElement
-        Fable.Import.Browser.console.log(native.props)
-        let classNames = getClasseNames element
-        let icon = ReactAPIExtensions.cloneElement element {className = "form-icon " + classNames} []
-        let newProps = List.map propToClass props |> addClassesToProps <| htmlProps
+    let iconInput props htmlProps (children: ReactElement list) =
+        let newProps =
+            List.map propToClass props
+            |> addClassesToProps
+            <| htmlProps
         R.div newProps [
             children.[0]
-            icon
+            makeIcon children.[1]
         ]
