@@ -45,15 +45,19 @@ module IconInput =
         | Position Left -> "has-icon-left"
         | Position Right -> "has-icon-right"
 
-    let makeIcon icon =
-        let (element, classes, children) = extract icon
-        React.domEl element [className <| " form-icon"] children
+    let iconPropToClass =
+        function
+        | _ -> "form-icon"
+
+    let makeIcon =
+        transform (fun _ -> "form-icon") [""]
         
     let iconInput props htmlProps (children: ReactElement list) =
         let newProps =
             addClassesToProps
             <| List.map propToClass props
             <| htmlProps
+        Fable.Import.Browser.console.log "here"
         R.div newProps [
             children.[0]
             makeIcon children.[1]
