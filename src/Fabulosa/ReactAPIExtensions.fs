@@ -29,5 +29,8 @@ module ReactAPIExtensions =
 
     let transform mapping props element =
         let (elType, elProps, elChilren) = extractProps element
-        let appended = [elProps.className] @ List.map mapping props |> String.concat " "
-        R.createElement (elType, {elProps with className = appended}, elChilren)        
+        let appended =
+            [elProps.className]
+            @ List.map mapping props
+            |> String.concat " "
+        R.createElement (elType, {elProps with className = appended}, elChilren)

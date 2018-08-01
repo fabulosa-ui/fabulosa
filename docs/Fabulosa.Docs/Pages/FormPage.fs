@@ -44,7 +44,7 @@ let view () =
                             Checkbox.input [] [] "Remember me"
                             Checkbox.input [] [] "Forget me"
                         ]
-                        Button.anchor [Button.Kind Button.Primary] [Style [MarginTop 10]] [R.str "Submit"]
+                        Anchor.a "Submit"
                     ]
                 ]
             ]
