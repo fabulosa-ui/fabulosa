@@ -64,7 +64,3 @@ module Button =
         ["btn"] @ List.map propToClass props
         |> addClassesToProps
         >> R.a
-
-    let test =
-        let smallButton = textButton "text" |> mapExtract transform <| propToClass (Size Small)
-        smallButton

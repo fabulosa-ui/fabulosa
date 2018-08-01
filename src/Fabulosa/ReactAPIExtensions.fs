@@ -38,18 +38,16 @@ module ReactAPIExtensions =
         let native = unbox<NativeReactElement> element
         (native.``type``, native.props, getChildren native)
 
-    let mapExtract transform comp =
-        let (element, props, children) = extract comp
-        transform element props children
-
-    let optionAppend text =
+    let optionAppend (text: string) =
         function
-        | Some c -> Some <| c + text
-        | None -> Some text            
+        | Some c -> Some <| c + " " + text
+        | None -> Some text
 
-    let transform element props children value =
+    let transform element mapping prop =
+        let (_, props, children) = extract element
+        let value = mapping prop
         let appended = props.className |> optionAppend value
-        R.ofFunction (fun _ -> R.domEl element [] []) {props with className = appended} children   
+        R.ofFunction (fun _ -> element) {props with className = appended} children
     
 
 
