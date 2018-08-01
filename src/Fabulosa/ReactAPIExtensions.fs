@@ -3,6 +3,8 @@ namespace Fabulosa
 module ReactAPIExtensions =
 
     open Fable.Core
+    open Fable.Core.JsInterop
+
     open Fable.Import.React
     module R = Fable.Helpers.React
 
@@ -43,11 +45,23 @@ module ReactAPIExtensions =
         | Some c -> Some <| c + " " + text
         | None -> Some text
 
+
     let transform element mapping prop =
-        let (_, props, children) = extract element
+        let (``type``, props, children) = extract element
         let value = mapping prop
+        
+        Fable.Import.Browser.console.log "original"
+        Fable.Import.Browser.console.log element
         let appended = props.className |> optionAppend value
-        R.ofFunction (fun _ -> element) {props with className = appended} children
+        printf "%O" appended
+               
+        let xx = R.createElement(``type``, {props with className = appended}, props.children)
+                
+        
+        Fable.Import.Browser.console.log "stuff"
+        Fable.Import.Browser.console.log xx
+        
+        xx
     
 
 
