@@ -1,6 +1,5 @@
 namespace Fabulosa
 
-open Fable.Helpers
 [<RequireQualifiedAccess>]
 module Input =
 
@@ -51,7 +50,7 @@ module IconInput =
 
     let makeIcon =
         transform (fun _ -> "form-icon") [""]
-        
+
     let iconInput props htmlProps (children: ReactElement list) =
         let newProps =
             addClassesToProps

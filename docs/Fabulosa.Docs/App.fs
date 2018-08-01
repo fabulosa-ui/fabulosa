@@ -110,7 +110,7 @@ let view (model: Model) (dispatch: Dispatch<'a>) =
                 Navbar.header [] [
                     Navbar.section [] []
                     Navbar.section [] [
-                        Button.anchor
+                        Anchor.create
                             [Button.Kind Button.Primary] 
                             [Href "https://github.com/tmonte/fabulosa.git"; Target "_blank"]
                             [R.str "GitHub"]

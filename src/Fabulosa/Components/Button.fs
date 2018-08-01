@@ -5,8 +5,6 @@ module Button =
 
     open ClassNames
     module R = Fable.Helpers.React
-    open Fable.Import.React
-    open ReactAPIExtensions
 
     type Kind =
     | Default
@@ -52,15 +50,23 @@ module Button =
         | Format RoundAction -> "btn-action circle"
         | _ -> ""
 
-    let button props =
+    let create props =
         ["btn"] @ List.map propToClass props
         |> addClassesToProps
         >> R.button
 
-    let textButton text =
-        button [] [] [R.str text]
+    let button text =
+        create [] [] [R.str text]
 
-    let anchor props =
-        ["btn"] @ List.map propToClass props
+module Anchor =
+
+    open ClassNames
+    module R = Fable.Helpers.React
+
+    let create props =
+        ["btn"] @ List.map Button.propToClass props
         |> addClassesToProps
         >> R.a
+
+    let a text =
+        create [] [] [R.str text]
