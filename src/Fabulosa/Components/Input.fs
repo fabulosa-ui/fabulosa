@@ -57,7 +57,6 @@ module IconInput =
             addClassesToProps
             <| List.map propToClass props
             <| htmlProps
-        Fable.Import.Browser.console.log "here"
         R.div newProps [
             children.[0]
             makeIcon children.[1]
