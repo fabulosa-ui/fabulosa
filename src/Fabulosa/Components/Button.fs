@@ -7,33 +7,39 @@ module Button =
     module R = Fable.Helpers.React
     open R.Props
 
+    [<RequireQualifiedAccess>]
     type Kind =
     | Default
     | Primary
     | Link
-    | KindUnset
+    | Unset
 
+    [<RequireQualifiedAccess>]
     type Color =
     | Success
     | Error
-    | ColorUnset
+    | Unset
 
+    [<RequireQualifiedAccess>]
     type Size =
     | Small
     | Large
-    | SizeUnset
+    | Unset
 
+    [<RequireQualifiedAccess>]
     type State =
     | Disabled
     | Active
     | Loading
-    | StateUnset
+    | Unset
 
+    [<RequireQualifiedAccess>]
     type Format =
     | SquaredAction
     | RoundAction
-    | FormatUnset
+    | Unset
 
+    [<RequireQualifiedAccess>]
     type Props = {
         Kind: Kind
         Color: Color
@@ -45,46 +51,46 @@ module Button =
 
     let kind =
         function
-        | Default -> "btn-default"
-        | Primary -> "btn-primary"
-        | Link -> "btn-link"
-        | _ -> ""
+        | Kind.Default -> "btn-default"
+        | Kind.Primary -> "btn-primary"
+        | Kind.Link -> "btn-link"
+        | Kind.Unset -> ""
 
     let color =
         function
-        | Success -> "btn-success"
-        | Error -> "btn-error"
-        | _ -> ""
+        | Color.Success -> "btn-success"
+        | Color.Error -> "btn-error"
+        | Color.Unset -> ""
 
     let size =
         function
-        | Small -> "btn-sm"
-        | Large -> "btn-lg"
-        | _ -> ""
+        | Size.Small -> "btn-sm"
+        | Size.Large -> "btn-lg"
+        | Size.Unset -> ""
 
     let state =
         function
-        | Disabled -> "disabled"
-        | Loading -> "loading"
-        | Active -> "active"
-        | _ -> ""
+        | State.Disabled -> "disabled"
+        | State.Loading -> "loading"
+        | State.Active -> "active"
+        | State.Unset -> ""
 
     let format =
         function
-        | SquaredAction -> "btn-action"
-        | RoundAction -> "btn-action circle"
-        | _ -> ""
+        | Format.SquaredAction -> "btn-action"
+        | Format.RoundAction -> "btn-action circle"
+        | Format.Unset -> ""
 
     let defaults = {
-        Kind = KindUnset
-        Color = ColorUnset
-        Size = SizeUnset
-        State = StateUnset
-        Format = FormatUnset
-        HTMLProps = []
+        Props.Kind = Kind.Unset
+        Props.Color = Color.Unset
+        Props.Size = Size.Unset
+        Props.State = State.Unset
+        Props.Format = Format.Unset
+        Props.HTMLProps = []
     }
 
-    let button props =
+    let button (props: Props) =
         let buttonProps = [ "btn";
             kind props.Kind;
             color props.Color;
