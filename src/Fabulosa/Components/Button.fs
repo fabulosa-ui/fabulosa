@@ -85,7 +85,8 @@ module Button =
     }
 
     let button props =
-        let buttonProps = [ kind props.Kind;
+        let buttonProps = [ "btn";
+            kind props.Kind;
             color props.Color;
             size props.Size;
             state props.State;
