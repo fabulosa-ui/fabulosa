@@ -9,5 +9,5 @@ module Form =
 
     let group =
         ["form-group"]
-        |> addClassesToProps
+        |> combineProps
         >> R.div

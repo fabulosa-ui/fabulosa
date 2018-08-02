@@ -31,10 +31,10 @@ module Responsive =
 
     let responsiveP props element elementProps =
         ["responsive"] @ List.map propToClass props
-        |> addClassesToProps
+        |> combineProps
         >> element elementProps
 
     let responsive props element =
         ["responsive"] @ List.map propToClass props
-        |> addClassesToProps
+        |> combineProps
         >> element

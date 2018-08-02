@@ -20,7 +20,7 @@ module Table =
 
     let table props =
         ["table"] @ List.map propToClass props
-        |> addClassesToProps
+        |> combineProps
         >> R.table
 
     let thead = R.thead
@@ -42,7 +42,7 @@ module Table =
 
     let tr props =
         List.map Row.propToClass props
-        |> addClassesToProps
+        |> combineProps
         >> R.tr
     let td = R.td
 

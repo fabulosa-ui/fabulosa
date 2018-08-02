@@ -21,7 +21,7 @@ module Input =
     let input props =
         ["form-input"]
         @ List.map propToClass props
-        |> addClassesToProps
+        |> combineProps
         >> R.input
 
 [<RequireQualifiedAccess>]
@@ -53,7 +53,7 @@ module IconInput =
 
     let iconInput props htmlProps (children: ReactElement list) =
         let newProps =
-            addClassesToProps
+            combineProps
             <| List.map propToClass props
             <| htmlProps
         R.div newProps [

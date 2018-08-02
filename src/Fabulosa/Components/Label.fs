@@ -21,7 +21,7 @@ module Label =
 
     let create props htmlProps str =
         let labelProps =
-            addClassesToProps
+            combineProps
             <| ["form-label"] @ List.map propToClass props
             <| htmlProps
         R.label labelProps [R.str str]

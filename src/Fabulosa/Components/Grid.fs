@@ -9,7 +9,7 @@ module Grid =
 
     let grid =
         ["container"]
-        |> addClassesToProps
+        |> combineProps
         >> R.div
 
     [<RequireQualifiedAccess>]
@@ -29,7 +29,7 @@ module Grid =
 
     let row props =
         ["columns"] @ List.map Row.propToClass props
-        |> addClassesToProps
+        |> combineProps
         >> R.div
 
     [<RequireQualifiedAccess>]
@@ -59,5 +59,5 @@ module Grid =
 
     let column props =
         ["column"] @ List.map Column.propToClass props
-        |> addClassesToProps
+        |> combineProps
         >> R.div 

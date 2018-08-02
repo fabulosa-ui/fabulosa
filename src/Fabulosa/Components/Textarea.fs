@@ -9,5 +9,5 @@ module Textarea =
 
     let textarea =
         ["form-input"]
-        |> addClassesToProps
+        |> combineProps
         >> R.textarea

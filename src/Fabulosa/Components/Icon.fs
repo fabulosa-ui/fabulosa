@@ -103,7 +103,7 @@ module Icon =
 
     let i props =
         ["icon"] @ List.map propToClass props
-        |> addClassesToProps
+        |> combineProps
         >> R.i
 
     // [ClassName "form-icon"]

@@ -22,7 +22,7 @@ module Select =
     let select props =
         ["form-select"]
         @ List.map propToClass props
-        |> addClassesToProps
+        |> combineProps
         >> R.input
 
     let option = R.option
