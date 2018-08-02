@@ -44,7 +44,7 @@ let view () =
                             Checkbox.create [] [] "Remember me"
                             Checkbox.create [] [] "Forget me"
                         ]
-                        Anchor.anchor Anchor.Defaults [R.str "Submit"]
+                        Anchor.anchor Anchor.defaults [R.str "Submit"]
                     ]
                 ]
             ]
