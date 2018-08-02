@@ -108,7 +108,8 @@ module Anchor =
     let Defaults = Button.Defaults
 
     let anchor (props: Button.Props) =
-        let buttonProps = [ Button.kind props.Kind;
+        let buttonProps = [ "btn";
+            Button.kind props.Kind;
             Button.color props.Color;
             Button.size props.Size;
             Button.state props.State;
