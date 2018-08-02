@@ -41,10 +41,10 @@ let view () =
                             Switch.input [] "Link my github account"
                         ]
                         Form.group [] [
-                            Checkbox.input [] [] "Remember me"
-                            Checkbox.input [] [] "Forget me"
+                            Checkbox.create [] [] "Remember me"
+                            Checkbox.create [] [] "Forget me"
                         ]
-                        Anchor.a "Submit"
+                        Anchor.anchor Anchor.Defaults [R.str "Submit"]
                     ]
                 ]
             ]

@@ -9,20 +9,20 @@ module Navbar =
 
     let header =
         ["navbar"]
-        |> addClassesToProps
+        |> combineProps
         >> R.header
 
     let section =
         ["navbar-section"]
-        |> addClassesToProps
+        |> combineProps
         >> R.section
 
     let center =
         ["navbar-center"]
-        |> addClassesToProps
+        |> combineProps
         >> R.section
 
     let brand  =
         ["navbar-brand"]
-        |> addClassesToProps
+        |> combineProps
         >> R.a

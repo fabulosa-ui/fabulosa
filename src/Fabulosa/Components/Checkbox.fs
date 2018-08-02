@@ -13,7 +13,7 @@ module Checkbox =
         function
         | Inline -> "form-inline"
 
-    let input props htmlProps label =
+    let create props htmlProps label =
         let containerProps =
             ["form-checkbox"]
             @ List.map propToClass props
@@ -24,3 +24,6 @@ module Checkbox =
             R.i [ClassName "form-icon"] []
             R.str label
         ]
+
+    let checkbox label =
+        create [] [] label

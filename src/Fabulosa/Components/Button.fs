@@ -5,68 +5,112 @@ module Button =
 
     open ClassNames
     module R = Fable.Helpers.React
+    open R.Props
 
     type Kind =
     | Default
     | Primary
     | Link
+    | KindUnset
 
     type Color =
     | Success
     | Error
+    | ColorUnset
 
     type Size =
     | Small
     | Large
+    | SizeUnset
 
     type State =
     | Disabled
     | Active
     | Loading
+    | StateUnset
 
     type Format =
     | SquaredAction
     | RoundAction
+    | FormatUnset
 
-    type Prop =
-    | Kind of Kind
-    | Color of Color
-    | Size of Size
-    | State of State
-    | Format of Format
+    type Props = {
+        Kind: Kind
+        Color: Color
+        Size: Size
+        State: State
+        Format: Format
+        HTMLProps: IHTMLProp list
+    }
 
-    let propToClass =
+    let kind =
         function
-        | Kind Default -> "btn-default"
-        | Kind Primary -> "btn-primary"
-        | Kind Link -> "btn-link"
-        | Color Success -> "btn-success"
-        | Color Error -> "btn-error"
-        | Size Small -> "btn-sm"
-        | Size Large -> "btn-lg"
-        | State Disabled -> "disabled"
-        | State Loading -> "loading"
-        | Format SquaredAction -> "btn-action"
-        | Format RoundAction -> "btn-action circle"
+        | Default -> "btn-default"
+        | Primary -> "btn-primary"
+        | Link -> "btn-link"
         | _ -> ""
 
-    let create props =
-        ["btn"] @ List.map propToClass props
-        |> addClassesToProps
-        >> R.button
+    let color =
+        function
+        | Success -> "btn-success"
+        | Error -> "btn-error"
+        | _ -> ""
 
-    let button text =
-        create [] [] [R.str text]
+    let size =
+        function
+        | Small -> "btn-sm"
+        | Large -> "btn-lg"
+        | _ -> ""
+
+    let state =
+        function
+        | Disabled -> "disabled"
+        | Loading -> "loading"
+        | Active -> "active"
+        | _ -> ""
+
+    let format =
+        function
+        | SquaredAction -> "btn-action"
+        | RoundAction -> "btn-action circle"
+        | _ -> ""
+
+    let Defaults = {
+        Kind = KindUnset
+        Color = ColorUnset
+        Size = SizeUnset
+        State = StateUnset
+        Format = FormatUnset
+        HTMLProps = []
+    }
+
+    let button props =
+        let buttonProps = [ kind props.Kind;
+            color props.Color;
+            size props.Size;
+            state props.State;
+            format props.Format ]
+        combineProps buttonProps props.HTMLProps
+        |> R.button
 
 module Anchor =
 
     open ClassNames
     module R = Fable.Helpers.React
+    open R.Props
 
-    let create props =
-        ["btn"] @ List.map Button.propToClass props
-        |> addClassesToProps
-        >> R.a
+    type Props = {
+        props: Button.Props list
+        htmlProps: IHTMLProp list
+    }
 
-    let a text =
-        create [] [] [R.str text]
+    let Defaults = Button.Defaults
+
+    let anchor (props: Button.Props) =
+        let buttonProps = [ Button.kind props.Kind;
+            Button.color props.Color;
+            Button.size props.Size;
+            Button.state props.State;
+            Button.format props.Format ]
+        combineProps buttonProps props.HTMLProps
+        |> R.a
