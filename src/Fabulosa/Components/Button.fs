@@ -75,7 +75,7 @@ module Button =
         | RoundAction -> "btn-action circle"
         | _ -> ""
 
-    let Defaults = {
+    let defaults = {
         Kind = KindUnset
         Color = ColorUnset
         Size = SizeUnset
@@ -105,7 +105,7 @@ module Anchor =
         htmlProps: IHTMLProp list
     }
 
-    let Defaults = Button.Defaults
+    let defaults = Button.defaults
 
     let anchor (props: Button.Props) =
         let buttonProps = [ "btn";

@@ -21,7 +21,13 @@ module ClassNames =
         List.choose htmlAttr
         >> List.choose htmlClassName
 
-    let concatStrings = String.concat " "
+    let nonEmpty =
+        function
+        | "" -> None
+        | a -> Some a
+
+    let concatStrings =
+        List.choose nonEmpty >> String.concat " "
 
     let className x = ClassName x :> IHTMLProp
 
