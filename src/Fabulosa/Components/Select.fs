@@ -32,42 +32,47 @@ module Select =
 
     let ƒ (props: Props) =
         props.HTMLProps
-        |> combineProps ["form-select";
-            size props.Size]
-        |> R.input
+        |> combineProps [
+            "form-select"
+            size props.Size ]
+        |> R.select
 
-module Option =
+    let render = ƒ
 
-    module R = Fable.Helpers.React
-    open R.Props
+    module Option =
 
-    [<RequireQualifiedAccess>]
-    type Props = {
-        HTMLProps: IHTMLProp list
-    }
+        module R = Fable.Helpers.React
 
-    let defaults = {
-        Props.HTMLProps = []
-    }
+        [<RequireQualifiedAccess>]
+        type Props = {
+            HTMLProps: IHTMLProp list
+        }
 
-    let ƒ (props: Props) =
-        props.HTMLProps
-        |> R.option
+        let defaults = {
+            Props.HTMLProps = []
+        }
 
-module OptionGroup =
+        let ƒ (props: Props) =
+            props.HTMLProps
+            |> R.option
 
-    module R = Fable.Helpers.React
-    open R.Props
+        let render = ƒ
 
-    [<RequireQualifiedAccess>]
-    type Props = {
-        HTMLProps: IHTMLProp list
-    }
+    module OptionGroup =
 
-    let defaults = {
-        Props.HTMLProps = []
-    }
+        module R = Fable.Helpers.React
 
-    let ƒ (props: Props) =
-        props.HTMLProps
-        |> R.optgroup
+        [<RequireQualifiedAccess>]
+        type Props = {
+            HTMLProps: IHTMLProp list
+        }
+
+        let defaults = {
+            Props.HTMLProps = []
+        }
+
+        let ƒ (props: Props) =
+            props.HTMLProps
+            |> R.optgroup
+
+        let render = ƒ

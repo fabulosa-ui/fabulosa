@@ -21,3 +21,5 @@ module Textarea =
         props.HTMLProps
         |> combineProps ["form-input"]
         |> R.textarea
+
+    let render = ƒ

@@ -3,7 +3,8 @@ namespace Fabulosa
 [<RequireQualifiedAccess>]
 module Responsive =
 
-    open ReactAPIExtensions
+    module R = Fable.Helpers.React
+    open R.Props
     open Fable.Import.React
 
     [<RequireQualifiedAccess>]
@@ -44,10 +45,14 @@ module Responsive =
         | Size.XL -> "show-xl"
         | Size.Unset -> ""
 
-    let ƒ (props: Props) (element: ReactElement) =
-        let responsiveProps = ["responsive"; hide props.Hide; show props.Show]
-        let el = element |> appendClass responsiveProps
-        Fable.Import.Browser.console.log el
-        el
+    let ƒ (props: Props) =
+        let containerClasses =
+            [
+            "responsive"
+            hide props.Hide
+            show props.Show ]
+        R.span [ClassName <| String.concat " " containerClasses]
+
+    let render = ƒ
 
 

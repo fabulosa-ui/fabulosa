@@ -32,11 +32,12 @@ module Input =
 
     let ƒ (props: Props) =
         props.HTMLProps
-        |> combineProps ["form-input";
-            size props.Size]
+        |> combineProps [
+            "form-input"
+            size props.Size ]
         |> R.input
 
-    let input = ƒ
+    let render = ƒ
 
 [<RequireQualifiedAccess>]
 module IconInput =
@@ -80,56 +81,58 @@ module IconInput =
             Icon.ƒ iconProps []
         ]
 
+    let render = ƒ
+
 [<RequireQualifiedAccess>]
 module InputGroup =
 
+    open Fable.Import.React
     module R = Fable.Helpers.React
     open R.Props
 
     [<RequireQualifiedAccess>]
-    type WithButton =
-    | Button of Button.Props
+    type AddonRight =
+    | Button of Button.Props * ReactElement list
     | Unset
 
-    type WithText =
+    [<RequireQualifiedAccess>]
+    type AddonLeft =
     | Text of string
     | Unset
 
     [<RequireQualifiedAccess>]
     type Props = {
-        WithButton: WithButton
-        WithText: WithText
+        AddonRight: AddonRight
+        AddonLeft: AddonLeft
         HTMLProps: IHTMLProp list
     }
 
     let defaults = {
-        Props.WithButton = WithButton.Unset
-        Props.WithText = WithText.Unset
+        Props.AddonRight = AddonRight.Unset
+        Props.AddonLeft = AddonLeft.Unset
         Props.HTMLProps = []
     }
 
     let button =
         function
-        | WithButton.Button props ->
+        | AddonRight.Button (props, children) ->
             Some <| Button.ƒ
                 { props with
                     HTMLProps = props.HTMLProps
-                    @ [ClassName "input-group-btn"] } []
-        | WithButton.Unset -> None
+                    @ [ClassName "input-group-btn"] } children
+        | AddonRight.Unset -> None
 
     let text =
         function
-        | WithText.Text text ->
+        | AddonLeft.Text text ->
             Some <| R.span [ClassName "input-group-addon"] [R.str text]
-        | WithText.Unset -> None
-
-    let empty = R.str ""
+        | AddonLeft.Unset -> None
 
     let ƒ (props: Props) children =
-        let button = button props.WithButton
-        let text = text props.WithText
         R.div [ClassName "input-group"] [
-            (if text.IsSome then text.Value else empty)
+            text props.AddonLeft |> R.ofOption
             R.fragment [] children
-            (if button.IsSome then button.Value else empty)
+            button props.AddonRight |> R.ofOption
         ]
+
+    let render = ƒ

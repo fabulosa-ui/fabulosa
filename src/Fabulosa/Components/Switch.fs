@@ -23,3 +23,5 @@ module Switch =
             R.i [ClassName "form-icon"] []
             R.str props.Text
         ]
+
+    let render = ƒ

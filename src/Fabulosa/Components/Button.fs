@@ -100,7 +100,7 @@ module Button =
         combineProps buttonProps props.HTMLProps
         |> R.button
 
-    let button = ƒ
+    let render = ƒ
 
 [<RequireQualifiedAccess>]
 module Anchor =
@@ -118,12 +118,13 @@ module Anchor =
 
     let ƒ (props: Button.Props) =
         props.HTMLProps
-        |> combineProps [ "btn";
-            Button.kind props.Kind;
-            Button.color props.Color;
-            Button.size props.Size;
-            Button.state props.State;
+        |> combineProps [
+            "btn"
+            Button.kind props.Kind
+            Button.color props.Color
+            Button.size props.Size
+            Button.state props.State
             Button.format props.Format ]
         |> R.a
     
-    let anchor = ƒ
+    let render = ƒ

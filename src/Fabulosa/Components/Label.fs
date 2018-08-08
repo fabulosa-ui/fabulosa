@@ -34,10 +34,11 @@ module Label =
 
     let ƒ (props: Props) =
         props.HTMLProps
-        |> combineProps["form-label";
-            size props.Size]
+        |> combineProps[
+            "form-label"
+            size props.Size ]
         |> R.label
         <| [R.str props.Text]
 
-    let label = ƒ
+    let render = ƒ
     

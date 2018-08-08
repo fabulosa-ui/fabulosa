@@ -28,7 +28,8 @@ module Checkbox =
     }
 
     let ƒ (props: Props) =
-        let containerClasses = ["form-checkbox";
+        let containerClasses = [
+            "form-checkbox"
             inlineCheckbox props.Inline ] |> String.concat " "
         R.label [ClassName containerClasses] [
             R.input props.HTMLProps
@@ -36,4 +37,4 @@ module Checkbox =
             R.str props.Text
         ]
 
-    let checkbox = ƒ
+    let render = ƒ

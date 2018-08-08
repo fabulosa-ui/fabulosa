@@ -24,7 +24,7 @@ module Navbar =
             |> combineProps ["navbar"]
             |> R.header
 
-    let header = Header.ƒ
+        let render = ƒ
 
     [<RequireQualifiedAccess>]
     module Section =
@@ -34,7 +34,7 @@ module Navbar =
             |> combineProps ["navbar-section"]
             |> R.section
 
-    let section = Section.ƒ
+        let render = ƒ
 
     [<RequireQualifiedAccess>]
     module Center =
@@ -54,4 +54,4 @@ module Navbar =
             |> combineProps ["navbar-brand"]
             |> R.a
 
-    let brand = Brand.ƒ
+        let render = ƒ

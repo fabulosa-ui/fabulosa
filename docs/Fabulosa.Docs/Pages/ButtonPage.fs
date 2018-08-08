@@ -14,8 +14,8 @@ let view () =
         R.p [] [R.str "Buttons include simple button styles for actions in different types and sizes."]
         R.div [] [
             R.h4 [] [R.str "Kinds"]
-            Button.ƒ Button.defaults [R.str "Default"]
-                |> Responsive.ƒ { Responsive.defaults with Hide = Responsive.Size.XS }
+            Responsive.ƒ { Responsive.defaults with Hide = Responsive.Size.XS } [
+                Button.ƒ Button.defaults [R.str "Default"] ]
             Button.ƒ
                 { Button.defaults with
                     Kind = Button.Kind.Primary

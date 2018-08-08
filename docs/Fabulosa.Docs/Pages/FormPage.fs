@@ -61,7 +61,19 @@ let view () =
                             Checkbox.ƒ { Checkbox.defaults with Text = "Forget me" }
                         ]
                         Form.Group.ƒ Form.Group.defaults [
-                            InputGroup.ƒ InputGroup.defaults []
+                            InputGroup.ƒ
+                                { InputGroup.defaults with
+                                    AddonLeft = InputGroup.AddonLeft.Text "someprefix/"                                        
+                                    AddonRight = InputGroup.AddonRight.Button
+                                        ( { Button.defaults with Kind = Button.Kind.Primary },
+                                        [R.str "Save"] )
+                                } [
+                                    Select.ƒ Select.defaults [
+                                        Select.Option.ƒ Select.Option.defaults [R.str "Option 1"]
+                                        Select.Option.ƒ Select.Option.defaults [R.str "Option 2"]
+                                    ]
+                                    Input.ƒ { Input.defaults with HTMLProps = [Placeholder "Enter text"] }
+                                ]
                         ]
                         Anchor.ƒ Anchor.defaults [R.str "Submit"]
                     ]

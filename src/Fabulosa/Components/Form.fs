@@ -23,3 +23,5 @@ module Form =
             props.HTMLProps
             |> combineProps ["form-group"]
             |> R.div
+
+        let render = ƒ

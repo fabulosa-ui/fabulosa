@@ -28,10 +28,13 @@ module Radio =
         | false -> ""
 
     let ƒ (props: Props) =
-        let containerClass = ["form-radio";
+        let containerClass = [
+            "form-radio"
             inlineRadio props.Inline] |> String.concat " "
         R.label [ClassName containerClass] [
             R.input <| [Type "radio"] @ props.HTMLProps
             R.i [ClassName "form-icon"] []
             R.str props.Text
         ]
+
+    let render = ƒ

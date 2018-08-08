@@ -32,9 +32,12 @@ module Table =
 
     let ƒ (props: Props) =
         props.HTMLProps
-        |> combineProps ["table";
-            kind props.Kind]
+        |> combineProps [
+            "table"
+            kind props.Kind ]
         |> R.table
+
+    let render = ƒ
 
     [<RequireQualifiedAccess>]
     module Head =
@@ -52,6 +55,8 @@ module Table =
             props.HTMLProps
             |> R.thead
 
+        let render = ƒ
+
     [<RequireQualifiedAccess>]
     module Body =
 
@@ -67,6 +72,8 @@ module Table =
         let ƒ (props: Props) =
             props.HTMLProps
             |> R.tbody
+
+        let render = ƒ
 
     [<RequireQualifiedAccess>]
     module Row =
@@ -95,6 +102,8 @@ module Table =
             |> combineProps [active props.Active]
             |> R.tr
 
+        let render = ƒ
+
     [<RequireQualifiedAccess>]
     module Column =
 
@@ -111,6 +120,8 @@ module Table =
             props.HTMLProps
             |> R.td
 
+        let render = ƒ
+
     [<RequireQualifiedAccess>]
     module TitleColumn =
 
@@ -126,3 +137,5 @@ module Table =
         let ƒ (props: Props) =
             props.HTMLProps
             |> R.th
+
+        let render = ƒ

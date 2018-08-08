@@ -20,7 +20,7 @@ module Grid =
         |> combineProps ["container"]
         |> R.div
 
-    let grid = ƒ
+    let render = ƒ
 
     [<RequireQualifiedAccess>]
     module Row =
@@ -56,12 +56,13 @@ module Grid =
 
         let ƒ (props: Props) =
             props.HTMLProps
-            |> combineProps ["columns";
-                gapless props.Gapless;
-                oneLine props.OneLine]
+            |> combineProps [
+                "columns"
+                gapless props.Gapless
+                oneLine props.OneLine ]
             |> R.div
 
-    let row = Row.ƒ
+        let render = ƒ
 
     [<RequireQualifiedAccess>]
     module Column =
@@ -147,14 +148,15 @@ module Grid =
 
         let ƒ (props: Props) =
             props.HTMLProps
-            |> combineProps ["column";
-                kind props.Kind;
-                size props.Size;
-                xsSize props.XSSize;
-                smSize props.SMSize;
-                mdSize props.MDSize;
-                lgSize props.LGSize;
-                xlSize props.XLSize]
+            |> combineProps [
+                "column"
+                kind props.Kind
+                size props.Size
+                xsSize props.XSSize
+                smSize props.SMSize
+                mdSize props.MDSize
+                lgSize props.LGSize
+                xlSize props.XLSize ]
             |> R.div
 
-    let column = ƒ
+        let render = ƒ

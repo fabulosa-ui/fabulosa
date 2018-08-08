@@ -1,10 +1,9 @@
-// Import full Spectre source code
-@import "../node_modules/spectre.css/src/spectre";
-@import "../node_modules/spectre.css/src/spectre-exp";
-@import "../node_modules/spectre.css/dist/spectre-icons";
-
 //Import docs only for the purposes of the component library
 @import "../node_modules/spectre.css/docs/dist/docs";
+
+@import "../node_modules/spectre.css/src/spectre-exp";
+@import "../node_modules/spectre.css/dist/spectre-icons";
+@import "../node_modules/spectre.css/src/spectre";
 
 html, body {
     height: 100vh;
@@ -12,6 +11,16 @@ html, body {
 
 .columns .column {
     padding: .4rem;
+}
+
+// For some reason this isn't working with just spectre css
+.form-select {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+}
+
+select::-ms-expand {
+    display: none;
 }
 
 .navbar {
