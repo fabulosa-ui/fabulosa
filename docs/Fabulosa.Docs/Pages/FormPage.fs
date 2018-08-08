@@ -10,13 +10,19 @@ let view () =
         R.p [] [R.str "Forms provide the most common control styles used in forms, including input, textarea, select, checkbox, radio and switch."]
         Grid.ƒ Grid.defaults [
             Grid.Row.ƒ Grid.Row.defaults [
-                Grid.Column.ƒ { Grid.Column.defaults with Size = 4 } [
+                Grid.Column.ƒ
+                    { Grid.Column.defaults with
+                        Size = 8
+                        SMSize = 12
+                        MDSize = 12
+                        LGSize = 6 } [
                     R.form [] [
                         Form.Group.ƒ Form.Group.defaults [
                             Label.ƒ { Label.defaults with Text = "Name" }
                             Input.ƒ
                                 { Input.defaults with
                                     HTMLProps = [Placeholder "Please enter your name"] }
+                            |> Validation.ƒ (Validation.Kind.Success "Success!")
                         ]
                         Form.Group.ƒ Form.Group.defaults [
                             Label.ƒ { Label.defaults with Text = "Phone" }
@@ -24,6 +30,7 @@ let view () =
                                 { Input.defaults with
                                     HTMLProps = [Placeholder "Please enter your phone number";
                                         Type "tel"] }
+                            |> Validation.ƒ (Validation.Kind.Error "This is just wrong")
                         ]
                         Form.Group.ƒ Form.Group.defaults [
                             Label.ƒ { Label.defaults with Text = "Time" }
