@@ -4,7 +4,11 @@
 @import "../node_modules/spectre.css/docs/dist/docs.min";s
 
 html, body {
-    height: 100vh;
+    min-height: 100vh;
+}
+
+.docs-container {
+    min-height: 100vh;
 }
 
 // For some reason this isn't working with just spectre css
@@ -17,10 +21,6 @@ select::-ms-expand {
     display: none;
 }
 
-/*.buttons button {
-    margin: 10px;
-}*/
-
 .nav {
     padding: 0.3rem;
 }
@@ -30,4 +30,8 @@ select::-ms-expand {
     font-size: .65rem;
     font-weight: 600;
     text-transform: uppercase;
+}
+
+.circle {
+    border-radius: 50%;
 }
