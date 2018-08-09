@@ -105,7 +105,11 @@ let view (model: Model) (dispatch: Dispatch<'a>) =
     R.div [ClassName "docs-container off-canvas off-canvas-sidebar-show"] [
         R.div [ClassName "docs-navbar"] [
             Navbar.Header.ƒ Navbar.defaults [
-                Navbar.Section.ƒ Navbar.defaults []
+                Navbar.Section.ƒ Navbar.defaults [
+                    R.a [ClassName "off-canvas-toggle btn btn-primary btn-action"; Href "#sidebar-id"] [
+                        R.i [ClassName "icon icon-menu"] []
+                    ]
+                ]
                 Navbar.Section.ƒ Navbar.defaults [
                     Anchor.ƒ
                         { Anchor.defaults with
@@ -119,9 +123,6 @@ let view (model: Model) (dispatch: Dispatch<'a>) =
         ]
         R.div [Id "sidebar-id"; ClassName "docs-sidebar off-canvas-sidebar"] [
             menu model.currentPage
-        ]
-        R.a [ClassName "off-canvas-toggle btn btn-primary btn-action"; Href "#sidebar-id"; Style [ZIndex 100]] [
-            R.i [ClassName "icon icon-menu"] []
         ]
         R.a [ClassName "off-canvas-overlay"; Href "#close"] []
         R.div [ClassName "off-canvas-content"] [
