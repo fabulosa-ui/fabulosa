@@ -6,7 +6,7 @@ open Fabulosa
 
 let view () =
     Fable.Helpers.React.div [] [
-        R.h2 [] [R.str "Forms"]
+        R.h2 [ClassName "s-title"] [R.str "Forms"]
         R.p [] [R.str "Forms provide the most common control styles used in forms, including input, textarea, select, checkbox, radio and switch."]
         Grid.ƒ Grid.defaults [
             Grid.Row.ƒ Grid.Row.defaults [

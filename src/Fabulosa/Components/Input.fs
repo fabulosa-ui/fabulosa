@@ -44,6 +44,7 @@ module IconInput =
 
     module R = Fable.Helpers.React
     open R.Props
+    open ClassNames
 
     [<RequireQualifiedAccess>]
     type Position =
@@ -55,12 +56,14 @@ module IconInput =
         Position: Position
         InputProps: Input.Props
         IconProps: Icon.Props
+        HTMLProps: IHTMLProp list
     }
 
     let defaults = {
         Props.Position = Position.Left
         Props.InputProps = Input.defaults
         Props.IconProps = Icon.defaults
+        Props.HTMLProps = []
     }
 
     let position =
@@ -74,8 +77,9 @@ module IconInput =
             |> String.concat " "
         let iconProps =
             { props.IconProps with
-                HTMLProps = props.IconProps.HTMLProps
-                @ [ClassName "form-icon"] }
+                HTMLProps = combineProps
+                    ["form-icon"]
+                    props.IconProps.HTMLProps }
         R.div [ClassName containerClasses] [
             Input.ƒ props.InputProps
             Icon.ƒ iconProps []
@@ -89,6 +93,7 @@ module InputGroup =
     open Fable.Import.React
     module R = Fable.Helpers.React
     open R.Props
+    open ClassNames
 
     [<RequireQualifiedAccess>]
     type AddonRight =
@@ -118,8 +123,9 @@ module InputGroup =
         | AddonRight.Button (props, children) ->
             Some <| Button.ƒ
                 { props with
-                    HTMLProps = props.HTMLProps
-                    @ [ClassName "input-group-btn"] } children
+                    HTMLProps = combineProps
+                        ["input-group-btn"]
+                        props.HTMLProps } children
         | AddonRight.Unset -> None
 
     let text =
@@ -129,7 +135,8 @@ module InputGroup =
         | AddonLeft.Unset -> None
 
     let ƒ (props: Props) children =
-        R.div [ClassName "input-group"] [
+        let containerProps = combineProps ["input-group"] props.HTMLProps
+        R.div containerProps [
             text props.AddonLeft |> R.ofOption
             R.fragment [] children
             button props.AddonRight |> R.ofOption

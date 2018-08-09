@@ -1,16 +1,10 @@
-//Import docs only for the purposes of the component library
-@import "../node_modules/spectre.css/docs/dist/docs";
-
-@import "../node_modules/spectre.css/src/spectre-exp";
-@import "../node_modules/spectre.css/dist/spectre-icons";
-@import "../node_modules/spectre.css/src/spectre";
+@import "../node_modules/spectre.css/dist/spectre.min";
+@import "../node_modules/spectre.css/dist/spectre-exp.min";
+@import "../node_modules/spectre.css/dist/spectre-icons.min";
+@import "../node_modules/spectre.css/docs/dist/docs.min";s
 
 html, body {
     height: 100vh;
-}
-
-.columns .column {
-    padding: .4rem;
 }
 
 // For some reason this isn't working with just spectre css
@@ -23,41 +17,9 @@ select::-ms-expand {
     display: none;
 }
 
-.navbar {
-    margin-bottom: 2rem;
-}
-
-.buttons button {
+/*.buttons button {
     margin: 10px;
-}
-
-.app-menu {
-    padding: 1rem;
-}
-
-.app-page {
-    height: 100vh !important;
-    padding: 1rem;
-}
-
-.app-brand {
-    color: #5755d9;
-}
-
-.app-brand .app-logo:hover {
-    text-decoration: none;
-}
-
-.app-brand .app-logo {
-    align-items: center;
-    border-radius: .1rem;
-    display: inline-flex;
-    display: -ms-inline-flexbox;
-    -ms-flex-align: center;
-    height: 2rem;
-    padding: .2rem;
-    width: auto;
-}
+}*/
 
 .nav {
     padding: 0.3rem;

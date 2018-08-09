@@ -1,11 +1,12 @@
 module TablePage
 
 module R = Fable.Helpers.React
+open R.Props
 open Fabulosa
 
 let view () =
-    R.div [] [
-        R.h2 [] [R.str "Table"]
+    R.div [ClassName "container"] [
+        R.h2 [ClassName "s-title"] [R.str "Table"]
         R.p [] [R.str "Tables include default styles for tables and data sets."]
         Table.ƒ { Table.defaults with Kind = Table.Kind.Striped } [
             Table.Head.ƒ Table.Head.defaults [

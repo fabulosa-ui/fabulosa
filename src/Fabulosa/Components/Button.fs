@@ -91,13 +91,14 @@ module Button =
     }
 
     let ƒ (props: Props) =
-        let buttonProps = [ "btn";
-            kind props.Kind;
-            color props.Color;
-            size props.Size;
-            state props.State;
+        props.HTMLProps
+        |> combineProps [
+            "btn"
+            kind props.Kind
+            color props.Color
+            size props.Size
+            state props.State
             format props.Format ]
-        combineProps buttonProps props.HTMLProps
         |> R.button
 
     let render = ƒ
@@ -126,5 +127,34 @@ module Anchor =
             Button.state props.State
             Button.format props.Format ]
         |> R.a
-    
+
     let render = ƒ
+
+module ButtonGroup =
+
+    module R = Fable.Helpers.React
+    open R.Props
+    open ClassNames
+
+    type Block = bool
+
+    type Props = {
+        Block: Block
+        HTMLProps: IHTMLProp list
+    }
+
+    let defaults = {
+        Block = false
+        HTMLProps = []
+    }
+
+    let block =
+        function
+        | true -> "btn-group-block"
+        | false -> ""
+        
+
+    let ƒ (props: Props) =
+        props.HTMLProps
+        |> combineProps ["btn-group"]
+        |> R.div

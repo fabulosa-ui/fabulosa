@@ -57,14 +57,14 @@ let menuItem label page currentPage =
           [ R.str label ] ]
 
 let menu currentPage =
-    R.div [ClassName "app-menu"] [
-        R.div [ClassName "app-brand"] [
-            R.a [ClassName "app-logo"] [
-                R.img [Src "logo_64.svg"; Style [Width 32; Margin 10]]
+    R.fragment [] [
+        R.div [ClassName "docs-brand"] [
+            R.a [ClassName "docs-logo"] [
+                R.img [Src "logo_64.svg"; Style [Width 42]]
                 R.strong [] [R.str "FABULOSA"]
             ]
         ]
-        R.ul [ ClassName "nav" ] [
+        R.ul [ ClassName "nav docs-nav" ] [
             menuItem "Home" HomePage currentPage
             menuItem "Button" ButtonPage currentPage
             menuItem "Code" CodePage currentPage
@@ -102,22 +102,24 @@ let view (model: Model) (dispatch: Dispatch<'a>) =
         | HomePage -> Home.view ()
         | TablePage -> TablePage.view ()
         | TypographyPage -> TypographyPage.view ()
-    R.div [ClassName "off-canvas off-canvas-sidebar-show"] [
-        R.div [Id "sidebar-id"; ClassName "off-canvas-sidebar"] [
+    R.div [ClassName "docs-container off-canvas off-canvas-sidebar-show"] [
+        R.div [ClassName "docs-navbar"] [
+            Navbar.Header.ƒ Navbar.defaults [
+                Navbar.Section.ƒ Navbar.defaults []
+                Navbar.Section.ƒ Navbar.defaults [
+                    Anchor.ƒ Anchor.defaults [R.str "hello"]
+                ]
+            ]
+        ]
+        R.div [Id "sidebar-id"; ClassName "docs-sidebar off-canvas-sidebar"] [
             menu model.currentPage
         ]
-        R.a [ClassName "off-canvas-toggle btn btn-primary btn-action"; Href "#sidebar-id"] [
+        R.a [ClassName "off-canvas-toggle btn btn-primary btn-action"; Href "#sidebar-id"; Style [ZIndex 100]] [
             R.i [ClassName "icon icon-menu"] []
         ]
         R.a [ClassName "off-canvas-overlay"; Href "#close"] []
-        R.div [ClassName "off-canvas-content app-page"] [
+        R.div [ClassName "off-canvas-content"] [
             R.div [ClassName "docs-content"] [
-                Navbar.Header.ƒ Navbar.defaults [
-                    Navbar.Section.ƒ Navbar.defaults []
-                    Navbar.Section.ƒ Navbar.defaults [
-                        Anchor.ƒ Anchor.defaults [R.str "hello"]
-                    ]
-                ]
                 pageHtml model.currentPage
             ]
         ]

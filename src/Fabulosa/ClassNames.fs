@@ -1,4 +1,4 @@
-namespace Fabulosa
+﻿namespace Fabulosa
 
 module ClassNames =
 
@@ -24,7 +24,7 @@ module ClassNames =
     let nonEmpty =
         function
         | "" -> None
-        | a -> Some a
+        | value -> Some value
 
     let concatStrings =
         List.choose nonEmpty >> String.concat " "

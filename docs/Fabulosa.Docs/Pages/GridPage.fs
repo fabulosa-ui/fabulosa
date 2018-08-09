@@ -21,7 +21,7 @@ let cols: seq<ReactElement> = seq {
 
 let view () =
     R.div [] [
-        R.h2 [] [R.str "Grid"]
+        R.h2 [ClassName "s-title"] [R.str "Grid"]
         R.p [] [R.str "Layout includes flexbox based responsive grid system with 12 columns."]
         Grid.ƒ Grid.defaults (Seq.toList cols)
     ]
