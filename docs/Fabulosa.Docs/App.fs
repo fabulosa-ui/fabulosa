@@ -107,7 +107,13 @@ let view (model: Model) (dispatch: Dispatch<'a>) =
             Navbar.Header.ƒ Navbar.defaults [
                 Navbar.Section.ƒ Navbar.defaults []
                 Navbar.Section.ƒ Navbar.defaults [
-                    Anchor.ƒ Anchor.defaults [R.str "hello"]
+                    Anchor.ƒ
+                        { Anchor.defaults with
+                            HTMLProps = [ Href "https://github.com/tmonte/fabulosa";
+                                Target "__blank" ]} [
+                            R.i [ClassName "fab fa-github-alt"] []
+                            R.RawText "\n"
+                            R.str "GitHub" ]
                 ]
             ]
         ]

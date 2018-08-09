@@ -108,7 +108,7 @@ let view () =
     R.div [ClassName "container"; Id "buttons"] [
         R.h2 [ClassName "s-title"] [R.str "Buttons"]
         R.p [] [R.str "Buttons include simple button styles for actions in different types and sizes."]
-        R.h4 [] [R.str "Kinds"]
+        R.h4 [ClassName "s-title"] [R.str "Kinds"]
         R.div [ClassName "docs-demo columns"] [
             R.div [ClassName "column col-12"] [
                 Button.ƒ Button.defaults [R.str "Default"]
@@ -132,7 +132,7 @@ let view () =
                     }
             ]
         ]
-        R.h4 [] [R.str "Sizes"]
+        R.h4 [ClassName "s-title"] [R.str "Sizes"]
         R.div [ClassName "docs-demo columns"] [
             R.div [ClassName "column col-12"] [
                 Button.ƒ
@@ -156,7 +156,7 @@ let view () =
                     }
             ]
         ]
-        R.h4 [] [R.str "Colors"]
+        R.h4 [ClassName "s-title"] [R.str "Colors"]
         R.div [ClassName "docs-demo columns"] [
             R.div [ClassName "column col-12"] [
                 Button.ƒ
@@ -178,7 +178,7 @@ let view () =
                     }
             ]
         ]
-        R.h4 [] [R.str "Formats"]
+        R.h4 [ClassName "s-title"] [R.str "Formats"]
         R.div [ClassName "docs-demo columns"] [
             R.div [ClassName "column col-12"] [
                 Button.ƒ
@@ -201,7 +201,7 @@ let view () =
                     }
             ]
         ]
-        R.h4 [] [R.str "States"]
+        R.h4 [ClassName "s-title"] [R.str "States"]
         R.div [ClassName "docs-demo columns"] [
             R.div [ClassName "column col-12"] [
                 Button.ƒ
@@ -228,7 +228,7 @@ let view () =
                     }
             ]
         ]
-        R.h4 [] [R.str "Group"]
+        R.h4 [ClassName "s-title"] [R.str "Group"]
         R.div [ClassName "docs-demo columns"] [
             R.div [ClassName "column col-12"] [
                 ButtonGroup.ƒ ButtonGroup.defaults [
