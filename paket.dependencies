@@ -12,7 +12,6 @@ clitool dotnet-fable
 nuget Expecto
 nuget Expecto.BenchmarkDotNet
 nuget Expecto.FsCheck
-nuget FSharp.Formatting 2.10.0
 nuget Logary.Adapters.Facade
 
 // [ FAKE GROUP ]

@@ -1,4 +1,4 @@
-<!-- Only for dotnet CLI tools, see paket.references -->
+﻿<!-- Only for dotnet CLI tools, see paket.references -->
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
