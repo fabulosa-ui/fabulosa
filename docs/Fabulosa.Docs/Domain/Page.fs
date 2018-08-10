@@ -6,22 +6,21 @@ module Page =
     open Fabulosa
     open ReactElementStringExtensions
     open Fabulosa.Docs.JavascriptMapping
-    open Fabulosa.Docs.JavascriptMapping
 
     module R = Fable.Helpers.React
     
     let page header subheader body = 
         [
-            ofString Typography.h1 header
-            ofString Typography.p subheader
+            Typography.h2 [ClassName "s-title"] [R.str header]
+            Typography.p [ClassName "s-description"] [R.str subheader]
             body
         ] 
         |>   R.div [] 
         
     let block title stringfiedCode pageBlock =
-        R.div [] 
+        R.div [ClassName "container"]
             [
-                ofString Typography.h4 title
+                Typography.h2 [ClassName "s-title"] [R.str title]
                 [pageBlock] |> R.div [ClassName "component-view-container"] 
                     
                 R.div [ClassName "code-container"]

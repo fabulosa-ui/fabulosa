@@ -85,7 +85,6 @@ InputGroup.ƒ {
         AddonRight = InputGroup.AddonRight.Button
             ( Button.defaults, [
                 Icon.ƒ { Icon.defaults with Kind = Icon.Kind.Search } []
-                R.RawText "\n"
                 R.str "Search"
             ] )
 } [

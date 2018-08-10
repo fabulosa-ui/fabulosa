@@ -17,6 +17,7 @@
     <None Include="styles.scss" />
     <None Include="index.html" />
     <None Include="paket.references" />
+    <None Include="Docs.fsx" />
     <ProjectReference Include="..\..\src\Fabulosa\Fabulosa.fsproj" />
   </ItemGroup>
   <Import Project="..\..\.paket\Paket.Restore.targets" />
