@@ -10,7 +10,7 @@ script:
 deploy:
   provider: pages
   skip_cleanup: true
-  local_dir: build/  # or remove this line to upload from root of repo
+  local_dir: output/  # or remove this line to upload from root of repo
   github_token: $GITHUB_API_KEY # Set in travis-ci.org dashboard
   on:
     branch: master
