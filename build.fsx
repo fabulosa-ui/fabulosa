@@ -3,6 +3,8 @@
 #if !FAKE
 #r "Facades/netstandard"
 #r "netstandard"
+#r "Facades/netcoreapp"
+#r "netcoreapp"
 #endif
 
 #nowarn "52"
@@ -67,7 +69,7 @@ let opts (def:DotNet.Options) = def
 
 Target.create "Test" (fun _ ->
     !! "tests/**/*.*proj"
-    |> Seq.iter (fun proj -> DotNet.exec opts ("test --project " + proj) "" |> ignore)
+    |> Seq.iter (fun proj -> DotNet.exec opts ("run --project " + proj) "" |> ignore)
 )
 
 // Where to push generated documentation
@@ -94,6 +96,7 @@ Target.create "PublishDocs" (fun _ ->
     ==> "DotnetRestore"
     ==> "Build"
     ==> "BuildTests"
+    ==> "Test"
     ==> "YarnInstall"
     ==> "BuildDocs"
 

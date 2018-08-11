@@ -14,6 +14,7 @@ node_modules/
 *.user
 *.sln.docstates
 /build
+/output
 # Xamarin Studio / monodevelop user-specific
 *.userprefs
 *.dll.mdb
