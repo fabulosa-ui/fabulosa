@@ -7,6 +7,11 @@
   "author": "Thomas Monte",
   "license": "MIT",
   "private": true,
+  "scripts": {
+    "build": "./fake.sh -v build",
+    "start": "./fake.sh build -t Watch",
+    "test": "dotnet run --project ./tests/Fabulosa.Tests/Fabulosa.Tests.fsproj"
+  },
   "devDependencies": {
     "autoprefixer": "^9.0.2",
     "babel-core": "^6.26.3",
