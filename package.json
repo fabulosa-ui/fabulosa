@@ -1,35 +1,37 @@
 {
+  "name": "fabulosa",
+  "version": "0.0.1",
+  "description": "Fabulosa",
+  "main": "index.js",
+  "repository": "git@github.com:tmonte/fabulosa.git",
+  "author": "Thomas Monte",
+  "license": "MIT",
   "private": true,
-  "fable": {
-    "entry": "docs/Fabulosa.Docs/Fabulosa.Docs.fsproj"
-  },
-  "scripts": {
-    "preinstall": "node build.js",
-    "postinstall": "dotnet restore",
-    "build": "cd tools && dotnet fable webpack -- -p --config webpack.config.prod.js",
-    "start": "cd tools && dotnet fable webpack-dev-server -- --config webpack.config.dev.js",
-    "test": "cd tests/Fabulosa.Tests && dotnet run"
-  },
   "devDependencies": {
-    "babel-core": "6.26.0",
-    "babel-loader": "7.1.2",
-    "babel-preset-env": "1.6.1",
-    "copy-webpack-plugin": "^4.4.1",
+    "autoprefixer": "^9.0.2",
+    "babel-core": "^6.26.3",
+    "babel-loader": "^7.1.5",
+    "babel-preset-env": "^1.7.0",
+    "copy-webpack-plugin": "^4.5.2",
     "css-loader": "^1.0.0",
-    "fable-loader": "1.1.6",
-    "fable-utils": "1.0.6",
+    "cssnano": "^4.0.5",
+    "fable-loader": "^2.0.0-alpha-003",
+    "file-loader": "^1.1.11",
     "highlight.js": "^9.12.0",
-    "html-webpack-plugin": "2.29.0",
-    "html-webpack-polyfill-io-plugin": "^1.0.0",
+    "html-webpack-plugin": "^3.2.0",
+    "mini-css-extract-plugin": "^0.4.1",
     "node-sass": "^4.9.2",
-    "sass-loader": "^7.0.3",
+    "postcss-loader": "^2.1.6",
+    "remotedev": "^0.2.7",
+    "sass-loader": "^7.1.0",
     "style-loader": "^0.21.0",
-    "webpack": "3.8.1",
-    "webpack-dev-server": "2.9.4"
+    "webpack": "^4.16.3",
+    "webpack-cli": "^3.1.0",
+    "webpack-dev-server": "^3.1.5"
   },
   "dependencies": {
-    "react": "^16.4.1",
-    "react-dom": "^16.4.1",
+    "react": "^16.4.2",
+    "react-dom": "^16.4.2",
     "spectre.css": "^0.5.3"
   }
 }

@@ -1,5 +1,6 @@
-FSharp.Core
-Expecto
-Expecto.BenchmarkDotNet
-Expecto.FsCheck
-Logary.Adapters.Facade
+group test
+    FSharp.Core
+    Expecto
+    Expecto.BenchmarkDotNet
+    Expecto.FsCheck
+    Logary.Adapters.Facade

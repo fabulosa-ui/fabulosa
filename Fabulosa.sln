@@ -3,8 +3,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.26124.0
 MinimumVisualStudioVersion = 15.0.26124.0
-Project("{f2a71f9b-5d33-465a-a702-920d77279786}") = "DotnetCLI", "tools\DotnetCLI.fsproj", "{B91D03C1-3A0F-43B0-8411-927C682BCC84}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{AF680163-A688-4792-A199-20791095446B}"
 EndProject
 Project("{f2a71f9b-5d33-465a-a702-920d77279786}") = "Fabulosa", "src\Fabulosa\Fabulosa.fsproj", "{3D1882F9-6E6A-4F79-80DD-84613D5544F7}"
