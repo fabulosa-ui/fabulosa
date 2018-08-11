@@ -6,8 +6,6 @@ open R.Props
 
 [<RequireQualifiedAccess>]
 module Code =
-    open Fable.Helpers.React.Props
-    
     type Props = {
         Code: DangerousHtml
         Language: string

@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <AssemblyName>Fabulosa.Tests</AssemblyName>
@@ -7,11 +7,14 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="ReactNode.fs" />
+    <Compile Include="Extensions/ExpectoExtension.fs" />
+    <Compile Include="Extensions/PropsExtension.fs" />
     <Compile Include="Components/ResponsiveTests.fs" />
     <Compile Include="Components/NavbarTests.fs" />
     <Compile Include="Components/GridTests.fs" />
     <Compile Include="Components/ButtonTests.fs" />
     <Compile Include="Components/TableTests.fs" />
+    <Compile Include="Components/CodeTests.fs" />
     <Compile Include="Main.fs" />
     <None Include="paket.references" />
     <ProjectReference Include="..\..\src\Fabulosa\Fabulosa.fsproj" />
