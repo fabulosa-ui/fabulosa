@@ -3,22 +3,17 @@
     <TargetFramework>netstandard2.0</TargetFramework>
   </PropertyGroup>
   <ItemGroup>
-    <None Include="Script.fsx" />
-    <Compile Include="JavascriptMappings/HighlightJS.fs" />
-    <Compile Include="Extensions/ListFlatMapExtension.fs" />
-    <Compile Include="Domain/Page.fs" />
-    <Compile Include="Pages/ButtonPage.fs" />
-    <Compile Include="Pages/GridPage.fs" />
-    <Compile Include="Pages/FormPage.fs" />
-    <Compile Include="Pages/TablePage.fs" />
-    <Compile Include="Pages/TypographyPage.fs" />
-    <Compile Include="Pages/CodePage.fs" />
-    <Compile Include="Pages/Home.fs" />
-    <Compile Include="App.fs" />
+    <Folder Include="content\" />
+  </ItemGroup>
+  <ItemGroup>
     <None Include="styles.scss" />
-    <None Include="index.html" />
+    <None Include="template.html" />
     <None Include="paket.references" />
-    <None Include="Docs.fsx" />
+    <None Include="Generate.fsx" />
+    <None Include="index.fsx" />
+    <None Include="content\style.css" />
+    <None Include="content\tips.js" />
+    <None Include="README.md" />
     <ProjectReference Include="..\..\src\Fabulosa\Fabulosa.fsproj" />
   </ItemGroup>
   <Import Project="..\..\.paket\Paket.Restore.targets" />
