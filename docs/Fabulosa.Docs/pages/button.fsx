@@ -6,7 +6,7 @@ open Fabulosa
 open Fable.Import.React
 module R = Fable.Helpers.React
 
-(*** define: button-sample ***)
+(*** define: button-kind-sample ***)
 let button =
     Button.ƒ
         Button.defaults
@@ -23,19 +23,48 @@ let link =
         Button.defaults with
             Kind = Button.Kind.Link
     } [R.str "Link"]
+(*** define: button-size-sample ***)
+let small =
+    Button.ƒ {
+        Button.defaults with
+            Size = Button.Size.Small
+    } [R.str "Small"]
+    
+let medium =
+    Button.ƒ
+        Button.defaults
+        [R.str "Default"]
+        
+let large =
+    Button.ƒ {
+        Button.defaults with
+            Size = Button.Size.Large
+    } [R.str "Large"]
+(*** define: button-color-sample ***)
+let success =
+    Button.ƒ {
+        Button.defaults with
+            Color = Button.Color.Success
+    } [R.str "Success"]
 
+let error =
+    Button.ƒ {
+        Button.defaults with
+            Color = Button.Color.Error
+    } [R.str "Error"]
 (**
 <h2 class="s-title">
     Buttons
 </h2>
-<p class="s-description">
-    Buttons include simple button styles for
-    actions in different types and sizes.
-</p>
 
-### Kinds
+Buttons include simple button styles for
+actions in different types and sizes.
 
-Buttons can have the kinds Default, Primary, or Link
+<h3 class="s-title">
+    Kinds
+</h3>
+
+Buttons can have kinds Default, Primary or Link.
 
 <div class="demo">
     <span id="button-default-demo"></span>
@@ -44,7 +73,42 @@ Buttons can have the kinds Default, Primary, or Link
 </div>
 
 
-### Code Sample
+### Code
 *)
 
-(*** include: button-sample ***)
+(*** include: button-kind-sample ***)
+
+(**
+<h3 class="s-title">
+    Sizes
+</h3>
+
+Buttons can have sizes Small or Large.
+
+<div class="demo">
+    <span id="button-small-demo"></span>
+    <span id="button-medium-demo"></span>
+    <span id="button-large-demo"></span>
+</div>
+
+### Code
+*)
+
+(*** include: button-size-sample ***)
+
+(**
+<h3 class="s-title">
+    Colors
+</h3>
+
+Buttons can have colors for Success and Error.
+
+<div class="demo">
+    <span id="button-success-demo"></span>
+    <span id="button-error-demo"></span>
+</div>
+
+### Code
+*)
+
+(*** include: button-color-sample ***)
