@@ -38,6 +38,7 @@ select::-ms-expand {
 .s-title {
     border-bottom: 1px solid #e7e7e7;
     margin-bottom: 1rem !important;
+    z-index: initial;
 }
 
 .docs-grid-page-col {
