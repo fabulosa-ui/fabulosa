@@ -1,5 +1,3 @@
 Fable.Core
 Fable.Import.Browser
-Fable.Elmish
-Fable.Elmish.React
-Fable.Elmish.Browser
+FSharp.Formatting

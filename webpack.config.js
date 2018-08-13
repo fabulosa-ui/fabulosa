@@ -7,9 +7,9 @@
 var CONFIG = {
     indexHtmlTemplate: './docs/Fabulosa.Docs/index.html',
     fsharpEntry: './docs/Fabulosa.Docs/Fabulosa.Docs.fsproj',
-    cssEntry: './docs/Fabulosa.Docs/styles.scss',
+    cssEntry: './docs/Fabulosa.Docs/assets/styles.scss',
     outputDir: './output',
-    assetsDir: './docs/Fabulosa.Docs/public',
+    assetsDir: './docs/Fabulosa.Docs',
     devServerPort: 4200,
     // When using webpack-dev-server, you may need to redirect some calls
     // to a external API server. See https://webpack.js.org/configuration/dev-server/#devserver-proxy
@@ -36,6 +36,10 @@ var HtmlWebpackPlugin = require('html-webpack-plugin');
 var CopyWebpackPlugin = require('copy-webpack-plugin');
 var MiniCssExtractPlugin = require("mini-css-extract-plugin");
 
+var pages = [
+    'pages/button.html'
+]
+
 // The HtmlWebpackPlugin allows us to use a template for the index.html page
 // and automatically injects <script> or <link> tags for generated bundles.
 var commonPlugins = [
@@ -43,7 +47,10 @@ var commonPlugins = [
         filename: 'index.html',
         template: CONFIG.indexHtmlTemplate
     })
-];
+].concat(pages.map((page) => new HtmlWebpackPlugin({
+    filename: page,
+    template: CONFIG.assetsDir + '/' + page,
+})));
 
 module.exports = {
     // In development, bundle styles together with the code so they can also
