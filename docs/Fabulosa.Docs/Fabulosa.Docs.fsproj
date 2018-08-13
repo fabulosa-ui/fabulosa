@@ -6,19 +6,19 @@
     <None Include="template.html" />
     <None Include="paket.references" />
     <None Include="Generate.fsx" />
-    <None Include="index.fsx" />
     <None Include="README.md" />
     <None Include="assets\logo_1280.svg" />
     <None Include="assets\logo_320.svg" />
     <None Include="assets\logo_64.svg" />
     <None Include="assets\logo_640.svg" />
     <None Include="assets\styles.scss" />
-    <Compile Include="pages\button.fsx" />
-    <None Include="pages\button.html" />
-    <Compile Include="pages\ButtonDemo.fs" />
-    <Compile Include="IndexDemo.fs" />
-    <None Include="index.html" />
+    <None Include="pages\button.fsx" />
+    <None Include="index.fsx" />
     <ProjectReference Include="..\..\src\Fabulosa\Fabulosa.fsproj" />
+    <Compile Include="pages\Renderer.fs" />
+    <Compile Include="pages\ButtonDemo.fs" />
+    <Compile Include="pages\HomeDemo.fs" />
+    <Compile Include="App.fs" />
   </ItemGroup>
   <Import Project="..\..\.paket\Paket.Restore.targets" />
 </Project>

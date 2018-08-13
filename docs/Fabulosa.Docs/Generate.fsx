@@ -9,8 +9,7 @@ let template = Path.Combine(source, "template.html")
 
 let script = Path.Combine(source, "index.fsx")
 Literate.ProcessScriptFile(script, template)
-
 let pagesDir = Path.Combine(source, "pages");
 // Process all files and save results to 'output' directory
 Literate.ProcessDirectory
-  (pagesDir, template, pagesDir, replacements = [])
+  (pagesDir, template, source, replacements = [])

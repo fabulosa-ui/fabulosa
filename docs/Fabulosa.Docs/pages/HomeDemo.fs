@@ -1,4 +1,4 @@
-module IndexDemo
+module HomeDemo
 
 open Fabulosa
 module R = Fable.Helpers.React
@@ -8,7 +8,8 @@ let button =
     Anchor.ƒ {
         Anchor.defaults with
             Kind = Button.Kind.Primary
-            HTMLProps = [Href "/pages/button.html"]
+            HTMLProps = [Href "button.html"]
     } [R.str "Fabulosa"]
 
-R.mountById "button-demo" button
+let render () =
+    Renderer.tryMount "button-demo" button
