@@ -1,4 +1,4 @@
-#load "../../.fake/Docs.fsx/intellisense.fsx"
+// #load "../../.fake/Docs.fsx/intellisense.fsx"
 #load "../../.paket/load/net46/FSharp.Formatting.fsx"
 
 open FSharp.Literate

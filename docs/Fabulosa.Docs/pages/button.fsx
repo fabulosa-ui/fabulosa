@@ -71,9 +71,6 @@ Buttons can have kinds Default, Primary or Link.
     <span id="button-primary-demo"></span>
     <span id="button-link-demo"></span>
 </div>
-
-
-### Code
 *)
 
 (*** include: button-kind-sample ***)
@@ -90,8 +87,6 @@ Buttons can have sizes Small or Large.
     <span id="button-medium-demo"></span>
     <span id="button-large-demo"></span>
 </div>
-
-### Code
 *)
 
 (*** include: button-size-sample ***)
@@ -107,8 +102,6 @@ Buttons can have colors for Success and Error.
     <span id="button-success-demo"></span>
     <span id="button-error-demo"></span>
 </div>
-
-### Code
 *)
 
 (*** include: button-color-sample ***)
