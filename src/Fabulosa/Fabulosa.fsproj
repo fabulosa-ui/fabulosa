@@ -4,6 +4,7 @@
     <TargetFramework>netstandard2.0</TargetFramework>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Extensions/SeqExtension.fs" />
     <Compile Include="ReactElementStringExtensions.fs" />
     <Compile Include="ClassNames.fs" />
     <Compile Include="Components/Code.fs" />
@@ -21,6 +22,7 @@
     <Compile Include="Components/Input.fs" />
     <Compile Include="Components/Form.fs" />
     <Compile Include="Components/Table.fs" />
+    <Compile Include="Components/Tag.fs" />
     <Compile Include="Components/Typography.fs" />
     <Compile Include="Components/Index.fs" />
     <Compile Include="Components/Validation.fs" />

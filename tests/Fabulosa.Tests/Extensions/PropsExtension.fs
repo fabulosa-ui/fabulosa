@@ -6,6 +6,7 @@ module R = Fable.Helpers.React
 open R.Props
 open Fable.Helpers.React
 open Fable.Import.React
+open Fabulosa.Extensions
 
 type Find = 
 | Class of string
@@ -39,6 +40,19 @@ type TestNode(element: ReactElement) =
         children 
         |> Seq.map TestNode 
         
+    member private this.TextRec text (node : TestNode) : string =
+        match node.Element :?> HTMLNode with
+        | Text t -> text + t
+        | RawText t -> text + t
+        | Node (a, b, c) -> 
+            c
+            |> Seq.map TestNode
+            |> Seq.map (this.TextRec text)
+            |> Seq.join " "
+        | _ -> text
+         
+    member this.Text () = this.TextRec "" this
+            
     member this.Classes () =
         this.Props ()
         |> Seq.map (
@@ -50,6 +64,7 @@ type TestNode(element: ReactElement) =
                   | _ -> None
                 | _ -> None)
         |> Seq.choose id
+        |> Seq.join " "
         
     member private this.FindTestNode (nodeSeq : TestNode seq) filterFn (subject: TestNode) =
         let nodeSeq =

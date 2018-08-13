@@ -17,7 +17,7 @@ let tests =
         test "Code should be a react html node when defaults are provided" {
             let code = Code.ƒ Code.defaults |> TestNode
             let data = Data ("lang", "F#")
-            Expect.contains (code.Classes()) "code" "Root should contain class code"
+            Expect.equal (code.Classes()) "code" "Root should contain class code"
             Expect.contains (code.Props()) (upcast data : IProp)  "Data does not exist"           
             
             let innerCode = code.Find(Name "code") |> Seq.head
