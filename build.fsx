@@ -62,7 +62,10 @@ Target.create "Build" (fun _ ->
 
 Target.create "GenerateDocPages" (fun _ ->
     let source = __SOURCE_DIRECTORY__
-    run "fsharpi" source <| Path.Combine (source, "docs/Fabulosa.Docs/Generate.fsx")
+    if Environment.isWindows then
+        let fsiExe = "\"C:\Program Files (x86)\\Microsoft SDKs\\F#\\10.1\\Framework\\v4.0\\fsi.exe\""
+        run fsiExe source <| Path.Combine (source, "docs/Fabulosa.Docs/Generate.fsx")
+    else run "fsharpi" source <| Path.Combine (source, "docs/Fabulosa.Docs/Generate.fsx")
 )
 
 Target.create "BuildDocs" (fun _ ->
@@ -107,14 +110,14 @@ Target.create "PublishDocs" (fun _ ->
     Branches.push temp
 )
 
-// Build order
+// // Build order
 "Clean"
     ==> "DotnetRestore"
+    ==> "GenerateDocPages"
+    ==> "YarnInstall"
     ==> "Build"
     ==> "BuildTests"
     ==> "Test"
-    ==> "GenerateDocPages"
-    ==> "YarnInstall"
     ==> "BuildDocs"
 
 "YarnInstall"
@@ -125,4 +128,4 @@ Target.create "PublishDocs" (fun _ ->
     ==> "PublishDocs"
 
 // start build
-Target.runOrDefault "BuildDocs"
+Target.runOrDefault "Build"
