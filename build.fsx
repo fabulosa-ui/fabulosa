@@ -1,6 +1,5 @@
 #r "paket: groupref netcorebuild //"
-#load ".fake/build.fsx/intellisense.fsx"
-#load ".paket/load/net46/FSharp.Formatting.fsx"
+#load @".fake/build.fsx/intellisense.fsx"
 #if !FAKE
 #r "Facades/netstandard"
 #r "netstandard"
@@ -63,7 +62,7 @@ Target.create "Build" (fun _ ->
 
 Target.create "GenerateDocPages" (fun _ ->
     let source = __SOURCE_DIRECTORY__
-    run "fsharpi" "/" <| Path.Combine (source, "docs/Fabulosa.Docs/Generate.fsx")
+    run "fsharpi" source <| Path.Combine (source, "docs/Fabulosa.Docs/Generate.fsx")
 )
 
 Target.create "BuildDocs" (fun _ ->

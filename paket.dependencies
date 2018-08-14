@@ -1,6 +1,7 @@
+generate_load_scripts: true
 source https://nuget.org/api/v2
 storage:none
-framework: netstandard2.0, netcoreapp2.1
+framework: netstandard2.0, netcoreapp2.1, net46
 
 nuget Expecto
 nuget Expecto.BenchmarkDotNet
@@ -20,10 +21,11 @@ nuget Logary.Adapters.Facade
 nuget Thoth.Json prerelease
 
 group netcorebuild
+    generate_load_scripts: true
     storage:none
     source https://www.nuget.org/api/v2
-    framework: netstandard2.0, netcoreapp2.1
-    
+    framework: netstandard2.0, netcoreapp2.1, net46
+
     clitool dotnet-fake
     clitool dotnet-fable prerelease
     nuget NETStandard.Library.NETFramework
