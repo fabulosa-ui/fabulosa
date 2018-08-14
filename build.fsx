@@ -1,5 +1,6 @@
 #r "paket: groupref netcorebuild //"
 #load ".fake/build.fsx/intellisense.fsx"
+#load ".paket/load/net46/FSharp.Formatting.fsx"
 #if !FAKE
 #r "Facades/netstandard"
 #r "netstandard"
@@ -12,20 +13,31 @@
 open System
 open Fake.Core
 open Fake.Core.TargetOperators
-open Fake.DotNet
 open Fake.IO
 open Fake.IO.Globbing.Operators
 open Fake.IO.FileSystemOperators
 open Fake.Tools.Git
 open Fake.JavaScript
+open System.IO
 
 let runFable args =
     let result =
-        DotNet.exec
-            (DotNet.Options.withWorkingDirectory __SOURCE_DIRECTORY__)
+        Fake.DotNet.DotNet.exec
+            (Fake.DotNet.DotNet.Options.withWorkingDirectory __SOURCE_DIRECTORY__)
             "fable" args
     if not result.OK then
         failwithf "dotnet fable failed with code %i" result.ExitCode
+
+let run (cmd:string) dir args  =
+    if Process.execSimple (fun info ->
+        { info with
+            FileName = cmd
+            WorkingDirectory =
+                if not (String.isNullOrWhiteSpace dir) then dir else info.WorkingDirectory
+            Arguments = args
+        }
+    ) System.TimeSpan.MaxValue <> 0 then
+        failwithf "Error while running '%s' with args: %s " cmd args
 
 Target.create "Clean" (fun _ ->
     !! "src/**/bin"
@@ -39,14 +51,19 @@ Target.create "Clean" (fun _ ->
 )
 
 Target.create "DotnetRestore" (fun _ ->
-    DotNet.restore
-        (DotNet.Options.withWorkingDirectory __SOURCE_DIRECTORY__)
+    Fake.DotNet.DotNet.restore
+        (Fake.DotNet.DotNet.Options.withWorkingDirectory __SOURCE_DIRECTORY__)
         "Fabulosa.sln"
 )
 
 Target.create "Build" (fun _ ->
     !! "src/**/*.*proj"
-    |> Seq.iter (DotNet.build id)
+    |> Seq.iter (Fake.DotNet.DotNet.build id)
+)
+
+Target.create "GenerateDocPages" (fun _ ->
+    let source = __SOURCE_DIRECTORY__
+    run "fsharpi" "/" <| Path.Combine (source, "docs/Fabulosa.Docs/Generate.fsx")
 )
 
 Target.create "BuildDocs" (fun _ ->
@@ -63,13 +80,13 @@ Target.create "Watch" (fun _ ->
 
 Target.create "BuildTests" (fun _ ->
     !! "tests/**/*.*proj"
-    |> Seq.iter (DotNet.build id)
+    |> Seq.iter (Fake.DotNet.DotNet.build id)
 )
-let opts (def:DotNet.Options) = def
+let opts (def:Fake.DotNet.DotNet.Options) = def
 
 Target.create "Test" (fun _ ->
     !! "tests/**/*.*proj"
-    |> Seq.iter (fun proj -> DotNet.exec opts ("run --project " + proj) "" |> ignore)
+    |> Seq.iter (fun proj -> Fake.DotNet.DotNet.exec opts ("run --project " + proj) "" |> ignore)
 )
 
 // Where to push generated documentation
@@ -97,6 +114,7 @@ Target.create "PublishDocs" (fun _ ->
     ==> "Build"
     ==> "BuildTests"
     ==> "Test"
+    ==> "GenerateDocPages"
     ==> "YarnInstall"
     ==> "BuildDocs"
 
