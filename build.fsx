@@ -17,12 +17,13 @@ open Fake.IO.Globbing.Operators
 open Fake.IO.FileSystemOperators
 open Fake.Tools.Git
 open Fake.JavaScript
+open Fake.DotNet
 open System.IO
 
 let runFable args =
     let result =
-        Fake.DotNet.DotNet.exec
-            (Fake.DotNet.DotNet.Options.withWorkingDirectory __SOURCE_DIRECTORY__)
+        DotNet.exec
+            (DotNet.Options.withWorkingDirectory __SOURCE_DIRECTORY__)
             "fable" args
     if not result.OK then
         failwithf "dotnet fable failed with code %i" result.ExitCode
@@ -50,14 +51,14 @@ Target.create "Clean" (fun _ ->
 )
 
 Target.create "DotnetRestore" (fun _ ->
-    Fake.DotNet.DotNet.restore
-        (Fake.DotNet.DotNet.Options.withWorkingDirectory __SOURCE_DIRECTORY__)
+    DotNet.restore
+        (DotNet.Options.withWorkingDirectory __SOURCE_DIRECTORY__)
         "Fabulosa.sln"
 )
 
 Target.create "Build" (fun _ ->
     !! "src/**/*.*proj"
-    |> Seq.iter (Fake.DotNet.DotNet.build id)
+    |> Seq.iter (DotNet.build id)
 )
 
 Target.create "GenerateDocPages" (fun _ ->
@@ -82,13 +83,13 @@ Target.create "Watch" (fun _ ->
 
 Target.create "BuildTests" (fun _ ->
     !! "tests/**/*.*proj"
-    |> Seq.iter (Fake.DotNet.DotNet.build id)
+    |> Seq.iter (DotNet.build id)
 )
-let opts (def:Fake.DotNet.DotNet.Options) = def
+let opts (def:DotNet.Options) = def
 
 Target.create "Test" (fun _ ->
     !! "tests/**/*.*proj"
-    |> Seq.iter (fun proj -> Fake.DotNet.DotNet.exec opts ("run --project " + proj) "" |> ignore)
+    |> Seq.iter (fun proj -> DotNet.exec opts ("run --project " + proj) "" |> ignore)
 )
 
 // Where to push generated documentation
@@ -128,4 +129,4 @@ Target.create "PublishDocs" (fun _ ->
     ==> "PublishDocs"
 
 // start build
-Target.runOrDefault "Build"
+Target.runOrDefault "BuildDocs"
