@@ -52,6 +52,42 @@ let error =
         Button.defaults with
             Color = Button.Color.Error
     } [R.str "Error"]
+(*** hide ***)
+let icon =
+    Icon.ƒ {
+        Icon.defaults with
+            Kind = Icon.Kind.Plus
+    } []
+(*** define: button-format-sample ***)
+let squared =
+    Button.ƒ {
+        Button.defaults with
+            Format = Button.Format.SquaredAction
+    } [icon]
+
+let round =
+    Button.ƒ {
+        Button.defaults with
+            Format = Button.Format.RoundAction
+    } [icon]
+(*** define: button-state-sample ***)
+let disabled =
+    Button.ƒ {
+        Button.defaults with
+            State = Button.State.Disabled
+    } [R.str "Disabled"]
+
+let active =
+    Button.ƒ {
+        Button.defaults with
+            State = Button.State.Active
+    } [R.str "Active"]
+
+let loading =
+    Button.ƒ {
+        Button.defaults with
+            State = Button.State.Loading
+    } [R.str "------"]
 (**
 <h2 class="s-title">
     Buttons
@@ -105,3 +141,34 @@ Buttons can have colors for Success and Error.
 *)
 
 (*** include: button-color-sample ***)
+
+(**
+<h3 class="s-title">
+    Formats
+</h3>
+
+Buttons can have formats of SquaredAction and RoundAction.
+
+<div class="demo">
+    <span id="button-squared-demo"></span>
+    <span id="button-round-demo"></span>
+</div>
+*)
+
+(*** include: button-format-sample ***)
+
+(**
+<h3 class="s-title">
+    States
+</h3>
+
+Buttons can have states of SquaredAction and RoundAction.
+
+<div class="demo">
+    <span id="button-disabled-demo"></span>
+    <span id="button-active-demo"></span>
+    <span id="button-loading-demo"></span>
+</div>
+*)
+
+(*** include: button-state-sample ***)

@@ -3,7 +3,6 @@
     <TargetFramework>netstandard2.0</TargetFramework>
   </PropertyGroup>
   <ItemGroup>
-    <None Include="template.html" />
     <None Include="paket.references" />
     <None Include="Generate.fsx" />
     <None Include="README.md" />
@@ -12,13 +11,16 @@
     <None Include="assets\logo_64.svg" />
     <None Include="assets\logo_640.svg" />
     <None Include="assets\styles.scss" />
-    <None Include="pages\button.fsx" />
-    <None Include="index.fsx" />
-    <ProjectReference Include="..\..\src\Fabulosa\Fabulosa.fsproj" />
+    <None Include="assets\template.html" />
     <Compile Include="pages\Renderer.fs" />
     <Compile Include="pages\ButtonDemo.fs" />
     <Compile Include="pages\HomeDemo.fs" />
+    <Compile Include="pages\FormDemo.fs" />
     <Compile Include="App.fs" />
+    <None Include="pages\button.fsx" />
+    <None Include="pages\form.fsx" />
+    <None Include="index.fsx" />
+    <ProjectReference Include="..\..\src\Fabulosa\Fabulosa.fsproj" />
   </ItemGroup>
   <Import Project="..\..\.paket\Paket.Restore.targets" />
 </Project>

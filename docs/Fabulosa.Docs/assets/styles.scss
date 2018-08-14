@@ -38,7 +38,7 @@ select::-ms-expand {
 .s-title {
     border-bottom: 1px solid #e7e7e7;
     margin-bottom: 1rem !important;
-    z-index: initial !important;
+    z-index: 99 !important;
 }
 
 .docs-grid-page-col {
@@ -81,7 +81,7 @@ select::-ms-expand {
 }
 /* string */
 .s {
-    color: #808000;
+    color: #22863A;
 }
 /* line number */
 .l {
@@ -101,6 +101,7 @@ select::-ms-expand {
 }
 
 .tip {
+    z-index: 100;
     font-size: 8pt;
     padding: 1em;
     border: none;
@@ -108,7 +109,6 @@ select::-ms-expand {
     box-shadow: 0 0.2rem 0.5rem rgba(69,77,93,.3);
     border-radius: 2px;
     background: #fff;
-    /*background: rgba(69,77,93,.9);*/
     display: none;
     pointer-events: none;
 }

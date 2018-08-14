@@ -1,6 +1,5 @@
-<!doctype html>
+﻿<!doctype html>
 <html>
-
 <head>
     <title>Fabulosa - First-level heading</title>
     <meta http-equiv='Content-Type' content='text/html; charset=utf-8'>
@@ -13,12 +12,9 @@
     <link rel="stylesheet" href="assets/docs.min.css" />
     <link href="https://fonts.googleapis.com/css?family=Roboto+Mono" rel="stylesheet">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ"
-        crossorigin="anonymous">
-    <script>
-        var currentTip=null,currentTipElement=null;function hideTip(e,t,n){document.getElementById(t).style.display="none",currentTip=null}function findPos(e){if("?inapp"==window.location.search)return[e.offsetLeft+10,e.offsetTop+30];for(var t=0,n=e.offsetHeight;e;)t+=e.offsetLeft,n+=e.offsetTop,e=e.offsetParent;return[t,n]}function hideUsingEsc(e){e||(e=event),hideTip(e,currentTipElement,currentTip)}function showTip(e,t,n,o){if(document.onkeydown=hideUsingEsc,currentTip!=n){currentTip=n,currentTipElement=t;var i=findPos(o||(e.srcElement?e.srcElement:e.target)),r=i[0],l=i[1],c=document.getElementById(t);null==document.documentElement?document.body:document.documentElement;c.style.position="absolute",c.style.left=r+"px",c.style.top=l+"px",c.style.display="block"}}
-    </script>
+          crossorigin="anonymous">
+    <script>var currentTip=null,currentTipElement=null;function hideTip(e,t,n){document.getElementById(t).style.display="none",currentTip=null}function findPos(e){if("?inapp"==window.location.search)return[e.offsetLeft+10,e.offsetTop+30];for(var t=0,n=e.offsetHeight;e;)t+=e.offsetLeft,n+=e.offsetTop,e=e.offsetParent;return[t,n]}function hideUsingEsc(e){e||(e=event),hideTip(e,currentTipElement,currentTip)}function showTip(e,t,n,o){if(document.onkeydown=hideUsingEsc,currentTip!=n){currentTip=n,currentTipElement=t;var i=findPos(o||(e.srcElement?e.srcElement:e.target)),r=i[0],l=i[1],c=document.getElementById(t);null==document.documentElement?document.body:document.documentElement;c.style.position="absolute",c.style.left=r+"px",c.style.top=l+"px",c.style.display="block"}}</script>
 </head>
-
 <body>
     <div class="docs-container off-canvas off-canvas-sidebar-show">
         <div class="docs-navbar">
@@ -31,7 +27,8 @@
                 <section class="navbar-section">
                     <a href="https://github.com/tmonte/fabulosa" target="__blank" class="btn">
                         <i class="fab fa-github-alt"></i>
-                        GitHub</a>
+                        GitHub
+                    </a>
                 </section>
             </header>
         </div>
@@ -53,7 +50,7 @@
                     <a class="" href="#code">Code</a>
                 </li>
                 <li class="nav-item">
-                    <a class="" href="#form">Form</a>
+                    <a class="" href="form.html">Form</a>
                 </li>
                 <li class="nav-item">
                     <a class="" href="#grid">Grid</a>
@@ -81,5 +78,4 @@
         </div>
     </div>
 </body>
-
 </html>

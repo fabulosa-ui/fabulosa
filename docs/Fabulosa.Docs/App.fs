@@ -1,4 +1,7 @@
-module App
+namespace Fabulosa.Docs
 
-HomeDemo.render ()
-ButtonDemo.render ()
+module App =
+
+    HomeDemo.render ()
+    ButtonDemo.render ()
+    FormDemo.render ()

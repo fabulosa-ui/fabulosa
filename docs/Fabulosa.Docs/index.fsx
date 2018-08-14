@@ -1,6 +1,6 @@
 (*** hide ***)
-#r "../../../src/Fabulosa/bin/Release/netstandard2.0/Fabulosa.dll"
-#load "../../../.paket/load/netstandard2.0/Fable.React.fsx"
+#r "../../src/Fabulosa/bin/Release/netstandard2.0/Fabulosa.dll"
+#load "../../.paket/load/netstandard2.0/Fable.React.fsx"
 
 open Fabulosa
 open Fable.Import.React

@@ -15,6 +15,7 @@ node_modules/
 *.sln.docstates
 /build
 /output
+docs/Fabulosa.Docs/*.html
 # Xamarin Studio / monodevelop user-specific
 *.userprefs
 *.dll.mdb
