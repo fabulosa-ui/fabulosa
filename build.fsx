@@ -114,9 +114,9 @@ Target.create "PublishDocs" (fun _ ->
 // // Build order
 "Clean"
     ==> "DotnetRestore"
+    ==> "Build"
     ==> "GenerateDocPages"
     ==> "YarnInstall"
-    ==> "Build"
     ==> "BuildTests"
     ==> "Test"
     ==> "BuildDocs"
