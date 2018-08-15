@@ -4,6 +4,7 @@ namespace Fabulosa
 module Validation =
 
     module R = Fable.Helpers.React
+    open Fable.Import.React
     open R.Props
 
     [<RequireQualifiedAccess>]
@@ -23,7 +24,7 @@ module Validation =
 
     let test = R.div [] [R.str "WHATEVA"]
 
-    let ƒ (kind: Kind) elem =
+    let ƒ (elem: ReactElement) (kind: Kind) =
         R.span [ClassName <| className kind] [
             elem
             R.p [ClassName "form-input-hint"] [R.str <| message kind]

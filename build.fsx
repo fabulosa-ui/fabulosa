@@ -2,9 +2,6 @@
 #load @".fake/build.fsx/intellisense.fsx"
 #if !FAKE
 #r "Facades/netstandard"
-#r "netstandard"
-#r "Facades/netcoreapp"
-#r "netcoreapp"
 #endif
 
 #nowarn "52"

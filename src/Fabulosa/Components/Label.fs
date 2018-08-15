@@ -28,8 +28,8 @@ module Label =
 
     let size =
         function
-        | Size.Small -> "input-sm"
-        | Size.Large -> "input-lg"
+        | Size.Small -> "label-sm"
+        | Size.Large -> "label-lg"
         | Size.Unset -> ""
 
     let ƒ (props: Props) =

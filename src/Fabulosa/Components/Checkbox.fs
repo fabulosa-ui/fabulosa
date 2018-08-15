@@ -32,7 +32,7 @@ module Checkbox =
             "form-checkbox"
             inlineCheckbox props.Inline ] |> String.concat " "
         R.label [ClassName containerClasses] [
-            R.input props.HTMLProps
+            R.input <| props.HTMLProps @ [Type "checkbox"]
             R.i [ClassName "form-icon"] []
             R.str props.Text
         ]
