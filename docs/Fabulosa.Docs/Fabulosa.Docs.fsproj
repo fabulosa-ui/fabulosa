@@ -4,7 +4,6 @@
   </PropertyGroup>
   <ItemGroup>
     <None Include="paket.references" />
-    <None Include="Generate.fsx" />
     <None Include="README.md" />
     <None Include="assets\logo_1280.svg" />
     <None Include="assets\logo_320.svg" />

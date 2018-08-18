@@ -1,7 +1,7 @@
 generate_load_scripts: true
 source https://nuget.org/api/v2
 storage:none
-framework: netstandard2.0
+framework: netstandard2.0, netcoreapp2.1
 
 nuget Expecto
 nuget Expecto.BenchmarkDotNet

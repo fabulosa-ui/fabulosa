@@ -16,6 +16,7 @@ node_modules/
 /build
 /output
 docs/Fabulosa.Docs/*.html
+docs/Fabulosa.Docs/pages/*.html
 # Xamarin Studio / monodevelop user-specific
 *.userprefs
 *.dll.mdb
