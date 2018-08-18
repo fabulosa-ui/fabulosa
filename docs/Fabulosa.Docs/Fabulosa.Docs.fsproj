@@ -19,7 +19,7 @@
     <Compile Include="App.fs" />
     <None Include="pages\button.fsx" />
     <None Include="pages\form.fsx" />
-    <None Include="index.fsx" />
+    <None Include="pages\index.fsx" />
     <ProjectReference Include="..\..\src\Fabulosa\Fabulosa.fsproj" />
   </ItemGroup>
   <Import Project="..\..\.paket\Paket.Restore.targets" />
