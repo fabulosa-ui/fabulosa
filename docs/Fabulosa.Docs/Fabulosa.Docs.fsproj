@@ -4,7 +4,6 @@
   </PropertyGroup>
   <ItemGroup>
     <None Include="paket.references" />
-    <None Include="Generate.fsx" />
     <None Include="README.md" />
     <None Include="assets\logo_1280.svg" />
     <None Include="assets\logo_320.svg" />
@@ -19,7 +18,7 @@
     <Compile Include="App.fs" />
     <None Include="pages\button.fsx" />
     <None Include="pages\form.fsx" />
-    <None Include="index.fsx" />
+    <None Include="pages\index.fsx" />
     <ProjectReference Include="..\..\src\Fabulosa\Fabulosa.fsproj" />
   </ItemGroup>
   <Import Project="..\..\.paket\Paket.Restore.targets" />

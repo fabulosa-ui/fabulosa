@@ -2,6 +2,7 @@
 #load @".fake/build.fsx/intellisense.fsx"
 #if !FAKE
 #r "Facades/netstandard"
+#r "netstandard"
 #endif
 
 #nowarn "52"
@@ -16,6 +17,7 @@ open Fake.Tools.Git
 open Fake.JavaScript
 open Fake.DotNet
 open System.IO
+open Fake.DotNet.FSFormatting
 
 let runFable args =
     let result =
@@ -24,17 +26,6 @@ let runFable args =
             "fable" args
     if not result.OK then
         failwithf "dotnet fable failed with code %i" result.ExitCode
-
-let run (cmd:string) dir args  =
-    if Process.execSimple (fun info ->
-        { info with
-            FileName = cmd
-            WorkingDirectory =
-                if not (String.isNullOrWhiteSpace dir) then dir else info.WorkingDirectory
-            Arguments = args
-        }
-    ) System.TimeSpan.MaxValue <> 0 then
-        failwithf "Error while running '%s' with args: %s " cmd args
 
 Target.create "Clean" (fun _ ->
     !! "src/**/bin"
@@ -60,10 +51,15 @@ Target.create "Build" (fun _ ->
 
 Target.create "GenerateDocPages" (fun _ ->
     let source = __SOURCE_DIRECTORY__
-    if Environment.isWindows then
-        let fsiExe = "\"C:\Program Files (x86)\\Microsoft SDKs\\F#\\10.1\\Framework\\v4.0\\fsi.exe\""
-        run fsiExe source <| Path.Combine (source, "docs/Fabulosa.Docs/Generate.fsx")
-    else run "fsharpi" source <| Path.Combine (source, "docs/Fabulosa.Docs/Generate.fsx")
+    let docs = Path.Combine(source, "docs/Fabulosa.Docs")
+    FSFormatting.createDocs(fun _ -> {
+        FSFormatting.defaultLiterateArguments with
+            Source = Path.Combine(docs, "pages")
+            Template = Path.Combine(docs, "assets/template.html")
+            OutputDirectory = docs
+            LayoutRoots = [docs]
+            ProjectParameters = [("", "")]
+    })
 )
 
 Target.create "BuildDocs" (fun _ ->
