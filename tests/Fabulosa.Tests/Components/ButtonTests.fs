@@ -58,6 +58,54 @@ let tests =
             button |> hasDescendent child
         }
 
+        test "Button size large" {
+            let props = { Button.defaults with Size = Button.Size.Large }
+            let child = R.str "text"
+            let button = Button.ƒ props [child]
+            button |> hasClasses ["btn"; "btn-lg"]
+            button |> hasDescendent child
+        }
+
+        test "Button state disabled" {
+            let props = { Button.defaults with State = Button.State.Disabled }
+            let child = R.str "text"
+            let button = Button.ƒ props [child]
+            button |> hasClasses ["btn"; "disabled"]
+            button |> hasDescendent child
+        }
+
+        test "Button state active" {
+            let props = { Button.defaults with State = Button.State.Active }
+            let child = R.str "text"
+            let button = Button.ƒ props [child]
+            button |> hasClasses ["btn"; "active"]
+            button |> hasDescendent child
+        }
+
+        test "Button state loading" {
+            let props = { Button.defaults with State = Button.State.Loading }
+            let child = R.str "text"
+            let button = Button.ƒ props [child]
+            button |> hasClasses ["btn"; "loading"]
+            button |> hasDescendent child
+        }
+
+        test "Button format squared action" {
+            let props = { Button.defaults with Format = Button.Format.SquaredAction }
+            let child = R.str "text"
+            let button = Button.ƒ props [child]
+            button |> hasClasses ["btn"; "btn-action"]
+            button |> hasDescendent child
+        }
+
+        test "Button format round action" {
+            let props = { Button.defaults with Format = Button.Format.RoundAction }
+            let child = R.str "text"
+            let button = Button.ƒ props [child]
+            button |> hasClasses ["btn"; "btn-action"; "circle"]
+            button |> hasDescendent child
+        }
+
         test "Button children with name" {
             let props = Button.defaults
             let grandChild = R.span [] []
