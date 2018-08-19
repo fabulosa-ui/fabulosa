@@ -20,7 +20,7 @@ module rec Props =
             | ClassName c -> c.Contains(className) 
             | _ -> false
         | _ -> false
-    
+
 type TestNode(element: ReactElement) = 
     member this.Element = element
     
@@ -93,4 +93,34 @@ type TestNode(element: ReactElement) =
         match queryType with 
         | Class c -> this.FindTestNode [] (Props.containsClass c) this
         | Name name -> this.FindTestNodeByName [] name this
-        
+
+    override this.GetHashCode() =
+        hash (element)
+
+    override this.Equals(other) =
+        match other with
+        | :? TestNode as node ->
+            (this.Node ()) = (node.Node ()) &&
+            (this.Props ()) = (node.Props ()) &&
+            System.String.Equals ((this.Text()), (node.Text()))
+        | _ -> false
+
+module rec TestNodeExtensions =
+
+    open System
+    open Expecto
+
+    let containsClass classes someClass = 
+        Expect.stringContains classes someClass <| "Should contain class " + someClass
+
+    let containsChild children (child: TestNode) =
+        Expect.contains children child <| String.Format ("Root should have chillren as {0}", child)
+
+    let containsClasses classes element = 
+        let rootNode = element |> TestNode
+        List.iter (containsClass <| rootNode.Classes()) classes
+
+    let containsChildren children element =
+        let rootNode = element |> TestNode
+        let childrenAsNode = List.map (TestNode) children
+        List.iter (containsChild <| rootNode.Children()) childrenAsNode

@@ -1,13 +1,9 @@
 module TagTests
 
 open Expecto
-open ReactNode
 open Fabulosa
 module R = Fable.Helpers.React
-open R.Props
-open Fable.Import.React
 open Fabulosa.Tests.Extensions
-open Fabulosa.Tests.Extensions.Props
 
 [<Tests>]
 let tests =
