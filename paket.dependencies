@@ -1,4 +1,3 @@
-generate_load_scripts: true
 source https://nuget.org/api/v2
 storage:none
 framework: netstandard2.0, netcoreapp2.1
@@ -16,7 +15,6 @@ nuget Fable.Elmish.Debugger
 nuget Fable.Elmish.HMR
 nuget Fable.PowerPack prerelease
 nuget Fable.React prerelease
-nuget Logary.Adapters.Facade
 nuget Thoth.Json prerelease
 
 group netcorebuild

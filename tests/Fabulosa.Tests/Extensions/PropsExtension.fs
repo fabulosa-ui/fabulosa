@@ -3,7 +3,6 @@ namespace Fabulosa.Tests.Extensions
 open Fable.Helpers.React.Props
 open ReactNode
 module R = Fable.Helpers.React
-open R.Props
 open Fable.Helpers.React
 open Fable.Import.React
 open Fabulosa.Extensions
@@ -97,12 +96,11 @@ type TestNode(element: ReactElement) =
     override this.GetHashCode() =
         hash (element)
 
-    override this.Equals(other) =
+     override this.Equals(other) =
         match other with
         | :? TestNode as node ->
             (this.Node ()) = (node.Node ()) &&
-            (this.Props ()) = (node.Props ()) &&
-            System.String.Equals ((this.Text()), (node.Text()))
+            (this.Props ()) = (node.Props ())
         | _ -> false
 
 module rec TestNodeExtensions =
@@ -110,17 +108,25 @@ module rec TestNodeExtensions =
     open System
     open Expecto
 
-    let containsClass classes someClass = 
-        Expect.stringContains classes someClass <| "Should contain class " + someClass
+    let private hasClass classes someClass = 
+        Expect.stringContains classes someClass
+        <| String.Format ("Should contain class '{0}'", someClass)
 
-    let containsChild children (child: TestNode) =
-        Expect.contains children child <| String.Format ("Root should have chillren as {0}", child)
-
-    let containsClasses classes element = 
+    let hasClasses classes element = 
         let rootNode = element |> TestNode
-        List.iter (containsClass <| rootNode.Classes()) classes
+        List.iter (hasClass <| rootNode.Classes()) classes
 
-    let containsChildren children element =
+    let hasDescendent descendent element =
         let rootNode = element |> TestNode
-        let childrenAsNode = List.map (TestNode) children
-        List.iter (containsChild <| rootNode.Children()) childrenAsNode
+        let descendentNode = descendent |> TestNode
+        let query =
+            if String.IsNullOrEmpty (descendentNode.Classes()) then
+                Name <| descendentNode.Name()
+            else
+                Class <| descendentNode.Classes()
+        let descendents = rootNode.Find query
+        Expect.exists descendents (fun node -> node = descendentNode)
+        <| String.Format (
+            "Should have some descendent with class '{0}' or name '{1}'",
+            (descendentNode.Classes()),
+            (descendentNode.Name()))
