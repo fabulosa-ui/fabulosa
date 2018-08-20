@@ -93,16 +93,6 @@ type TestNode(element: ReactElement) =
         | Class c -> this.FindTestNode [] (Props.containsClass c) this
         | Name name -> this.FindTestNodeByName [] name this
 
-    override this.GetHashCode() =
-        hash (element)
-
-     override this.Equals(other) =
-        match other with
-        | :? TestNode as node ->
-            (this.Node ()) = (node.Node ()) &&
-            (this.Props ()) = (node.Props ())
-        | _ -> false
-
 module rec TestNodeExtensions =
 
     open System
@@ -125,7 +115,7 @@ module rec TestNodeExtensions =
             else
                 Class <| descendentNode.Classes()
         let descendents = rootNode.Find query
-        Expect.exists descendents (fun node -> node = descendentNode)
+        Expect.isGreaterThan (Seq.length descendents) 0
         <| String.Format (
             "Should have some descendent with class '{0}' or name '{1}'",
             (descendentNode.Classes()),

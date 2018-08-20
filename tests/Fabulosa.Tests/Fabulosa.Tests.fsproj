@@ -16,6 +16,10 @@
     <Compile Include="Components/TableTests.fs" />
     <Compile Include="Components/CodeTests.fs" />
     <Compile Include="Components/TagTests.fs" />
+    <Compile Include="Components\InputTests.fs" />
+    <Compile Include="Components\LabelTests.fs" />
+    <Compile Include="Components\IconTests.fs" />
+    <Compile Include="Components\CheckboxTests.fs" />
     <Compile Include="Main.fs" />
     <None Include="paket.references" />
     <ProjectReference Include="..\..\src\Fabulosa\Fabulosa.fsproj" />
