@@ -16,13 +16,17 @@
     <Compile Include="Components/TableTests.fs" />
     <Compile Include="Components/CodeTests.fs" />
     <Compile Include="Components/TagTests.fs" />
-    <Compile Include="Components\InputTests.fs" />
-    <Compile Include="Components\LabelTests.fs" />
-    <Compile Include="Components\IconTests.fs" />
-    <Compile Include="Components\CheckboxTests.fs" />
+    <Compile Include="Components/InputTests.fs" />
+    <Compile Include="Components/LabelTests.fs" />
+    <Compile Include="Components/IconTests.fs" />
+    <Compile Include="Components/CheckboxTests.fs" />
+    <Compile Include="Components/RadioTests.fs" />
+    <Compile Include="Components/SwitchTests.fs" />
+    <Compile Include="Components/TextareaTests.fs" />
+    <Compile Include="Components/SelectTests.fs" />
     <Compile Include="Main.fs" />
     <None Include="paket.references" />
-    <ProjectReference Include="..\..\src\Fabulosa\Fabulosa.fsproj" />
+    <ProjectReference Include="../../src/Fabulosa/Fabulosa.fsproj" />
   </ItemGroup>
-  <Import Project="..\..\.paket\Paket.Restore.targets" />
+  <Import Project="../../.paket/Paket.Restore.targets" />
 </Project>
