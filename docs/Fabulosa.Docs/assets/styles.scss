@@ -1,0 +1,174 @@
+html, body {
+    min-height: 100vh;
+}
+
+.docs-container {
+    min-height: 100vh;
+}
+
+// For some reason this isn't working with just spectre css
+.form-select {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+}
+
+select::-ms-expand {
+    display: none;
+}
+
+.nav {
+    padding: 0.3rem;
+}
+
+.nav-item a {
+    color: #5b657a;
+    font-size: .65rem;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+.circle {
+    border-radius: 50%;
+}
+
+.docs-navbar {
+    z-index: 200;
+}
+
+.s-title {
+    border-bottom: 1px solid #e7e7e7;
+    margin-bottom: 1rem !important;
+    z-index: 99 !important;
+}
+
+.docs-grid-page-col {
+    background: #f8f9fa;
+    padding: 4px;
+    text-align: center;
+}
+
+/* function */
+.f {
+    color: #6f42c1;
+}
+/* identifier */
+.i {
+    color: #005cc5;
+}
+/* comment */
+.c {
+    color: #008000;
+}
+/* inactive code */
+.inactive {
+    color: #808080;
+}
+/* keywords */
+.k {
+    color: #d73a49;
+}
+/* numbers */
+.n {
+    color: #008000;
+}
+/* operators */
+.o {
+    color: #800080;
+}
+/* preprocessor */
+.prep {
+    color: #800080;
+}
+/* string */
+.s {
+    color: #22863A;
+}
+/* line number */
+.l {
+    color: #bbbbbb;
+}
+/* fsi output */
+.fsi {
+    font-style: italic;
+    color: #606060;
+}
+/* omitted */
+.omitted {
+    border: solid 1px #d8d8d8;
+    color: #808080;
+    padding: 0px 0px 1px 0px;
+    background: #fafafa;
+}
+
+.tip {
+    z-index: 100;
+    font-size: 8pt;
+    padding: 1em;
+    border: none;
+    color: #50596c;
+    box-shadow: 0 0.2rem 0.5rem rgba(69,77,93,.3);
+    border-radius: 2px;
+    background: #fff;
+    display: none;
+    pointer-events: none;
+}
+
+pre .fssniplink {
+    font: bold 7.5pt calibry, arial, verdana;
+    position: absolute;
+    bottom: 0.3em;
+    right: 0.3em;
+    color: #a8a8a8;
+}
+
+.pre {
+    overflow-x: auto;
+    display: block;
+    border-spacing: 0px;
+    margin-bottom: 10px;
+}
+
+/* Optionally, also configure how the PRE element and TABLE.PRE look */
+.pre pre {
+    padding: 0px;
+    margin: 0px;
+    border-style: none;
+}
+
+pre, .pre td {
+    padding: 9.5px;
+    background: #f8f9fa;
+    border: 1px solid transparent;
+    border-radius: 2px;
+    margin: 0px 0px 10px 0px;
+}
+
+.pre .lines {
+    border-top-right-radius: 0px;
+    border-bottom-right-radius: 0px;
+    border-right-style: none;
+    padding-right: 0px;
+}
+
+.pre .snippet {
+    width: 100%;
+    column-span: all;
+    border-top-left-radius: 0px;
+    border-bottom-left-radius: 0px;
+    border-left-style: none;
+    padding-left: 4px;
+}
+
+code, pre, pre code {
+    line-height: 13pt;
+    background: none !important;
+    border-radius: initial !important;
+    color: initial !important;
+    font-size: 9pt !important;
+    line-height: initial !important;
+    padding: 0;
+}
+
+.demo {
+    margin-bottom: 1em;
+}

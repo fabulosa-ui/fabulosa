@@ -2,4 +2,3 @@ FSharp.Core
 Expecto
 Expecto.BenchmarkDotNet
 Expecto.FsCheck
-Logary.Adapters.Facade

@@ -3,22 +3,22 @@
     <TargetFramework>netstandard2.0</TargetFramework>
   </PropertyGroup>
   <ItemGroup>
-    <None Include="Script.fsx" />
-    <Compile Include="JavascriptMappings/HighlightJS.fs" />
-    <Compile Include="Extensions/ListFlatMapExtension.fs" />
-    <Compile Include="Domain/Page.fs" />
-    <Compile Include="Pages/ButtonPage.fs" />
-    <Compile Include="Pages/GridPage.fs" />
-    <Compile Include="Pages/FormPage.fs" />
-    <Compile Include="Pages/TablePage.fs" />
-    <Compile Include="Pages/TypographyPage.fs" />
-    <Compile Include="Pages/CodePage.fs" />
-    <Compile Include="Pages/Home.fs" />
-    <Compile Include="App.fs" />
-    <None Include="styles.scss" />
-    <None Include="index.html" />
     <None Include="paket.references" />
-    <None Include="Docs.fsx" />
+    <None Include="README.md" />
+    <None Include="assets\logo_1280.svg" />
+    <None Include="assets\logo_320.svg" />
+    <None Include="assets\logo_64.svg" />
+    <None Include="assets\logo_640.svg" />
+    <None Include="assets\styles.scss" />
+    <None Include="assets\template.html" />
+    <Compile Include="pages\Renderer.fs" />
+    <Compile Include="pages\ButtonDemo.fs" />
+    <Compile Include="pages\HomeDemo.fs" />
+    <Compile Include="pages\FormDemo.fs" />
+    <Compile Include="App.fs" />
+    <None Include="pages\button.fsx" />
+    <None Include="pages\form.fsx" />
+    <None Include="pages\index.fsx" />
     <ProjectReference Include="..\..\src\Fabulosa\Fabulosa.fsproj" />
   </ItemGroup>
   <Import Project="..\..\.paket\Paket.Restore.targets" />

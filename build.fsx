@@ -1,10 +1,8 @@
 #r "paket: groupref netcorebuild //"
-#load ".fake/build.fsx/intellisense.fsx"
+#load @".fake/build.fsx/intellisense.fsx"
 #if !FAKE
 #r "Facades/netstandard"
 #r "netstandard"
-#r "Facades/netcoreapp"
-#r "netcoreapp"
 #endif
 
 #nowarn "52"
@@ -12,12 +10,14 @@
 open System
 open Fake.Core
 open Fake.Core.TargetOperators
-open Fake.DotNet
 open Fake.IO
 open Fake.IO.Globbing.Operators
 open Fake.IO.FileSystemOperators
 open Fake.Tools.Git
 open Fake.JavaScript
+open Fake.DotNet
+open System.IO
+open Fake.DotNet.FSFormatting
 
 let runFable args =
     let result =
@@ -47,6 +47,19 @@ Target.create "DotnetRestore" (fun _ ->
 Target.create "Build" (fun _ ->
     !! "src/**/*.*proj"
     |> Seq.iter (DotNet.build id)
+)
+
+Target.create "GenerateDocPages" (fun _ ->
+    let source = __SOURCE_DIRECTORY__
+    let docs = Path.Combine(source, "docs/Fabulosa.Docs")
+    FSFormatting.createDocs(fun _ -> {
+        FSFormatting.defaultLiterateArguments with
+            Source = Path.Combine(docs, "pages")
+            Template = Path.Combine(docs, "assets/template.html")
+            OutputDirectory = docs
+            LayoutRoots = [docs]
+            ProjectParameters = [("", "")]
+    })
 )
 
 Target.create "BuildDocs" (fun _ ->
@@ -91,13 +104,14 @@ Target.create "PublishDocs" (fun _ ->
     Branches.push temp
 )
 
-// Build order
+// // Build order
 "Clean"
     ==> "DotnetRestore"
     ==> "Build"
+    ==> "GenerateDocPages"
+    ==> "YarnInstall"
     ==> "BuildTests"
     ==> "Test"
-    ==> "YarnInstall"
     ==> "BuildDocs"
 
 "YarnInstall"

@@ -3,7 +3,6 @@ namespace Fabulosa.Tests.Extensions
 open Fable.Helpers.React.Props
 open ReactNode
 module R = Fable.Helpers.React
-open R.Props
 open Fable.Helpers.React
 open Fable.Import.React
 open Fabulosa.Extensions
@@ -20,7 +19,7 @@ module rec Props =
             | ClassName c -> c.Contains(className) 
             | _ -> false
         | _ -> false
-    
+
 type TestNode(element: ReactElement) = 
     member this.Element = element
     
@@ -93,4 +92,31 @@ type TestNode(element: ReactElement) =
         match queryType with 
         | Class c -> this.FindTestNode [] (Props.containsClass c) this
         | Name name -> this.FindTestNodeByName [] name this
-        
+
+module rec TestNodeExtensions =
+
+    open System
+    open Expecto
+
+    let private hasClass classes someClass = 
+        Expect.stringContains classes someClass
+        <| String.Format ("Should contain class '{0}'", someClass)
+
+    let hasClasses classes element = 
+        let rootNode = element |> TestNode
+        List.iter (hasClass <| rootNode.Classes()) classes
+
+    let hasDescendent descendent element =
+        let rootNode = element |> TestNode
+        let descendentNode = descendent |> TestNode
+        let query =
+            if String.IsNullOrEmpty (descendentNode.Classes()) then
+                Name <| descendentNode.Name()
+            else
+                Class <| descendentNode.Classes()
+        let descendents = rootNode.Find query
+        Expect.isGreaterThan (Seq.length descendents) 0
+        <| String.Format (
+            "Should have some descendent with class '{0}' or name '{1}'",
+            (descendentNode.Classes()),
+            (descendentNode.Name()))
