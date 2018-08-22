@@ -79,8 +79,35 @@ let codePage =
                 Code.defaults with 
                     Code = Highlight.html html
                     Language = "HTML"
-                    
             }      
+            
+            Tag.ƒ Tag.defaults [R.str "Hello world"]
+            Tag.ƒ { Tag.defaults with Color = Tag.Color.Primary} [R.str "Hello world"]
+            Tag.ƒ { Tag.defaults with Color = Tag.Color.Secondary} [R.str "Hello world"]
+            Tag.ƒ { Tag.defaults with Color = Tag.Color.Error ; Rounded = true} [R.str "Hello world"]
+            Tag.ƒ { Tag.defaults with Color = Tag.Color.Success} [R.str "Hello world"]
+            
+            Media.Image.ƒ { Media.Image.defaults with HTMLProps = [Src "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRWT_FoABNj68ph1976sAxKZkP7UhR0PzbBCfTYHOkGXeU7V6H_"]}
+            
+            R.div [] [
+                Media.Image.ƒ { 
+                    Media.Image.defaults with 
+                        Kind = Media.Image.Kind.Contain
+                        HTMLProps = [Src "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRWT_FoABNj68ph1976sAxKZkP7UhR0PzbBCfTYHOkGXeU7V6H_"]
+                }
+            ]
+            
+            R.div [] [
+                Media.Figure.ƒ { Media.Figure.defaults with  
+                    Image = { Media.Image.defaults with 
+                        Kind = Media.Image.Kind.Contain
+                        HTMLProps = [Src "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRWT_FoABNj68ph1976sAxKZkP7UhR0PzbBCfTYHOkGXeU7V6H_"]
+                    }
+                    Caption = { Media.Caption.defaults with Text = [R.str "Hello, Scarlett"]}
+                }
+                
+            ]
+            
         ]
 
     

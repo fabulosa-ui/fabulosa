@@ -7,8 +7,8 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="ReactNode.fs" />
-    <Compile Include="Extensions/ExpectoExtension.fs" />
     <Compile Include="Extensions/PropsExtension.fs" />
+    <Compile Include="Extensions/ExpectoExtension.fs" />
     <Compile Include="Components/ResponsiveTests.fs" />
     <Compile Include="Components/NavbarTests.fs" />
     <Compile Include="Components/GridTests.fs" />
@@ -16,6 +16,7 @@
     <Compile Include="Components/TableTests.fs" />
     <Compile Include="Components/CodeTests.fs" />
     <Compile Include="Components/TagTests.fs" />
+    <Compile Include="Components/MediaTests.fs" />
     <Compile Include="Main.fs" />
     <None Include="paket.references" />
     <ProjectReference Include="..\..\src\Fabulosa\Fabulosa.fsproj" />
