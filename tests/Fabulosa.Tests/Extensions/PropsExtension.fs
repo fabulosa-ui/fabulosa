@@ -106,17 +106,21 @@ module rec TestNodeExtensions =
         let rootNode = element |> TestNode
         List.iter (hasClass <| rootNode.Classes()) classes
 
+    let getChildren (node: TestNode) = 
+        node.Children() |> Seq.collect
+            (fun (child: TestNode) ->
+                [child.Name(), child.Props()]
+                @ (getChildren child |> List.ofSeq))
+            
     let hasDescendent descendent element =
         let rootNode = element |> TestNode
         let descendentNode = descendent |> TestNode
-        let query =
-            if String.IsNullOrEmpty (descendentNode.Classes()) then
-                Name <| descendentNode.Name()
-            else
-                Class <| descendentNode.Classes()
-        let descendents = rootNode.Find query
-        Expect.isGreaterThan (Seq.length descendents) 0
-        <| String.Format (
-            "Should have some descendent with class '{0}' or name '{1}'",
-            (descendentNode.Classes()),
-            (descendentNode.Name()))
+        let rootChildren = getChildren rootNode
+        let element =
+            Seq.tryFind
+                (fun (name, _) -> name = descendentNode.Name())
+                rootChildren
+        match element with
+        | Some (name, props) ->
+            Expect.containsAll props (descendentNode.Props()) "Descendent props don't match"
+        | None -> Expect.isTrue false "Descendent not found"
