@@ -21,21 +21,24 @@ module rec Props =
         | _ -> false
 
 type TestNode(element: ReactElement) = 
-    member this.Element = element
+    member __.Element =
+        match element with
+        | null -> R.span [] []
+        | _ -> element
     
     member this.Node () =
-        this.Element :?> HTMLNode |> extract 
+        this.Element :?> HTMLNode |> extract
 
     member this.Props () =
-        let name, props, children = this.Node ()
+        let _, props, _ = this.Node ()
         props
     
     member this.Name () =
-        let name, props, children = this.Node ()
+        let name, _, _ = this.Node ()
         name
     
     member this.Children () =
-        let name, props, children = this.Node ()
+        let _, _, children = this.Node ()
         children 
         |> Seq.map TestNode 
         
@@ -43,7 +46,7 @@ type TestNode(element: ReactElement) =
         match node.Element :?> HTMLNode with
         | Text t -> text + t
         | RawText t -> text + t
-        | Node (a, b, c) -> 
+        | Node (_, _, c) -> 
             c
             |> Seq.map TestNode
             |> Seq.map (this.TextRec text)
@@ -102,7 +105,7 @@ module rec TestNodeExtensions =
         Expect.stringContains classes someClass
         <| String.Format ("Should contain class '{0}'", someClass)
 
-    let hasClasses classes element = 
+    let hasClasses (classes: string list) (element: ReactElement) = 
         let rootNode = element |> TestNode
         List.iter (hasClass <| rootNode.Classes()) classes
 
@@ -111,16 +114,32 @@ module rec TestNodeExtensions =
             (fun (child: TestNode) ->
                 [child.Name(), child.Props()]
                 @ (getChildren child |> List.ofSeq))
-            
-    let hasDescendent descendent element =
+    
+    let hasDescendentClass (someClass: string) (element: ReactElement) =
+        let rootNode = element |> TestNode
+        let rootChildren = getChildren rootNode
+        let child =
+            Seq.tryFind
+                (fun (_, (props: IProp seq)) ->
+                    Seq.contains
+                        (ClassName someClass)
+                        (Seq.cast<HTMLAttr> props))
+                rootChildren
+        Expect.isSome child
+        <| String.Format ("Descendent with class '{0}' not found", someClass)
+
+    let hasDescendent (descendent: ReactElement) (element: ReactElement) =
         let rootNode = element |> TestNode
         let descendentNode = descendent |> TestNode
         let rootChildren = getChildren rootNode
-        let element =
+        let child =
             Seq.tryFind
                 (fun (name, _) -> name = descendentNode.Name())
                 rootChildren
-        match element with
-        | Some (name, props) ->
-            Expect.containsAll props (descendentNode.Props()) "Descendent props don't match"
-        | None -> Expect.isTrue false "Descendent not found"
+        Expect.isSome child
+        <| String.Format ("Descendent with name '{0}' not found", descendentNode.Name())
+        match child with
+        | Some (_, props) ->
+            Expect.containsAll props (descendentNode.Props())
+                "Descendent with same props not found"
+        | None -> ()

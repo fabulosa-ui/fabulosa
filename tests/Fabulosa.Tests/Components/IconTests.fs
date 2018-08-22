@@ -46,4 +46,14 @@ let tests =
             icon |> hasClasses ["icon"; "custom"]
         }
 
+        test "IconInput default" {
+            let props = IconInput.defaults
+            let inputIcon = IconInput.ƒ props
+            let icon = Icon.ƒ { Icon.defaults with HTMLProps = [ClassName "form-icon"] } []
+            let input = Input.ƒ Input.defaults
+            inputIcon |> hasClasses ["has-icon-left"]
+            inputIcon |> hasDescendent icon
+            inputIcon |> hasDescendent input
+        }
+
     ]

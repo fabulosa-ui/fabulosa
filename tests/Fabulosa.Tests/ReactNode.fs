@@ -5,6 +5,7 @@ open Expecto
 
 let extract = function
     | R.Node (a, b, c) -> (a, b, c)
+    | R.List elements -> ("", seq [], elements)
     | _ -> ("", seq [], seq [])
 
 let compareNode (subject: Fable.Import.React.ReactElement) node =
