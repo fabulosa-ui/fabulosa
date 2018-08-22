@@ -2194,11 +2194,19 @@ extsprintf@^1.2.0:
   version "1.4.0"
   resolved "https://registry.yarnpkg.com/extsprintf/-/extsprintf-1.4.0.tgz#e2689f8f356fad62cca65a3a91c5df5f9551692f"
 
+fable-core@^0.7.30:
+  version "0.7.30"
+  resolved "https://registry.yarnpkg.com/fable-core/-/fable-core-0.7.30.tgz#f05e27b26adc1f2c6db7e6fe346f0a0e9b4b7b68"
+
 fable-loader@^2.0.0-alpha-003:
   version "2.0.0-alpha-003"
   resolved "https://registry.yarnpkg.com/fable-loader/-/fable-loader-2.0.0-alpha-003.tgz#5fb78f1a2cbe925df1436702d1dc818a074d65fd"
   dependencies:
     fable-utils "^1.0.4"
+
+fable-react@^0.8.6:
+  version "0.8.6"
+  resolved "https://registry.yarnpkg.com/fable-react/-/fable-react-0.8.6.tgz#7ce7b7f614f7e5e7dce336a7e2fdf9db130dbe22"
 
 fable-utils@^1.0.4:
   version "1.0.6"
