@@ -109,12 +109,12 @@ Target.create "PublishDocs" (fun _ ->
     ==> "DotnetRestore"
     ==> "Build"
     ==> "YarnInstall"
+    ==> "GenerateDocPages"
     ==> "BuildTests"
     ==> "Test"
     ==> "BuildDocs"
 
-"YarnInstall"
-    ==> "GenerateDocPages"
+"GenerateDocPages"
     ==> "Watch"
 
 "Build"
