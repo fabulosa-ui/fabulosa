@@ -143,3 +143,51 @@ module rec TestNodeExtensions =
             Expect.containsAll props (descendentNode.Props())
                 "Descendent with same props not found"
         | None -> ()
+
+module Seq =
+    let structuralCompare a b =
+        Seq.fold (&&) true (Seq.zip a b |> Seq.map (fun (aa,bb) -> aa=bb))
+
+module ReactNode =
+
+    open Expecto
+
+    [<CustomEquality; CustomComparison>]
+    type T =
+        { Kind: string
+          Props: IProp seq
+          Children: T seq }
+        override x.Equals yobj =
+            match yobj with
+            | :? T as y ->
+                x.Kind = y.Kind &&
+                Seq.structuralCompare x.Props y.Props &&
+                Seq.structuralCompare x.Children y.Children
+            | _ -> false
+        override x.GetHashCode () =
+            hash (x.Kind, x.Props, x.Children)
+        interface System.IComparable with
+            member x.CompareTo yobj =
+                match yobj with
+                | :? T as y -> compare x y
+                | _ -> invalidArg "yobj" "different types"
+
+    let rec lift (element: ReactElement) =
+        let (kind, props, children) =
+            element :?> HTMLNode |> extract
+        {
+            Kind = kind
+            Props = props
+            Children = Seq.map lift children
+        }
+
+    let rec children node =
+        let concat child =
+            [child] @ (children child |> List.ofSeq)
+        node.Children
+        |> Seq.collect concat
+
+    let found child node =
+        Expect.contains
+            (lift node |> children)
+            (lift child) "Descendent not found"

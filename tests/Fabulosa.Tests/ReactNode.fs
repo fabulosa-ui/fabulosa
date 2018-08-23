@@ -1,11 +1,13 @@
 module ReactNode
 
 module R = Fable.Helpers.React
+open R.Props
 open Expecto
 
 let extract = function
     | R.Node (a, b, c) -> (a, b, c)
     | R.List elements -> ("", seq [], elements)
+    | R.Text str -> ("str", seq [Value str], seq [])
     | _ -> ("", seq [], seq [])
 
 let compareNode (subject: Fable.Import.React.ReactElement) node =

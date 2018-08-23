@@ -5,6 +5,7 @@ open Fabulosa
 module R = Fable.Helpers.React
 open R.Props
 open Fabulosa.Tests.Extensions.TestNodeExtensions
+open Fabulosa.Tests.Extensions.ReactNode
 
 [<Tests>]
 let tests =
@@ -12,10 +13,10 @@ let tests =
 
         test "Button default" {
             let props = Button.defaults
-            let child = R.str "text"
+            let child = R.div [ClassName "custom"] [R.str "text"]
             let button = Button.ƒ props [child]
             button |> hasClasses ["btn"]
-            button |> hasDescendent child
+            button |> found child
         }
 
         test "Button kind primary" {
