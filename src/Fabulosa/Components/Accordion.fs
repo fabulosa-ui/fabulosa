@@ -7,16 +7,14 @@ module Accordion =
     open R.Props
 
     [<RequireQualifiedAccess>]
-    type AccordionElement = string * string
-
-    [<RequireQualifiedAccess>]
     type Props = {
+        CustomIcon: Icon.Props
         HTMLProps: IHTMLProp list
     }
 
     [<RequireQualifiedAccess>]
     type Child = {
-        Header: ReactElement list
+        Header: string
         Content: ReactElement list
     }
 
@@ -24,14 +22,33 @@ module Accordion =
     type Children = Child list
 
     let defaults = {
+        Props.CustomIcon = {
+            Icon.defaults with
+                Kind = Icon.Kind.ArrowRight
+                HTMLProps = [ClassName "mr-1"]
+        }
         Props.HTMLProps = []
     }
 
-    let ƒ (props: Props) (children: Children) =
-        let elements = seq {
+    let elements (children: Children) (icon: Icon.Props) =
+        seq {
             for child in children ->
-                R.details [ClassName "accordion"]
-                    [ R.summary [ClassName "accordion-header"] child.Header
-                      R.div [ClassName "accordion-body"] child.Content ] }
-        R.div [] elements
+                let content =
+                    List.map
+                        (fun content -> R.li [ClassName "menu-item"] [content])
+                        child.Content
+                R.details [ClassName "accordion"] [
+                    R.summary [ClassName "accordion-header"] [
+                        Icon.ƒ icon []
+                        R.RawText "\n"
+                        R.str child.Header
+                    ]
+                    R.div [ClassName "accordion-body"] [
+                        R.ul [ClassName "menu menu-nav"] content
+                    ]
+                ]
+        }
+
+    let ƒ (props: Props) (children: Children) =
+        R.div [] (elements children props.CustomIcon)
         

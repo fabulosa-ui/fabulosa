@@ -3,36 +3,22 @@
 module AccordionDemo =
 
     open Fabulosa
-    open Fable.Helpers.React
-    open Fable.Helpers.React.Props
+    module R = Fable.Helpers.React
 
     let accordion =
         Accordion.ƒ
             Accordion.defaults
-            [ { Header = [ str "Header One" ]
+            [ { Header = "Header One"
                 Content = [
-                    ul [ClassName "menu menu-nav"] [
-                        li [ClassName "menu-item"] [
-                            a [] [str "Item One"]
-                        ]
-                        li [ClassName "menu-item"] [
-                            a [] [str "Item Two"]
-                        ]
-                    ]
+                    R.str "Simple string"
+                    R.p [] [R.str "A paragraph"]
+                    R.a [] [R.str "A link"]
                 ] }
-              { Header = [ str "Header Two" ]
+              { Header = "Header Two"
                 Content = [
-                    ul [ClassName "menu menu-nav"] [
-                        li [ClassName "menu-item"] [
-                            a [] [str "Item One"]
-                        ]
-                        li [ClassName "menu-item"] [
-                            a [] [str "Item Two"]
-                        ]
-                    ]
-                ]
-              } ]
-           
+                    R.str "Item One"
+                    R.str "Item Two"
+                ] } ]
 
     let render () =
         Renderer.tryMount "demo" accordion
