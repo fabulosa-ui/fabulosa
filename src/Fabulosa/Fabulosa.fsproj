@@ -27,6 +27,7 @@
     <Compile Include="Components/Media.fs" />
     <Compile Include="Components/Index.fs" />
     <Compile Include="Components/Validation.fs" />
+    <Compile Include="Components\Accordion.fs" />
     <None Include="paket.references" />
   </ItemGroup>
   <Import Project="..\..\.paket\Paket.Restore.targets" />

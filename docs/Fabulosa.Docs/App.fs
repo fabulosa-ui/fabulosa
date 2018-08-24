@@ -5,3 +5,4 @@ module App =
     HomeDemo.render ()
     ButtonDemo.render ()
     FormDemo.render ()
+    AccordionDemo.render ()

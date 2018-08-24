@@ -38,7 +38,8 @@ var MiniCssExtractPlugin = require("mini-css-extract-plugin");
 
 var pages = [
     'button.html',
-    'form.html'
+    'form.html',
+    'accordion.html',
 ]
 
 // The HtmlWebpackPlugin allows us to use a template for the index.html page

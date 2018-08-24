@@ -172,3 +172,7 @@ code, pre, pre code {
 .demo {
     margin-bottom: 1em;
 }
+
+summary {
+    user-select: none;
+}
