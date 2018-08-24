@@ -16,14 +16,14 @@ let tests =
             switch |> hasClasses ["form-switch"]
             switch |> hasDescendent (R.input [Type "checkbox"])
             switch |> hasDescendent (R.i [ClassName "form-icon"] [])
-            switch |> hasDescendent (R.RawText "Label")
+            switch |> hasDescendent (R.str "Label")
         }
 
         test "Switch text" {
             let props = { Switch.defaults with Text = "custom" }
             let switch = Switch.ƒ props
             switch |> hasClasses ["form-switch"]
-            switch |> hasDescendent (R.RawText "custom")
+            switch |> hasDescendent (R.str "custom")
         }
 
         test "Switch html props" {

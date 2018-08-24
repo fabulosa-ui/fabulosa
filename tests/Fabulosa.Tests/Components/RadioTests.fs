@@ -16,7 +16,7 @@ let tests =
             radio |> hasClasses ["form-radio"]
             radio |> hasDescendent (R.input [Type "radio"])
             radio |> hasDescendent (R.i [ClassName "form-icon"] [])
-            radio |> hasDescendent (R.RawText "Label")
+            radio |> hasDescendent (R.str "Label")
         }
 
         test "Radio inline" {
@@ -29,7 +29,7 @@ let tests =
             let props = { Radio.defaults with Text = "custom" }
             let radio = Radio.ƒ props
             radio |> hasClasses ["form-radio"]
-            radio |> hasDescendent (R.RawText "custom")
+            radio |> hasDescendent (R.str "custom")
         }
 
         test "Radio html props" {

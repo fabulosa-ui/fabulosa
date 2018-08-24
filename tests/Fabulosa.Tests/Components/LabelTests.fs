@@ -32,7 +32,7 @@ let tests =
             let props = { Label.defaults with Text = "custom" }
             let label = Label.ƒ props
             label |> hasClasses ["form-label"]
-            label |> hasDescendent (R.RawText "custom")
+            label |> hasDescendent (R.str "custom")
         }
 
         test "Label html props" {

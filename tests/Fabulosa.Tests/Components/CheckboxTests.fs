@@ -16,7 +16,7 @@ let tests =
             checkbox |> hasClasses ["form-checkbox"]
             checkbox |> hasDescendent (R.input [Type "checkbox"])
             checkbox |> hasDescendent (R.i [ClassName "form-icon"] [])
-            checkbox |> hasDescendent (R.RawText "Label")
+            checkbox |> hasDescendent (R.str "Label")
         }
 
         test "Checkbox inline" {
@@ -29,7 +29,7 @@ let tests =
             let props = { Checkbox.defaults with Text = "custom" }
             let checkbox = Checkbox.ƒ props
             checkbox |> hasClasses ["form-checkbox"]
-            checkbox |> hasDescendent (R.RawText "custom")
+            checkbox |> hasDescendent (R.str "custom")
         }
 
         test "Checkbox html props" {
