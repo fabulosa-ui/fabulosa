@@ -9,19 +9,17 @@ open Fable.Import.React
 module R = Fable.Helpers.React
 
 (*** define: accordion-sample ***)
-    let accordion =
-        Accordion.ƒ
-            Accordion.defaults
-            [ { Header = "Header One"
-                Content = [
-                    R.a [] [R.str "Item One"]
-                    R.a [] [R.str "Item Two"]
-                ] }
-              { Header = "Header Two"
-                Content = [
-                    R.a [] [R.str "Item One"]
-                    R.a [] [R.str "Item Two"]
-                ] } ]
+let accordion =
+    Accordion.ƒ
+        Accordion.defaults
+        [ { Header = "Header One"
+            Content =
+                [ R.a [] [R.str "Item One"]
+                  R.a [] [R.str "Item Two"] ] }
+          { Header = "Header Two"
+            Content =
+                [ R.a [] [R.str "Item One"]
+                  R.a [] [R.str "Item Two"] ] } ]
 (**
 <h2 class="s-title">
     Accordions
@@ -29,7 +27,7 @@ module R = Fable.Helpers.React
 
 Accordions are used to toggle sections of content.
 
-<span id="accordion-demo"></div>
+<span id="accordion-demo" style="margin-bottom: 10px"></div>
 
 *)
 

@@ -151,6 +151,7 @@ module Seq =
 module ReactNode =
 
     open Expecto
+    open System.Linq
 
     [<CustomEquality; CustomComparison>]
     type T =
@@ -162,10 +163,11 @@ module ReactNode =
             | :? T as y ->
                 x.Kind = y.Kind &&
                 Seq.structuralCompare x.Props y.Props &&
-                Seq.structuralCompare x.Children y.Children
+                Enumerable.Except(x.Children, y.Children)
+                |> Seq.length = 0
             | _ -> false
         override x.GetHashCode () =
-            hash (x.Kind, x.Props, x.Children)
+            hash (x.Kind, x.Props)
         interface System.IComparable with
             member x.CompareTo yobj =
                 match yobj with
@@ -186,7 +188,7 @@ module ReactNode =
             [child] @ (children child |> List.ofSeq)
         node.Children
         |> Seq.collect concat
-
+    
     let found child node =
         Expect.contains
             (lift node |> children)

@@ -127,6 +127,18 @@ let tests =
             inputGroup |> hasDescendent input
         }
 
+        test "find returns a subnode one level deep" {
+            let root = R.div [] [
+               R.span [] [
+                   R.p [] [
+                       R.p [] []
+                   ]
+               ]
+               R.p [] []
+            ]
+            root |> found (R.p [] [])
+        }
+
         // test "InputGroup right addon" {
         //     let input = Input.ƒ Input.defaults
         //     let buttonProps = Button.defaults

@@ -35,7 +35,8 @@ Target.create "Clean" (fun _ ->
     ++ "tests/**/bin"
     ++ "tests/**/obj"
     ++ "output"
-    |> Shell.cleanDirs 
+    |> Shell.cleanDirs
+    Shell.rm "docs/Fabulosa.Docs/*.html"
 )
 
 Target.create "DotnetRestore" (fun _ ->

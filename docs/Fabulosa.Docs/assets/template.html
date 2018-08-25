@@ -14,6 +14,12 @@
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ"
           crossorigin="anonymous">
     <script>var currentTip=null,currentTipElement=null;function hideTip(e,t,n){document.getElementById(t).style.display="none",currentTip=null}function findPos(e){if("?inapp"==window.location.search)return[e.offsetLeft+10,e.offsetTop+30];for(var t=0,n=e.offsetHeight;e;)t+=e.offsetLeft,n+=e.offsetTop,e=e.offsetParent;return[t,n]}function hideUsingEsc(e){e||(e=event),hideTip(e,currentTipElement,currentTip)}function showTip(e,t,n,o){if(document.onkeydown=hideUsingEsc,currentTip!=n){currentTip=n,currentTipElement=t;var i=findPos(o||(e.srcElement?e.srcElement:e.target)),r=i[0],l=i[1],c=document.getElementById(t);null==document.documentElement?document.body:document.documentElement;c.style.position="absolute",c.style.left=r+"px",c.style.top=l+"px",c.style.display="block"}}</script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function(){ 
+            var page = window.location.pathname.split('.')[0].substring(1);
+            document.getElementById(page + '-header').click();
+        }, false);
+    </script>
 </head>
 <body>
     <div class="docs-container off-canvas off-canvas-sidebar-show">
@@ -39,46 +45,99 @@
                     <strong>FABULOSA</strong>
                 </a>
             </div>
-            <ul class="nav docs-nav">
-                <li class="nav-item">
-                    <a class=" is-active" href="index.html">Home</a>
-                </li>
-                <li class="nav-item">
-                    <a class="" href="button.html">Button</a>
-                </li>
-                <li class="nav-item">
-                    <a class="" href="#code">Code</a>
-                </li>
-                <li class="nav-item">
-                    <a class="" href="form.html">Form</a>
-                </li>
-                <li class="nav-item">
-                    <a class="" href="accordion.html">Accordion</a>
-                </li>
-                <li class="nav-item">
-                    <a class="" href="#grid">Grid</a>
-                </li>
-                <li class="nav-item">
-                    <a class="" href="#table">Table</a>
-                </li>
-                <li class="nav-item">
-                    <a class="" href="#typography">Typograpy</a>
-                </li>
-            </ul>
+            <div class="docs-nav">
+                <div class="accordion-container">
+                    <details class="accordion">
+                        <summary class="accordion-header" id="index-header">
+                            Getting Started
+                        </summary>
+                        <div class="accordion-body">
+                            <ul class="menu menu-nav">
+                                <li class="menu-item">
+                                    <a href="index.html">Example</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </details>
+                    <details class="accordion">
+                        <summary class="accordion-header" id="form-header">
+                            Forms
+                        </summary>
+                        <div class="accordion-body">
+                            <ul class="menu menu-nav">
+                                <li class="menu-item">
+                                    <a href="form.html#input">Input</a>
+                                </li>
+                                <li class="menu-item">
+                                    <a href="form.html#textarea">Textarea</a>
+                                </li>
+                                <li class="menu-item">
+                                    <a href="form.html#select">Select</a>
+                                </li>
+                                <li class="menu-item">
+                                    <a href="form.html#radio">Radio</a>
+                                </li>
+                                <li class="menu-item">
+                                    <a href="form.html#checkbox">Checkbox</a>
+                                </li>
+                                <li class="menu-item">
+                                    <a href="form.html#switch">Switch</a>
+                                </li>
+                                <li class="menu-item">
+                                    <a href="form.html#sizes">Sizes</a>
+                                </li>
+                                <li class="menu-item">
+                                    <a href="form.html#validation">Validation</a>
+                                </li>
+                                <li class="menu-item">
+                                    <a href="form.html#inputgroup">Input Group</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </details>
+                    <details class="accordion">
+                        <summary class="accordion-header" id="button-header">
+                            Components
+                        </summary>
+                        <div class="accordion-body">
+                            <ul class="menu menu-nav">
+                                <li class="menu-item">
+                                    <a href="button.html">Button</a>
+                                </li>
+                                <li class="menu-item">
+                                    <a href="#code">Code</a>
+                                </li>
+                                <li class="menu-item">
+                                    <a href="accordion.html">Accordion</a>
+                                </li>
+                                <li class="menu-item">
+                                    <a href="#grid">Grid</a>
+                                </li>
+                                <li class="menu-item">
+                                    <a href="#table">Table</a>
+                                </li>
+                                <li class="menu-item">
+                                    <a href="#typography">Typograpy</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </details>
+                </div>
+            </div>
         </div>
         <a class="off-canvas-overlay" href="#close"></a>
         <div class="off-canvas-content">
             <div class="docs-content">
                 <div class="container">
                     <div class="columns">
-                        <div class="col-12 content">
+                        <div class="col-12 content" style="margin-bottom: 1rem">
                             {document}
-                            {tooltips}
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+    {tooltips}
 </body>
 </html>

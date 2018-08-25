@@ -176,3 +176,9 @@ code, pre, pre code {
 summary {
     user-select: none;
 }
+
+.docs-nav .accordion-header {
+    font-size: 0.65rem;
+    text-transform: uppercase;
+    font-weight: 600;
+}

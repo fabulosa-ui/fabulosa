@@ -159,13 +159,20 @@ let inputGroup =
         ]
     ]
 (**
+<div class="container" id="forms">
+
 <h2 class="s-title">
     Forms
+    <a class="anchor" href="#forms" aria-hidden="true">#</a>
 </h2>
 
 Forms provide the most common control styles
 used in forms, including input, textarea,
 select, checkbox, radio and switch.
+
+</div>
+
+<div class="container" id="input">
 
 <h3 class="s-title">
     Input
@@ -181,6 +188,9 @@ The default input component for a form.
 (*** include: form-input-sample ***)
 
 (**
+</div>
+<div class="container" id="textarea">
+
 <h3 class="s-title">
     Textarea
 </h3>
@@ -195,6 +205,9 @@ The default textarea component for a form.
 (*** include: form-textarea-sample ***)
 
 (**
+</div>
+<div class="container" id="select">
+
 <h3 class="s-title">
     Select
 </h3>
@@ -209,6 +222,9 @@ The default select component for a form.
 (*** include: form-select-sample ***)
 
 (**
+</div>
+<div class="container" id="radio">
+
 <h3 class="s-title">
     Radio
 </h3>
@@ -223,6 +239,9 @@ The default radio component for a form.
 (*** include: form-radio-sample ***)
 
 (**
+</div>
+<div class="container" id="checkbox">
+
 <h3 class="s-title">
     Checkbox
 </h3>
@@ -237,6 +256,9 @@ The default checkbox component for a form.
 (*** include: form-checkbox-sample ***)
 
 (**
+</div>
+<div class="container" id="switch">
+
 <h3 class="s-title">
     Switch
 </h3>
@@ -251,6 +273,9 @@ A switch component for forms.
 (*** include: form-switch-sample ***)
 
 (**
+</div>
+<div class="container" id="sizes">
+
 <h3 class="s-title">
     Sizes
 </h3>
@@ -265,6 +290,9 @@ Input, select and label components can be Small or Large.
 (*** include: form-sizes-sample ***)
 
 (**
+</div>
+<div class="container" id="validation">
+
 <h3 class="s-title">
     Validation
 </h3>
@@ -279,6 +307,9 @@ Validation component for forms.
 (*** include: form-validation-sample ***)
 
 (**
+</div>
+<div class="container" id="inputgroup">
+
 <h3 class="s-title">
     Input Group
 </h3>
@@ -291,3 +322,7 @@ Component for grouping different kinds of input.
 *)
 
 (*** include: form-input-group-sample ***)
+
+(**
+</div>
+*)
