@@ -20,10 +20,9 @@ module Accordion =
     }
 
     let defaults = {
-        Props.CustomIcon = {
-            Icon.defaults with
-                Kind = Icon.Kind.ArrowRight
-        }
+        Props.CustomIcon =
+            { Icon.defaults with
+                Kind = Icon.Kind.ArrowRight }
         Props.HTMLProps = []
     }
 
