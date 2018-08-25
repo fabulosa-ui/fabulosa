@@ -148,7 +148,7 @@ module Seq =
     let structuralCompare a b =
         Seq.fold (&&) true (Seq.zip a b |> Seq.map (fun (aa,bb) -> aa=bb))
 
-module ReactNode =
+module rec ReactNode =
 
     open Expecto
     open System.Linq
@@ -174,7 +174,7 @@ module ReactNode =
                 | :? T as y -> compare x y
                 | _ -> invalidArg "yobj" "different types"
 
-    let rec lift (element: ReactElement) =
+    let lift (element: ReactElement) =
         let (kind, props, children) =
             element :?> HTMLNode |> extract
         {
@@ -183,13 +183,96 @@ module ReactNode =
             Children = Seq.map lift children
         }
 
-    let rec children node =
+    let descendents node =
         let concat child =
-            [child] @ (children child |> List.ofSeq)
+            [child] @ (descendents child |> List.ofSeq)
         node.Children
         |> Seq.collect concat
     
     let found child node =
         Expect.contains
-            (lift node |> children)
+            (lift node |> descendents)
             (lift child) "Descendent not found"
+            
+    let find (child: ReactElement) node = 
+        let child = child |> lift
+        node 
+        |> lift
+        |> descendents
+        |> Seq.filter (fun x -> x = child)
+
+module ReactNodeTests = 
+    open Fabulosa
+    open Expecto
+    
+    [<Tests>]
+    let reactNodeTests =
+        testList "React Node T" [
+            test "find returns empty when no matching descendents are provided" {
+                let simpleNode = R.span [] [R.span [] []]
+                let simpleDiv = R.div [] []
+                
+                let foundElements = ReactNode.find simpleDiv simpleNode
+                
+                Expect.isEmpty foundElements ""
+            }
+            
+            test "find returns does not return the root node itself" {
+                let simpleNode = R.div [] []
+                
+                let foundElements = ReactNode.find simpleNode simpleNode
+                
+                Expect.isEmpty foundElements ""
+             }
+             
+            test "find returns a subnodes" {
+                let root = R.div [] [
+                   R.span [] [
+                       R.p [] [
+                           R.p [] []
+                       ]
+                   ]
+                   R.p [] []
+                ]
+                let foundElements = ReactNode.find (R.p [] []) root
+                
+                Expect.equal (foundElements |> Seq.length) 2 ""
+            }
+            
+            test "find returns a subnodes as children" {
+                let root = R.div [] [
+                    R.span [] [
+                       R.p [] [
+                            R.p [] []
+                            R.p [] []
+                        ]
+                    ]
+                    R.p [] []
+                    R.p [] []
+                 ]
+                let foundElements = ReactNode.find (R.p [] []) root
+                 
+                Expect.equal (foundElements |> Seq.length) 4 ""
+             }
+             
+            test "find returns subnodes matching on props" {
+                let root = R.div [] [
+                   R.span [] [
+                       R.p [] [
+                           R.p [ClassName "class-one"] []
+                           R.p [] []
+                       ]
+                   ]
+                   R.p [Id "id"; ClassName "class-one"] []
+                   R.p [] []
+                ]
+                
+                let foundElements = ReactNode.find (R.p [ClassName "class-one"] []) root
+                
+                Expect.equal (foundElements |> Seq.length) 1 ""
+               
+                let foundElements = ReactNode.find (R.p [Id "id"; ClassName "class-one"] []) root
+                
+                Expect.equal (foundElements |> Seq.length) 1 ""
+            }
+        ]
