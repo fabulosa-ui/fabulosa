@@ -27,7 +27,7 @@ let accordion =
 
 Accordions are used to toggle sections of content.
 
-<span id="accordion-demo" style="margin-bottom: 10px"></div>
+<span id="accordion-demo"></div>
 
 *)
 

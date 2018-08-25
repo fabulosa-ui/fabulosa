@@ -167,7 +167,7 @@ module ReactNode =
                 |> Seq.length = 0
             | _ -> false
         override x.GetHashCode () =
-            hash (x.Kind, x.Props)
+            hash (x.Kind, x.Props, x.Children)
         interface System.IComparable with
             member x.CompareTo yobj =
                 match yobj with
