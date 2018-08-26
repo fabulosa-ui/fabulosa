@@ -8,6 +8,53 @@ open Fable.Import.React
 open Fabulosa.Tests.Extensions
 
 module Expect =
+    open Fable.Helpers.React.Props
+    
+    let bind f e = 
+        try 
+            f e
+            e
+        with 
+        | x -> raise x
+    
+    let hasUniqueClass expectedClasses element = 
+        let actualClasses = element |> ReactNode.className
+        Expect.equal expectedClasses actualClasses
+            (sprintf "hasUniqueClass should contain %s only. Found %s" expectedClasses actualClasses)
+    
+    let hasUniqueClassBind expectedClasses = hasUniqueClass expectedClasses |> bind
+    
+    let containsClassName (expectedClassName: string) element =
+        let actualClasses = 
+            element 
+            |> ReactNode.className
+        let actualClasses = actualClasses.Split() |> Seq.ofArray
+        let expectedClasses = expectedClassName.Split() |> Seq.ofArray
+        
+        Expect.containsAll expectedClasses actualClasses "Classes mismatch"
+        
+    let containsClassNameBind expectedClassName = containsClassName expectedClassName |> bind
+    
+    let containsProp (prop: IProp) element =
+        let propSequence = element |> ReactNode.props
+        Expect.contains propSequence prop "Prop not found"
+    
+    let containsPropBind prop = containsProp prop |> bind
+    
+    let containsChild expectedMatches child parent =
+        let foundNodes = ReactNode.find child parent
+        Expect.equal expectedMatches (Seq.length foundNodes) "Number of children found mismatch"
+    
+    let containsChildBind expectedMatches child = 
+        containsChild expectedMatches child |> bind
+    
+    let containsText expectedText element =
+        let text = element |> ReactNode.text
+        Expect.equal expectedText text "Text value mismatch"
+        
+    let containsTextBind expectedText = containsText expectedText |> bind
+    
+    //------ TODO remove after this point
     let containsToString sequence subject errorMes=
         (sequence
         |> Seq.map (fun x -> x.ToString())
@@ -27,15 +74,14 @@ module Expect =
     let nodeNotEqual (expected: TestNode) (actual: TestNode) =
         Expect.throws (fun _ -> nodeEqual expected actual) "Exception was expected to be raised"
     
-    
 module Tests =
     module MultiNode =
         open ClassNames
         module R = Fable.Helpers.React
         open Fable.Import.React
         open Fable.Helpers
-        
         open R.Props
+        
         type Kind =
         | One
         | Two
@@ -67,7 +113,47 @@ module Tests =
         
     [<Tests>]
     let expectoTests =
-        testList "NodeEquals tests" [        
+        testList "Expecto tests" [        
+            test "hasUniqueClass will not pass when classes do not match" {
+                let expectedNodeClasses = ""
+                let element = R.div [ClassName "hello-world"] []
+    
+                Expect.throwsT<Expecto.AssertException> (fun () -> 
+                    Expect.hasUniqueClass expectedNodeClasses element
+                ) ""
+            }
+            
+            test "hasUniqueClass will pass when classes match" {
+                let expectedClasses = "hello-world"
+                let element = R.div [ClassName "hello-world"] []
+    
+                try 
+                    Expect.hasUniqueClass expectedClasses element
+                with 
+                | _ -> failwithf "hasUniqueClass failed"
+                
+            }
+            
+            test "hasUniqueClass will not pass when classes match but not completely" {
+                let expectedClasses = "hello-world hello-mom"
+                let element = R.div [ClassName "hello-world"] []
+    
+                Expect.throwsT<Expecto.AssertException> (fun () -> 
+                    Expect.hasUniqueClass expectedClasses element
+                ) ""
+            }
+        ]
+        
+    [<Tests>]
+    let reactNodeTests =
+        testList "ReactNode tests" [        
+            test "contains only class" {
+                let node1 = MultiNode.ƒ MultiNode.defaults |> TestNode
+                let node2 = MultiNode.ƒ MultiNode.defaults |> TestNode
+    
+                Expect.nodeEqual node1 node2
+            }
+             
             test "Equal Elements are equal" {
                 let node1 = MultiNode.ƒ MultiNode.defaults |> TestNode
                 let node2 = MultiNode.ƒ MultiNode.defaults |> TestNode

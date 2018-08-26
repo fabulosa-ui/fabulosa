@@ -160,11 +160,7 @@ module rec ReactNode =
           Children: T seq }
         override x.Equals yobj =
             match yobj with
-            | :? T as y ->
-                x.Kind = y.Kind &&
-                Seq.structuralCompare x.Props y.Props &&
-                Enumerable.Except(x.Children, y.Children)
-                |> Seq.length = 0
+            | :? T as y -> x.ToString() = y.ToString()
             | _ -> false
         override x.GetHashCode () =
             hash (x.Kind, x.Props, x.Children)
@@ -193,6 +189,22 @@ module rec ReactNode =
         Expect.contains
             (lift node |> descendents)
             (lift child) "Descendent not found"
+    
+    let props reactElement = (lift reactElement).Props
+    
+    let className reactElement =
+        let node = lift reactElement
+        node.Props
+        |> Seq.map (
+            fun p ->
+                match p with
+                | :? HTMLAttr as htmlAttr -> 
+                  match htmlAttr with
+                  | ClassName c -> Some c
+                  | _ -> None
+                | _ -> None)
+        |> Seq.choose id
+        |> Seq.join " "
             
     let find (child: ReactElement) node = 
         let child = child |> lift
@@ -200,6 +212,18 @@ module rec ReactNode =
         |> lift
         |> descendents
         |> Seq.filter (fun x -> x = child)
+        
+    let private innerText text (element: ReactElement) =
+        match element :?> HTMLNode with
+        | Text t -> text + t
+        | RawText t -> text + t
+        | Node (_, _, c) -> 
+            c
+            |> Seq.map (innerText text)
+            |> Seq.join " "
+        | _ -> text
+        
+    let text element = innerText "" element
 
 module ReactNodeTests = 
     open Fabulosa
@@ -249,7 +273,7 @@ module ReactNodeTests =
                     ]
                     R.p [] []
                     R.p [] []
-                 ]
+                ]
                 let foundElements = ReactNode.find (R.p [] []) root
                  
                 Expect.equal (foundElements |> Seq.length) 4 ""
@@ -257,14 +281,14 @@ module ReactNodeTests =
              
             test "find returns subnodes matching on props" {
                 let root = R.div [] [
-                   R.span [] [
+                    R.span [] [
                        R.p [] [
                            R.p [ClassName "class-one"] []
                            R.p [] []
                        ]
-                   ]
-                   R.p [Id "id"; ClassName "class-one"] []
-                   R.p [] []
+                    ]
+                    R.p [Id "id"; ClassName "class-one"] []
+                    R.p [] []
                 ]
                 
                 let foundElements = ReactNode.find (R.p [ClassName "class-one"] []) root
