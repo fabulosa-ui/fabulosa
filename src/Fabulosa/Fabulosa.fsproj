@@ -5,6 +5,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Extensions/SeqExtension.fs" />
+    <Compile Include="Extensions/StringExtension.fs" />
     <Compile Include="ReactElementStringExtensions.fs" />
     <Compile Include="ClassNames.fs" />
     <Compile Include="Components/General/Code.fs" />

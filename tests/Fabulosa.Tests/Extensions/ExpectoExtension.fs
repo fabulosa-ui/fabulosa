@@ -9,6 +9,8 @@ open Fabulosa.Tests.Extensions
 
 module Expect =
     open Fable.Helpers.React.Props
+    open System.Text
+    open Fabulosa.Extensions
     
     let bind f e = 
         try 
@@ -25,11 +27,11 @@ module Expect =
     let hasUniqueClassBind expectedClasses = hasUniqueClass expectedClasses |> bind
     
     let containsClassName (expectedClassName: string) element =
-        let actualClasses = 
+        let actualClassName = 
             element 
             |> ReactNode.className
-        let actualClasses = actualClasses.Split() |> Seq.ofArray
-        let expectedClasses = expectedClassName.Split() |> Seq.ofArray
+        let actualClasses = actualClassName.Split() |> Seq.ofArray |> Seq.filter (String.isNotEmpty)
+        let expectedClasses = expectedClassName.Split() |> Seq.ofArray |> Seq.filter (String.isNotEmpty)
         
         Expect.containsAll expectedClasses actualClasses "Classes mismatch"
         
