@@ -4,9 +4,18 @@ module R = Fable.Helpers.React
 open R.Props
 open Expecto
 
+let nullElement el =
+    if el <> null then 
+        el
+    else 
+        R.str "<NULL-NULL>"
+        
+let isNull x = x = null
+
 let extract = function
-    | R.Node (a, b, c) -> (a, b, c)
-    | R.List elements -> ("", seq [], elements)
+    | R.Node (a, b, c) -> (a, b, Seq.map nullElement c)
+    | R.List elements -> ("", seq [], Seq.map nullElement elements)
+    | R.Text str when str = "<NULL-NULL>" -> ("null", seq [Value str], seq [])
     | R.Text str -> ("str", seq [Value str], seq [])
     | _ -> ("", seq [], seq [])
 
