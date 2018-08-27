@@ -15,15 +15,14 @@ open System.Reflection
 let tests =
     testList "Code tests" [
         test "Code should be a react html node when defaults are provided" {
-            let code = Code.ƒ Code.defaults |> TestNode
+            let codeElement = Code.ƒ Code.defaults
             let data = Data ("lang", "F#")
-            Expect.equal (code.Classes()) "code" "Root should contain class code"
-            Expect.contains (code.Props()) (upcast data : IProp)  "Data does not exist"           
+            let innerCodeElement = R.code [DangerouslySetInnerHTML {__html = ""}] []
             
-            let innerCode = code.Find(Name "code") |> Seq.head
-            let innerSetHtml = ({ __html = "" } |> DangerouslySetInnerHTML).ToString()
-            
-            Expect.containsToString (innerCode.Props()) innerSetHtml "InnerHtml should be found"
+            codeElement
+            |> Expect.hasUniqueClassBind "code"
+            |> Expect.containsPropBind data
+            |> Expect.containsChild 1 innerCodeElement
         }
     ]
     
