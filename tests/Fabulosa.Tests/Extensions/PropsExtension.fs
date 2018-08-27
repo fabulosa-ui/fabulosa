@@ -145,13 +145,15 @@ module rec TestNodeExtensions =
         | None -> ()
 
 module Seq =
-    let structuralCompare a b =
-        Seq.fold (&&) true (Seq.zip a b |> Seq.map (fun (aa,bb) -> aa=bb))
+
+    open System.Linq
+    let equals a b = Enumerable.SequenceEqual(a, b)
+
+    let sortByToString = Seq.sortBy (fun elem -> elem.ToString())
 
 module rec ReactNode =
 
     open Expecto
-    open System.Linq
 
     [<CustomEquality; CustomComparison>]
     type T =
@@ -160,7 +162,12 @@ module rec ReactNode =
           Children: T seq }
         override x.Equals yobj =
             match yobj with
-            | :? T as y -> x.ToString() = y.ToString()
+            | :? T as y ->
+                x.Kind = y.Kind &&
+                Seq.equals
+                    <| Seq.sortByToString x.Props
+                    <| Seq.sortByToString y.Props &&
+                Seq.equals x.Children y.Children
             | _ -> false
         override x.GetHashCode () =
             hash (x.Kind, x.Props, x.Children)
