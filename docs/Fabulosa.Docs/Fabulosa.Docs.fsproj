@@ -3,25 +3,28 @@
     <TargetFramework>netstandard2.0</TargetFramework>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="pages\Renderer.fs" />
-    <Compile Include="pages\AccordionDemo.fs" />
-    <Compile Include="pages\ButtonDemo.fs" />
-    <Compile Include="pages\HomeDemo.fs" />
-    <Compile Include="pages\FormDemo.fs" />
-    <None Include="pages\button.fsx" />
-    <None Include="pages\form.fsx" />
-    <None Include="pages\index.fsx" />
-    <None Include="pages\accordion.fsx" />
+    <Compile Include="pages/Renderer.fs" />
+    <Compile Include="pages/AccordionDemo.fs" />
+    <Compile Include="pages/AvatarDemo.fs" />
+    <Compile Include="pages/ButtonDemo.fs" />
+    <Compile Include="pages/HomeDemo.fs" />
+    <Compile Include="pages/FormDemo.fs" />
+    <None Include="pages/button.fsx" />
+    <None Include="pages/form.fsx" />
+    <None Include="pages/graphic.fsx" />
+    <None Include="pages/index.fsx" />
+    <None Include="pages/accordion.fsx" />
     <None Include="paket.references" />
     <None Include="README.md" />
-    <None Include="assets\logo_1280.svg" />
-    <None Include="assets\logo_320.svg" />
-    <None Include="assets\logo_64.svg" />
-    <None Include="assets\logo_640.svg" />
-    <None Include="assets\styles.scss" />
-    <None Include="assets\template.html" />
+    <None Include="assets/logo_1280.svg" />
+    <None Include="assets/logo_320.svg" />
+    <None Include="assets/logo_64.svg" />
+    <None Include="assets/logo_640.svg" />
+    <None Include="assets/styles.scss" />
+    <None Include="assets/template.html" />
+    <None Include="assets/docs.min.css" />
     <Compile Include="App.fs" />
-    <ProjectReference Include="..\..\src\Fabulosa\Fabulosa.fsproj" />
+    <ProjectReference Include="../../src/Fabulosa/Fabulosa.fsproj" />
   </ItemGroup>
-  <Import Project="..\..\.paket\Paket.Restore.targets" />
+  <Import Project="../../.paket/Paket.Restore.targets" />
 </Project>

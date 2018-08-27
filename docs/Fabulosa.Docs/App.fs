@@ -6,3 +6,4 @@ module App =
     ButtonDemo.render ()
     FormDemo.render ()
     AccordionDemo.render ()
+    AvatarDemo.render ()

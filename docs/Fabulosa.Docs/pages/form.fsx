@@ -159,11 +159,10 @@ let inputGroup =
         ]
     ]
 (**
-<div class="container" id="forms">
+<div id="forms">
 
 <h2 class="s-title">
     Forms
-    <a class="anchor" href="#forms" aria-hidden="true">#</a>
 </h2>
 
 Forms provide the most common control styles
@@ -172,7 +171,7 @@ select, checkbox, radio and switch.
 
 </div>
 
-<div class="container" id="input">
+<div id="input">
 
 <h3 class="s-title">
     Input
@@ -189,7 +188,7 @@ The default input component for a form.
 
 (**
 </div>
-<div class="container" id="textarea">
+<div id="textarea">
 
 <h3 class="s-title">
     Textarea
@@ -206,7 +205,7 @@ The default textarea component for a form.
 
 (**
 </div>
-<div class="container" id="select">
+<div id="select">
 
 <h3 class="s-title">
     Select
@@ -223,7 +222,7 @@ The default select component for a form.
 
 (**
 </div>
-<div class="container" id="radio">
+<div id="radio">
 
 <h3 class="s-title">
     Radio
@@ -240,7 +239,7 @@ The default radio component for a form.
 
 (**
 </div>
-<div class="container" id="checkbox">
+<div id="checkbox">
 
 <h3 class="s-title">
     Checkbox
@@ -257,7 +256,7 @@ The default checkbox component for a form.
 
 (**
 </div>
-<div class="container" id="switch">
+<div id="switch">
 
 <h3 class="s-title">
     Switch
@@ -274,7 +273,7 @@ A switch component for forms.
 
 (**
 </div>
-<div class="container" id="sizes">
+<div id="sizes">
 
 <h3 class="s-title">
     Sizes
@@ -291,7 +290,7 @@ Input, select and label components can be Small or Large.
 
 (**
 </div>
-<div class="container" id="validation">
+<div id="validation">
 
 <h3 class="s-title">
     Validation
@@ -308,7 +307,7 @@ Validation component for forms.
 
 (**
 </div>
-<div class="container" id="inputgroup">
+<div id="inputgroup">
 
 <h3 class="s-title">
     Input Group

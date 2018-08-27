@@ -12,10 +12,11 @@
     <Compile Include="Components/General/Button.fs" />
     <Compile Include="Components/General/Tag.fs" />
     <Compile Include="Components/General/Typography.fs" />
+    <Compile Include="Components/Graphic/Media.fs" />
+    <Compile Include="Components/Graphic/Avatar.fs" />
     <Compile Include="Components/Layout/Responsive.fs" />
     <Compile Include="Components/Layout/Table.fs" />
     <Compile Include="Components/Layout/Accordion.fs" />
-    <Compile Include="Components/Layout/Media.fs" />
     <Compile Include="Components/Layout/Grid.fs" />
     <Compile Include="Components/Navigation/Navbar.fs" />
     <Compile Include="Components/Form/Label.fs" />
@@ -30,5 +31,5 @@
     <Compile Include="Components/Index.fs" />
     <None Include="paket.references" />
   </ItemGroup>
-  <Import Project="..\..\.paket\Paket.Restore.targets" />
+  <Import Project="../../.paket/Paket.Restore.targets" />
 </Project>

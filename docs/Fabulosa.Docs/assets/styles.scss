@@ -6,6 +6,10 @@ html, body {
     min-height: 100vh;
 }
 
+p {
+    margin: 1rem 0rem !important;
+}
+
 // For some reason this isn't working with just spectre css
 .form-select {
     -webkit-appearance: none;
@@ -37,7 +41,6 @@ select::-ms-expand {
 
 .s-title {
     border-bottom: 1px solid #e7e7e7;
-    margin-bottom: 1rem !important;
     z-index: 99 !important;
 }
 
@@ -125,7 +128,7 @@ pre .fssniplink {
     overflow-x: auto;
     display: block;
     border-spacing: 0px;
-    margin-bottom: 10px;
+    /*margin: 1rem 0rem;*/
 }
 
 /* Optionally, also configure how the PRE element and TABLE.PRE look */
@@ -170,7 +173,7 @@ code, pre, pre code {
 }
 
 .demo {
-    margin-bottom: 1em;
+    padding: 1rem 0rem;
 }
 
 summary {
