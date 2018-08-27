@@ -91,12 +91,19 @@ let loading =
             State = Button.State.Loading
     } [R.str "------"]
 (**
+
+<div id="buttons">
+
 <h2 class="s-title">
     Buttons
 </h2>
 
 Buttons include simple button styles for
 actions in different types and sizes.
+
+</div>
+
+<div id="kinds">
 
 <h3 class="s-title">
     Kinds
@@ -114,6 +121,11 @@ Buttons can have kinds Default, Primary or Link.
 (*** include: button-kind-sample ***)
 
 (**
+
+</div>
+
+<div id="sizes">
+
 <h3 class="s-title">
     Sizes
 </h3>
@@ -130,6 +142,11 @@ Buttons can have sizes Small or Large.
 (*** include: button-size-sample ***)
 
 (**
+
+</div>
+
+<div id="colors">
+
 <h3 class="s-title">
     Colors
 </h3>
@@ -145,6 +162,11 @@ Buttons can have colors for Success and Error.
 (*** include: button-color-sample ***)
 
 (**
+
+</div>
+
+<div id="formats">
+
 <h3 class="s-title">
     Formats
 </h3>
@@ -160,6 +182,11 @@ Buttons can have formats of SquaredAction and RoundAction.
 (*** include: button-format-sample ***)
 
 (**
+
+</div>
+
+<div id="states">
+
 <h3 class="s-title">
     States
 </h3>
@@ -174,3 +201,7 @@ Buttons can have states of SquaredAction and RoundAction.
 *)
 
 (*** include: button-state-sample ***)
+
+(**
+</div>
+*)

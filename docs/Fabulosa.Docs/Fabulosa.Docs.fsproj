@@ -23,6 +23,7 @@
     <None Include="assets/styles.scss" />
     <None Include="assets/template.html" />
     <None Include="assets/docs.min.css" />
+    <None Include="assets/avatar-1.png" />
     <Compile Include="App.fs" />
     <ProjectReference Include="../../src/Fabulosa/Fabulosa.fsproj" />
   </ItemGroup>
