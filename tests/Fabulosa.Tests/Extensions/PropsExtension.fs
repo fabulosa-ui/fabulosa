@@ -149,7 +149,7 @@ module Seq =
     open System.Linq
     let equals a b = Enumerable.SequenceEqual(a, b)
 
-    let sortByToString = Seq.sortBy (fun elem -> elem.ToString())
+    let sortByToString = Seq.sortBy (fun elem -> elem |> string)
 
 module rec ReactNode =
 
