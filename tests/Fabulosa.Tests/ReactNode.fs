@@ -17,6 +17,7 @@ let extract = function
     | R.List elements -> ("", seq [], Seq.map nullElement elements)
     | R.Text str when str = "<NULL-NULL>" -> ("null", seq [Value str], seq [])
     | R.Text str -> ("str", seq [Value str], seq [])
+    | R.RawText str -> ("str", seq [Value str], seq [])
     | _ -> ("", seq [], seq [])
 
 let compareNode (subject: Fable.Import.React.ReactElement) node =
