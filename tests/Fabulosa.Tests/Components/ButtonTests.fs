@@ -7,7 +7,6 @@ open Fabulosa.Accordion
 open R.Props
 open Fabulosa.Tests.Extensions
 open Fabulosa.Tests.Extensions.ReactNode
-open Fabulosa.Tests.Extensions.TestNodeExtensions
 
 [<Tests>]
 let tests =

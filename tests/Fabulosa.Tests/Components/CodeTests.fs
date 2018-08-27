@@ -14,7 +14,7 @@ open System.Reflection
 [<Tests>]
 let tests =
     testList "Code tests" [
-        test "Code should be a react html node when defaults are provided" {
+        ptest "Code should be a react html node when defaults are provided" {
             let codeElement = Code.ƒ Code.defaults
             let data = Data ("lang", "F#")
             let innerCodeElement = R.code [DangerouslySetInnerHTML {__html = ""}] []
@@ -23,6 +23,7 @@ let tests =
             |> Expect.hasUniqueClassBind "code"
             |> Expect.containsPropBind data
             |> Expect.containsChild 1 innerCodeElement
+            |> ignore
         }
     ]
     
