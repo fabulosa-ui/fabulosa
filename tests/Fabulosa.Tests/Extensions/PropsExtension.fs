@@ -165,8 +165,8 @@ module rec ReactNode =
             | :? T as y ->
                 x.Kind = y.Kind &&
                 Seq.equals
-                    <| Seq.sortByToString x.Props
-                    <| Seq.sortByToString y.Props &&
+                <| Seq.sortByToString x.Props
+                <| Seq.sortByToString y.Props &&
                 Seq.equals x.Children y.Children
             | _ -> false
         override x.GetHashCode () =
@@ -180,11 +180,9 @@ module rec ReactNode =
     let lift (element: ReactElement) =
         let (kind, props, children) =
             element :?> HTMLNode |> extract
-        {
-            Kind = kind
-            Props = props
-            Children = Seq.map lift children
-        }
+        { Kind = kind
+          Props = props
+          Children = Seq.map lift children }
 
     let descendents node =
         let concat child =
