@@ -60,8 +60,8 @@ let tests =
 
             inputIcon
             |> ReactNode.unit
-            >>= hasClass "has-icon-left"
-            >>= hasChild 1 icon
+            |>! hasClass "has-icon-left"
+            |>! hasChild 1 icon
             |> hasChild 1 input
         }
 
@@ -69,10 +69,9 @@ let tests =
             let inputIcon =
                 IconInput.ƒ {
                     IconInput.defaults with
-                        IconProps = {
-                            Icon.defaults  with
-                                Kind = Icon.Kind.ArrowDown
-                        }
+                        IconProps =
+                            { Icon.defaults  with
+                                Kind = Icon.Kind.ArrowDown }
                 }
             let icon =
                 Icon.ƒ {
@@ -86,8 +85,8 @@ let tests =
 
             inputIcon
             |> ReactNode.unit
-            >>= hasClass "has-icon-left"
-            >>= hasChild 1 icon
+            |>! hasClass "has-icon-left"
+            |>! hasChild 1 icon
             |> hasChild 1 input
         }
 
@@ -95,10 +94,9 @@ let tests =
             let inputIcon =
                 IconInput.ƒ {
                     IconInput.defaults with
-                        IconProps = {
-                            Icon.defaults  with
-                                Size = Icon.Size.X2
-                        }
+                        IconProps =
+                            { Icon.defaults  with
+                                Size = Icon.Size.X2 }
                 }
             let icon =
                 Icon.ƒ {
@@ -112,8 +110,8 @@ let tests =
             
             inputIcon
             |> ReactNode.unit
-            >>= hasClass "has-icon-left"
-            >>= hasChild 1 icon
+            |>! hasClass "has-icon-left"
+            |>! hasChild 1 icon
             |> hasChild 1 input
         }
 
@@ -139,8 +137,8 @@ let tests =
             
             inputIcon
             |> ReactNode.unit
-            >>= hasClass "has-icon-left"
-            >>= hasChild 1 icon
+            |>! hasClass "has-icon-left"
+            |>! hasChild 1 icon
             |> hasChild 1 input
         }
 
@@ -153,7 +151,7 @@ let tests =
 
             inputGroup
             |> ReactNode.unit
-            >>= hasClass "input-group"
+            |>! hasClass "input-group"
             |> hasChild 1 (input |> ReactNode.unit)
         }
 
@@ -167,8 +165,8 @@ let tests =
 
             inputGroup
             |> ReactNode.unit
-            >>= hasClass "input-group"
-            >>= hasDescendentClass "input-group-addon"
+            |>! hasClass "input-group"
+            |>! hasDescendentClass "input-group-addon"
             |> hasChild 1 (input |> ReactNode.unit)
         }
 
@@ -190,9 +188,9 @@ let tests =
 
             inputGroup
             |> ReactNode.unit
-            >>= hasClass "input-group"
-            >>= hasDescendentClass "input-group-btn"
-            >>= hasChild 1 button
+            |>! hasClass "input-group"
+            |>! hasDescendentClass "input-group-btn"
+            |>! hasChild 1 button
             |> hasChild 1 (input |> ReactNode.unit)
         }
 
@@ -215,10 +213,10 @@ let tests =
 
             inputGroup
             |> ReactNode.unit
-            >>= hasClass "input-group"
-            >>= hasDescendentClass "input-group-addon"
-            >>= hasDescendentClass "input-group-btn"
-            >>= hasChild 1 button
+            |>! hasClass "input-group"
+            |>! hasDescendentClass "input-group-addon"
+            |>! hasDescendentClass "input-group-btn"
+            |>! hasChild 1 button
             |> hasChild 1 (input |> ReactNode.unit)
         }
 

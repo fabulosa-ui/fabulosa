@@ -46,7 +46,7 @@ let tests =
 
             label
             |> ReactNode.unit
-            >>= hasUniqueClass "form-label"
+            |>! hasUniqueClass "form-label"
             |> hasChild 1 text
         }
 

@@ -28,7 +28,7 @@ let tests =
             
             grid
             |> ReactNode.unit
-            >>= hasChild 1 (child |> ReactNode.unit)
+            |>! hasChild 1 (child |> ReactNode.unit)
             |> hasChild 1 (grandChild |> ReactNode.unit)
         }
 
@@ -40,7 +40,7 @@ let tests =
 
             grid
             |> ReactNode.unit
-            >>= hasChild 1 (child |> ReactNode.unit)
+            |>! hasChild 1 (child |> ReactNode.unit)
             |> hasChild 1 (grandChild |> ReactNode.unit)
         }
 
@@ -60,7 +60,7 @@ let tests =
             
             row
             |> ReactNode.unit
-            >>= hasChild 1 (child |> ReactNode.unit)
+            |>! hasChild 1 (child |> ReactNode.unit)
             |> hasChild 1 (grandChild |> ReactNode.unit)
         }
 
@@ -72,7 +72,7 @@ let tests =
 
             row
             |> ReactNode.unit
-            >>= hasChild 1 (child |> ReactNode.unit)
+            |>! hasChild 1 (child |> ReactNode.unit)
             |> hasChild 1 (grandChild |> ReactNode.unit)
         }
 
@@ -152,7 +152,7 @@ let tests =
 
             column
             |> ReactNode.unit
-            >>= hasChild 1 (child |> ReactNode.unit)
+            |>! hasChild 1 (child |> ReactNode.unit)
             |> hasChild 1 (grandChild |> ReactNode.unit)
         }
 
@@ -164,7 +164,7 @@ let tests =
 
             column
             |> ReactNode.unit
-            >>= hasChild 1 (child |> ReactNode.unit)
+            |>! hasChild 1 (child |> ReactNode.unit)
             |> hasChild 1 (grandChild |> ReactNode.unit)
         }
 

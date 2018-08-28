@@ -36,7 +36,7 @@ let tests =
             
             textarea
             |> ReactNode.unit
-            >>= hasChild 1 (child |> ReactNode.unit)
+            |>! hasChild 1 (child |> ReactNode.unit)
             |> hasChild 1 (grandChild |> ReactNode.unit)
         }
 
@@ -48,7 +48,7 @@ let tests =
             
             textarea
             |> ReactNode.unit
-            >>= hasChild 1 (child |> ReactNode.unit)
+            |>! hasChild 1 (child |> ReactNode.unit)
             |> hasChild 1 (grandChild |> ReactNode.unit)
         }
 

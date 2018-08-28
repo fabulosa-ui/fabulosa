@@ -16,7 +16,7 @@ let tests =
 
              button
              |> ReactNode.unit
-             >>= hasUniqueClass "btn"
+             |>! hasUniqueClass "btn"
              |> hasChild 1 (child |> ReactNode.unit)
          }
 
@@ -26,7 +26,7 @@ let tests =
 
              button
              |> ReactNode.unit 
-             >>= hasClass "btn btn-primary"
+             |>! hasClass "btn btn-primary"
              |> hasChild 1 (child |> ReactNode.unit)
          }
 
@@ -36,7 +36,7 @@ let tests =
 
              button
              |> ReactNode.unit
-             >>= hasClass "btn btn-link"
+             |>! hasClass "btn btn-link"
              |> hasChild 1 (child |> ReactNode.unit)
          }
 
@@ -46,7 +46,7 @@ let tests =
 
              button
              |> ReactNode.unit
-             >>= hasClass "btn btn-success"
+             |>! hasClass "btn btn-success"
              |> hasChild 1 (child |> ReactNode.unit)
          }
 
@@ -56,7 +56,7 @@ let tests =
 
              button
              |> ReactNode.unit
-             >>= hasClass "btn btn-error"
+             |>! hasClass "btn btn-error"
              |> hasChild 1 (child |> ReactNode.unit)
          }
 
@@ -66,7 +66,7 @@ let tests =
 
              button
              |> ReactNode.unit
-             >>= hasClass "btn btn-sm"
+             |>! hasClass "btn btn-sm"
              |> hasChild 1 (child |> ReactNode.unit)
          }
 
@@ -76,7 +76,7 @@ let tests =
 
              button
              |> ReactNode.unit
-             >>= hasClass "btn btn-lg"
+             |>! hasClass "btn btn-lg"
              |> hasChild 1 (child |> ReactNode.unit)
          }
 
@@ -86,7 +86,7 @@ let tests =
 
              button
              |> ReactNode.unit
-             >>= hasClass "btn disabled"
+             |>! hasClass "btn disabled"
              |> hasChild 1 (child |> ReactNode.unit)
          }
 
@@ -96,7 +96,7 @@ let tests =
 
              button
              |> ReactNode.unit
-             >>= hasClass "btn active"
+             |>! hasClass "btn active"
              |> hasChild 1 (child |> ReactNode.unit)
          }
 
@@ -106,7 +106,7 @@ let tests =
 
              button
              |> ReactNode.unit
-             >>= hasClass "btn loading"
+             |>! hasClass "btn loading"
              |> hasChild 1 (child |> ReactNode.unit)
          }
 
@@ -116,7 +116,7 @@ let tests =
 
              button
              |> ReactNode.unit
-             >>= hasClass "btn btn-action"
+             |>! hasClass "btn btn-action"
              |> hasChild 1 (child |> ReactNode.unit)
          }
 
@@ -126,7 +126,7 @@ let tests =
 
              button
              |> ReactNode.unit
-             >>= hasClass "btn btn-action circle"
+             |>! hasClass "btn btn-action circle"
              |> hasChild 1 (child |> ReactNode.unit)
          }
 
@@ -137,8 +137,8 @@ let tests =
 
              button
              |> ReactNode.unit
-             >>= hasClass "btn"
-             >>= hasChild 1 (child |> ReactNode.unit)
+             |>! hasClass "btn"
+             |>! hasChild 1 (child |> ReactNode.unit)
              |> hasChild 1 (grandChild |> ReactNode.unit)
          }
 
@@ -149,8 +149,8 @@ let tests =
 
              button
              |> ReactNode.unit
-             >>= hasClass "btn btn-sm"
-             >>= hasChild 1 (child |> ReactNode.unit)
+             |>! hasClass "btn btn-sm"
+             |>! hasChild 1 (child |> ReactNode.unit)
              |> hasChild 1 (grandChild |> ReactNode.unit)
          }
 

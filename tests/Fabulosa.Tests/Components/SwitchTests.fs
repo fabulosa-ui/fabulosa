@@ -25,9 +25,9 @@ let tests =
 
             switch
             |> ReactNode.unit
-            >>= hasUniqueClass "form-switch"
-            >>= hasChild 1 input
-            >>= hasChild 1 icon
+            |>! hasUniqueClass "form-switch"
+            |>! hasChild 1 input
+            |>! hasChild 1 icon
             |> hasChild 1 label
         }
 
@@ -40,7 +40,7 @@ let tests =
 
             switch
             |> ReactNode.unit
-            >>= hasUniqueClass "form-switch"
+            |>! hasUniqueClass "form-switch"
             |> hasChild 1 label
         }
 
@@ -50,7 +50,7 @@ let tests =
             
             switch
             |> ReactNode.unit
-            >>= hasUniqueClass "form-switch"
+            |>! hasUniqueClass "form-switch"
             |> hasDescendentClass "custom"
         }
 

@@ -25,9 +25,9 @@ let tests =
 
             checkbox
             |> ReactNode.unit
-            >>= hasUniqueClass "form-checkbox"
-            >>= hasChild 1 input
-            >>= hasChild 1 icon
+            |>! hasUniqueClass "form-checkbox"
+            |>! hasChild 1 input
+            |>! hasChild 1 icon
             |> hasChild 1 label
         }
 
@@ -49,7 +49,7 @@ let tests =
             
             checkbox
             |> ReactNode.unit
-            >>= hasUniqueClass "form-checkbox"
+            |>! hasUniqueClass "form-checkbox"
             |> hasChild 1 label
         }
 
@@ -64,7 +64,7 @@ let tests =
             
             checkbox
             |> ReactNode.unit
-            >>= hasUniqueClass "form-checkbox"
+            |>! hasUniqueClass "form-checkbox"
             |> hasChild 1 input
         }
 

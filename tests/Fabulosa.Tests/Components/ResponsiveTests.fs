@@ -16,7 +16,7 @@ let tests =
             
             responsiveElement
             |> ReactNode.unit
-            >>= hasClass "responsive"
+            |>! hasClass "responsive"
             |> hasChild 1 (child |> ReactNode.unit)
          }
 
@@ -27,7 +27,7 @@ let tests =
 
             responsiveElement
             |> ReactNode.unit
-            >>= hasClass "responsive hide-sm"
+            |>! hasClass "responsive hide-sm"
             |> hasChild 1 (child |> ReactNode.unit)
          }
 
@@ -38,7 +38,7 @@ let tests =
 
             responsiveElement
             |> ReactNode.unit
-            >>= hasClass "responsive show-lg"
+            |>! hasClass "responsive show-lg"
             |> hasChild 1 (child |> ReactNode.unit)
          }
 
@@ -50,7 +50,7 @@ let tests =
 
             responsiveElement
             |> ReactNode.unit
-            >>= hasChild 1 (child |> ReactNode.unit)
+            |>! hasChild 1 (child |> ReactNode.unit)
             |> hasChild 1 (grandChild |> ReactNode.unit)
          }
 
@@ -62,7 +62,7 @@ let tests =
 
             responsiveElement
             |> ReactNode.unit
-            >>= hasChild 1 (child |> ReactNode.unit)
+            |>! hasChild 1 (child |> ReactNode.unit)
             |> hasChild 1 (grandChild |> ReactNode.unit)
          }
     ]

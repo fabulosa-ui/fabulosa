@@ -13,7 +13,7 @@ let tests =
             
             tagElement
             |> ReactNode.unit
-            >>= hasClass "label" 
+            |>! hasClass "label" 
             |> hasText "Ronaldo 9"
         }
         
@@ -22,7 +22,7 @@ let tests =
             
             tagElement
             |> ReactNode.unit
-            >>= hasClass "label label-rounded" 
+            |>! hasClass "label label-rounded" 
             |> hasText "Ronaldo 9"
         }
        
@@ -31,7 +31,7 @@ let tests =
                                     
             tagElement
             |> ReactNode.unit
-            >>= hasUniqueClass "label" 
+            |>! hasUniqueClass "label" 
             |> hasText "Ronaldo 9"
         }
         
@@ -40,35 +40,35 @@ let tests =
             
             tagElement
             |> ReactNode.unit
-            >>= hasClass "label label-primary" 
+            |>! hasClass "label label-primary" 
             |> hasText "Ronaldo 9"
              
             let tagElement = Tag.ƒ { Tag.defaults with Color = Tag.Color.Secondary} [R.str "Ronaldo 9"]
             
             tagElement
             |> ReactNode.unit
-            >>= hasClass "label label-secondary" 
+            |>! hasClass "label label-secondary" 
             |> hasText "Ronaldo 9"
                         
             let tagElement = Tag.ƒ { Tag.defaults with Color = Tag.Color.Success} [R.str "Ronaldo 9"]
             
             tagElement
             |> ReactNode.unit
-            >>= hasClass "label label-success" 
+            |>! hasClass "label label-success" 
             |> hasText "Ronaldo 9"
             
             let tagElement = Tag.ƒ { Tag.defaults with Color = Tag.Color.Warning} [R.str "Ronaldo 9"]
             
             tagElement
             |> ReactNode.unit
-            >>= hasClass "label label-warning" 
+            |>! hasClass "label label-warning" 
             |> hasText "Ronaldo 9"
                         
             let tagElement = Tag.ƒ { Tag.defaults with Color = Tag.Color.Error} [R.str "Ronaldo 9"]
             
             tagElement
             |> ReactNode.unit
-            >>= hasClass "label label-error" 
+            |>! hasClass "label label-error" 
             |> hasText "Ronaldo 9"
         }
     ]

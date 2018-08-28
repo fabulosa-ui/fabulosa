@@ -15,7 +15,7 @@ let captionTest =
             
             captionElement
             |> ReactNode.unit
-            >>= hasClass "figure-caption text-center"
+            |>! hasClass "figure-caption text-center"
             |> hasText "" 
         }
        
@@ -28,8 +28,8 @@ let captionTest =
             
             captionElement
             |> ReactNode.unit
-            >>= hasClass "figure-caption text-center"
-            >>= hasProp (Id "offside-is-a-crime")
+            |>! hasClass "figure-caption text-center"
+            |>! hasProp (Id "offside-is-a-crime")
             |> hasText ""
         }
        
@@ -85,7 +85,7 @@ let captionTest =
 
             rootNode
             |> ReactNode.unit
-            >>= hasDescendentClass "figueirense"
+            |>! hasDescendentClass "figueirense"
             |> hasText text
         }
     ] 
@@ -152,8 +152,8 @@ let figureTests =
                 |> ReactNode.unit
             
             figure
-            >>= hasUniqueClass "figure"
-            >>= hasChild 1 caption 
+            |>! hasUniqueClass "figure"
+            |>! hasChild 1 caption 
             |> hasChild 1 image 
         }
    
@@ -193,8 +193,8 @@ let figureTests =
                 } |> ReactNode.unit
             
             figure
-            >>= hasUniqueClass "figure"
-            >>= hasChild 1 caption
+            |>! hasUniqueClass "figure"
+            |>! hasChild 1 caption
             |> hasChild 1 image
         }
     ]

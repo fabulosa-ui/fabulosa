@@ -54,7 +54,7 @@ let tests =
             
             select
             |> ReactNode.unit
-            >>= hasChild 1 (child |> ReactNode.unit)
+            |>! hasChild 1 (child |> ReactNode.unit)
             |> hasChild 1 (grandChild |> ReactNode.unit)
         }
 
@@ -66,7 +66,7 @@ let tests =
             
             select
             |> ReactNode.unit
-            >>= hasChild 1 (child |> ReactNode.unit)
+            |>! hasChild 1 (child |> ReactNode.unit)
             |> hasChild 1 (grandChild |> ReactNode.unit)
         }
 
@@ -97,7 +97,7 @@ let tests =
             
             option
             |> ReactNode.unit
-            >>= hasChild 1 (child |> ReactNode.unit)
+            |>! hasChild 1 (child |> ReactNode.unit)
             |> hasChild 1 (grandChild |> ReactNode.unit)
         }
 
@@ -109,7 +109,7 @@ let tests =
             
             option
             |> ReactNode.unit
-            >>= hasChild 1 (child |> ReactNode.unit)
+            |>! hasChild 1 (child |> ReactNode.unit)
             |> hasChild 1 (grandChild |> ReactNode.unit)
         }
 
@@ -140,7 +140,7 @@ let tests =
             
             optionGroup
             |> ReactNode.unit
-            >>= hasChild 1 (child |> ReactNode.unit)
+            |>! hasChild 1 (child |> ReactNode.unit)
             |> hasChild 1 (grandChild |> ReactNode.unit)
         }
 
@@ -156,7 +156,7 @@ let tests =
             
             optionGroup
             |> ReactNode.unit
-            >>= hasChild 1 (child |> ReactNode.unit)
+            |>! hasChild 1 (child |> ReactNode.unit)
             |> hasChild 1 (grandChild |> ReactNode.unit)
         }
 

@@ -50,7 +50,7 @@ let tests =
             
             table
             |> ReactNode.unit
-            >>= hasChild 1 (child |> ReactNode.unit)
+            |>! hasChild 1 (child |> ReactNode.unit)
             |> hasChild 1 (grandChild |> ReactNode.unit)
         }
 
@@ -62,7 +62,7 @@ let tests =
             
             table
             |> ReactNode.unit
-            >>= hasChild 1 (child |> ReactNode.unit)
+            |>! hasChild 1 (child |> ReactNode.unit)
             |> hasChild 1 (grandChild |> ReactNode.unit)
         }
 
@@ -86,7 +86,7 @@ let tests =
             
             head
             |> ReactNode.unit
-            >>= hasChild 1 (child |> ReactNode.unit)
+            |>! hasChild 1 (child |> ReactNode.unit)
             |> hasChild 1 (grandChild |> ReactNode.unit)
         }
 
@@ -110,7 +110,7 @@ let tests =
             
             body
             |> ReactNode.unit
-            >>= hasChild 1 (child |> ReactNode.unit)
+            |>! hasChild 1 (child |> ReactNode.unit)
             |> hasChild 1 (grandChild |> ReactNode.unit)
         }
 
@@ -134,7 +134,7 @@ let tests =
             
             row
             |> ReactNode.unit
-            >>= hasChild 1 (child |> ReactNode.unit)
+            |>! hasChild 1 (child |> ReactNode.unit)
             |> hasChild 1 (grandChild |> ReactNode.unit)
         }
 
@@ -170,7 +170,7 @@ let tests =
             
             column
             |> ReactNode.unit
-            >>= hasChild 1 (child |> ReactNode.unit)
+            |>! hasChild 1 (child |> ReactNode.unit)
             |> hasChild 1 (grandChild |> ReactNode.unit)
         }
 
@@ -194,7 +194,7 @@ let tests =
             
             titleColumn
             |> ReactNode.unit
-            >>= hasChild 1 (child |> ReactNode.unit)
+            |>! hasChild 1 (child |> ReactNode.unit)
             |> hasChild 1 (grandChild |> ReactNode.unit)
         }
     ]

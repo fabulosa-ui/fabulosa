@@ -25,9 +25,9 @@ let tests =
             
             radio
             |> ReactNode.unit
-            >>= hasUniqueClass "form-radio"
-            >>= hasChild 1 input
-            >>= hasChild 1 icon
+            |>! hasUniqueClass "form-radio"
+            |>! hasChild 1 input
+            |>! hasChild 1 icon
             |> hasChild 1 label
         }
 
@@ -49,7 +49,7 @@ let tests =
             
             radio
             |> ReactNode.unit
-            >>= hasUniqueClass "form-radio"
+            |>! hasUniqueClass "form-radio"
             |> hasChild 1 text
         }
 
@@ -59,7 +59,7 @@ let tests =
             
             radio
             |> ReactNode.unit
-            >>= hasUniqueClass "form-radio"
+            |>! hasUniqueClass "form-radio"
             |> hasDescendentClass "custom"
         }
 
