@@ -4,8 +4,6 @@ open Expecto
 open Fabulosa
 module R = Fable.Helpers.React
 open R.Props
-open Fabulosa.Tests.Extensions
-open Fabulosa.Tests.Extensions.ReactNode
 
 [<Tests>]
 let tests =

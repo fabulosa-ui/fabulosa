@@ -2,7 +2,6 @@ module NavbarTests
 
 open Expecto
 open Fabulosa
-open Fabulosa.Tests.Extensions
 
 [<Tests>]
 let tests =

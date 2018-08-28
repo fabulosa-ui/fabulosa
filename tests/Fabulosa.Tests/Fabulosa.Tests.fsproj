@@ -6,8 +6,9 @@
     <TargetFramework>netcoreapp2.1</TargetFramework>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="ReactNodeElement.fs" />
     <Compile Include="ReactNode.fs" />
-    <Compile Include="Extensions/PropsExtension.fs" />
+    <Compile Include="ReactNodeTests.fs" />
     <Compile Include="Extensions/ExpectoExtension.fs" />
     <Compile Include="Components/ResponsiveTests.fs" />
     <Compile Include="Components/NavbarTests.fs" />
@@ -26,7 +27,7 @@
     <Compile Include="Components/SelectTests.fs" />
     <Compile Include="Components/MediaTests.fs" />
     <Compile Include="Main.fs" />
-    <None Include="paket.references" />
+    <None Include="paket.references" />   
     <ProjectReference Include="../../src/Fabulosa/Fabulosa.fsproj" />
   </ItemGroup>
   <Import Project="../../.paket/Paket.Restore.targets" />

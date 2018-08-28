@@ -5,7 +5,6 @@ open ReactNode
 open Fable.Helpers.React.Props
 open Fabulosa
 module R = Fable.Helpers.React
-open Fabulosa.Tests.Extensions
 
 
 [<Tests>]

@@ -5,8 +5,6 @@ open Fabulosa
 module R = Fable.Helpers.React
 open R.Props
 open Fable.Import.React
-open Fabulosa.Tests.Extensions
-open Fabulosa.Tests.Extensions
 
 [<Tests>]
 let captionTest =

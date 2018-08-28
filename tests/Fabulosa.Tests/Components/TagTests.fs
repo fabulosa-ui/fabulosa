@@ -3,7 +3,6 @@ module TagTests
 open Expecto
 open Fabulosa
 module R = Fable.Helpers.React
-open Fabulosa.Tests.Extensions
 
 [<Tests>]
 let tests =
