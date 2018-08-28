@@ -13,10 +13,11 @@ let tests =
             let child = R.str "text"
             let props = Responsive.defaults
             let responsiveElement = Responsive.ƒ props [child]
+            
             responsiveElement
             |> ReactNode.unit
-            >>= containsClassName "responsive"
-            |> containsChild 1 (child |> ReactNode.unit)
+            >>= hasClass "responsive"
+            |> hasChild 1 (child |> ReactNode.unit)
          }
 
          test "Responsive hide small" {
@@ -26,8 +27,8 @@ let tests =
 
             responsiveElement
             |> ReactNode.unit
-            >>= containsClassName "responsive hide-sm"
-            |> containsChild 1 (child |> ReactNode.unit)
+            >>= hasClass "responsive hide-sm"
+            |> hasChild 1 (child |> ReactNode.unit)
          }
 
          test "Responsive show large" {
@@ -37,8 +38,8 @@ let tests =
 
             responsiveElement
             |> ReactNode.unit
-            >>= containsClassName "responsive show-lg"
-            |> containsChild 1 (child |> ReactNode.unit)
+            >>= hasClass "responsive show-lg"
+            |> hasChild 1 (child |> ReactNode.unit)
          }
 
          test "Responsive children with name" {
@@ -49,8 +50,8 @@ let tests =
 
             responsiveElement
             |> ReactNode.unit
-            >>= containsChild 1 (child |> ReactNode.unit)
-            |> containsChild 1 (grandChild |> ReactNode.unit)
+            >>= hasChild 1 (child |> ReactNode.unit)
+            |> hasChild 1 (grandChild |> ReactNode.unit)
          }
 
          test "Responsive children with class" {
@@ -61,7 +62,7 @@ let tests =
 
             responsiveElement
             |> ReactNode.unit
-            >>= containsChild 1 (child |> ReactNode.unit)
-            |> containsChild 1 (grandChild |> ReactNode.unit)
+            >>= hasChild 1 (child |> ReactNode.unit)
+            |> hasChild 1 (grandChild |> ReactNode.unit)
          }
     ]

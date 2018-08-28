@@ -17,7 +17,7 @@ let tests =
              button
              |> ReactNode.unit
              >>= hasUniqueClass "btn"
-             |> containsChild 1 (child |> ReactNode.unit)
+             |> hasChild 1 (child |> ReactNode.unit)
          }
 
          test "Button kind primary" {
@@ -26,8 +26,8 @@ let tests =
 
              button
              |> ReactNode.unit 
-             >>= containsClassName "btn btn-primary"
-             |> containsChild 1 (child |> ReactNode.unit)
+             >>= hasClass "btn btn-primary"
+             |> hasChild 1 (child |> ReactNode.unit)
          }
 
          test "Button kind link" {
@@ -36,8 +36,8 @@ let tests =
 
              button
              |> ReactNode.unit
-             >>= containsClassName "btn btn-link"
-             |> containsChild 1 (child |> ReactNode.unit)
+             >>= hasClass "btn btn-link"
+             |> hasChild 1 (child |> ReactNode.unit)
          }
 
          test "Button color success" {
@@ -46,8 +46,8 @@ let tests =
 
              button
              |> ReactNode.unit
-             >>= containsClassName "btn btn-success"
-             |> containsChild 1 (child |> ReactNode.unit)
+             >>= hasClass "btn btn-success"
+             |> hasChild 1 (child |> ReactNode.unit)
          }
 
          test "Button color error" {
@@ -56,8 +56,8 @@ let tests =
 
              button
              |> ReactNode.unit
-             >>= containsClassName "btn btn-error"
-             |> containsChild 1 (child |> ReactNode.unit)
+             >>= hasClass "btn btn-error"
+             |> hasChild 1 (child |> ReactNode.unit)
          }
 
          test "Button size small" {
@@ -66,8 +66,8 @@ let tests =
 
              button
              |> ReactNode.unit
-             >>= containsClassName "btn btn-sm"
-             |> containsChild 1 (child |> ReactNode.unit)
+             >>= hasClass "btn btn-sm"
+             |> hasChild 1 (child |> ReactNode.unit)
          }
 
          test "Button size large" {
@@ -76,8 +76,8 @@ let tests =
 
              button
              |> ReactNode.unit
-             >>= containsClassName "btn btn-lg"
-             |> containsChild 1 (child |> ReactNode.unit)
+             >>= hasClass "btn btn-lg"
+             |> hasChild 1 (child |> ReactNode.unit)
          }
 
          test "Button state disabled" {
@@ -86,8 +86,8 @@ let tests =
 
              button
              |> ReactNode.unit
-             >>= containsClassName "btn disabled"
-             |> containsChild 1 (child |> ReactNode.unit)
+             >>= hasClass "btn disabled"
+             |> hasChild 1 (child |> ReactNode.unit)
          }
 
          test "Button state active" {
@@ -96,8 +96,8 @@ let tests =
 
              button
              |> ReactNode.unit
-             >>= containsClassName "btn active"
-             |> containsChild 1 (child |> ReactNode.unit)
+             >>= hasClass "btn active"
+             |> hasChild 1 (child |> ReactNode.unit)
          }
 
          test "Button state loading" {
@@ -106,8 +106,8 @@ let tests =
 
              button
              |> ReactNode.unit
-             >>= containsClassName "btn loading"
-             |> containsChild 1 (child |> ReactNode.unit)
+             >>= hasClass "btn loading"
+             |> hasChild 1 (child |> ReactNode.unit)
          }
 
          test "Button format squared action" {
@@ -116,8 +116,8 @@ let tests =
 
              button
              |> ReactNode.unit
-             >>= containsClassName "btn btn-action"
-             |> containsChild 1 (child |> ReactNode.unit)
+             >>= hasClass "btn btn-action"
+             |> hasChild 1 (child |> ReactNode.unit)
          }
 
          test "Button format round action" {
@@ -126,8 +126,8 @@ let tests =
 
              button
              |> ReactNode.unit
-             >>= containsClassName "btn btn-action circle"
-             |> containsChild 1 (child |> ReactNode.unit)
+             >>= hasClass "btn btn-action circle"
+             |> hasChild 1 (child |> ReactNode.unit)
          }
 
          test "Button children with name" {
@@ -137,9 +137,9 @@ let tests =
 
              button
              |> ReactNode.unit
-             >>= containsClassName "btn"
-             >>= containsChild 1 (child |> ReactNode.unit)
-             |> containsChild 1 (grandChild |> ReactNode.unit)
+             >>= hasClass "btn"
+             >>= hasChild 1 (child |> ReactNode.unit)
+             |> hasChild 1 (grandChild |> ReactNode.unit)
          }
 
          test "Button children with class" {
@@ -149,9 +149,9 @@ let tests =
 
              button
              |> ReactNode.unit
-             >>= containsClassName "btn btn-sm"
-             >>= containsChild 1 (child |> ReactNode.unit)
-             |> containsChild 1 (grandChild |> ReactNode.unit)
+             >>= hasClass "btn btn-sm"
+             >>= hasChild 1 (child |> ReactNode.unit)
+             |> hasChild 1 (grandChild |> ReactNode.unit)
          }
 
     ]

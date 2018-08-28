@@ -26,9 +26,9 @@ let tests =
             checkbox
             |> ReactNode.unit
             >>= hasUniqueClass "form-checkbox"
-            >>= containsChild 1 input
-            >>= containsChild 1 icon
-            |> containsChild 1 label
+            >>= hasChild 1 input
+            >>= hasChild 1 icon
+            |> hasChild 1 label
         }
 
         test "Checkbox inline" {
@@ -37,7 +37,7 @@ let tests =
 
             checkbox
             |> ReactNode.unit
-            |> containsClassName "form-checkbox form-inline"
+            |> hasClass "form-checkbox form-inline"
         }
 
         test "Checkbox text" {
@@ -50,7 +50,7 @@ let tests =
             checkbox
             |> ReactNode.unit
             >>= hasUniqueClass "form-checkbox"
-            |> containsChild 1 label
+            |> hasChild 1 label
         }
 
         test "Checkbox html props" {
@@ -65,7 +65,7 @@ let tests =
             checkbox
             |> ReactNode.unit
             >>= hasUniqueClass "form-checkbox"
-            |> containsChild 1 input
+            |> hasChild 1 input
         }
 
     ]

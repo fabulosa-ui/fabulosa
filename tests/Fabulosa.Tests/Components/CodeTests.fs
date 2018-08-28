@@ -20,8 +20,8 @@ let tests =
             codeElement
             |> ReactNode.unit
             >>= hasUniqueClass "code"
-            >>= containsProp data
-            |> Expect.containsChild 1 innerCodeElement
+            >>= hasProp data
+            |> Expect.hasChild 1 innerCodeElement
         }
     ]
     

@@ -28,8 +28,8 @@ let tests =
             
             grid
             |> ReactNode.unit
-            >>= containsChild 1 (child |> ReactNode.unit)
-            |> containsChild 1 (grandChild |> ReactNode.unit)
+            >>= hasChild 1 (child |> ReactNode.unit)
+            |> hasChild 1 (grandChild |> ReactNode.unit)
         }
 
         test "Grid children with class" {
@@ -40,8 +40,8 @@ let tests =
 
             grid
             |> ReactNode.unit
-            >>= containsChild 1 (child |> ReactNode.unit)
-            |> containsChild 1 (grandChild |> ReactNode.unit)
+            >>= hasChild 1 (child |> ReactNode.unit)
+            |> hasChild 1 (grandChild |> ReactNode.unit)
         }
 
         test "Row default" {
@@ -60,8 +60,8 @@ let tests =
             
             row
             |> ReactNode.unit
-            >>= containsChild 1 (child |> ReactNode.unit)
-            |> containsChild 1 (grandChild |> ReactNode.unit)
+            >>= hasChild 1 (child |> ReactNode.unit)
+            |> hasChild 1 (grandChild |> ReactNode.unit)
         }
 
         test "Row children with class" {
@@ -72,8 +72,8 @@ let tests =
 
             row
             |> ReactNode.unit
-            >>= containsChild 1 (child |> ReactNode.unit)
-            |> containsChild 1 (grandChild |> ReactNode.unit)
+            >>= hasChild 1 (child |> ReactNode.unit)
+            |> hasChild 1 (grandChild |> ReactNode.unit)
         }
 
         test "Row gapless" {
@@ -85,7 +85,7 @@ let tests =
             
             row
             |> ReactNode.unit
-            |> containsClassName "columns col-gapless"
+            |> hasClass "columns col-gapless"
         }
 
         test "Row one line" {
@@ -97,7 +97,7 @@ let tests =
 
             row
             |> ReactNode.unit
-            |> containsClassName "columns col-oneline"
+            |> hasClass "columns col-oneline"
         }
 
         test "Column default" {
@@ -105,7 +105,7 @@ let tests =
 
             column
             |> ReactNode.unit
-            |> containsClassName "column col-12 col-xs-0 col-sm-0 col-md-0 col-lg-0 col-xl-0"
+            |> hasClass "column col-12 col-xs-0 col-sm-0 col-md-0 col-lg-0 col-xl-0"
         }
 
         test "Column size" {
@@ -117,7 +117,7 @@ let tests =
 
             column
             |> ReactNode.unit
-            |> containsClassName "col-4"
+            |> hasClass "col-4"
         }
 
         test "Column medium size" {
@@ -129,7 +129,7 @@ let tests =
 
             column
             |> ReactNode.unit
-            |> containsClassName "col-md-4"
+            |> hasClass "col-md-4"
         }
 
         test "Column kind" {
@@ -141,7 +141,7 @@ let tests =
 
             column
             |> ReactNode.unit
-            |> containsClassName "col-ml-auto"
+            |> hasClass "col-ml-auto"
         }
 
         test "Column children with name" {
@@ -152,8 +152,8 @@ let tests =
 
             column
             |> ReactNode.unit
-            >>= containsChild 1 (child |> ReactNode.unit)
-            |> containsChild 1 (grandChild |> ReactNode.unit)
+            >>= hasChild 1 (child |> ReactNode.unit)
+            |> hasChild 1 (grandChild |> ReactNode.unit)
         }
 
         test "Column children with class" {
@@ -164,8 +164,8 @@ let tests =
 
             column
             |> ReactNode.unit
-            >>= containsChild 1 (child |> ReactNode.unit)
-            |> containsChild 1 (grandChild |> ReactNode.unit)
+            >>= hasChild 1 (child |> ReactNode.unit)
+            |> hasChild 1 (grandChild |> ReactNode.unit)
         }
 
     ]

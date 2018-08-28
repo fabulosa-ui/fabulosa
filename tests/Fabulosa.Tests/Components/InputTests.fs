@@ -25,7 +25,7 @@ let tests =
 
             input
             |> ReactNode.unit
-            |> containsClassName "input-sm"
+            |> hasClass "input-sm"
         }
 
         test "Input size large" {
@@ -34,7 +34,7 @@ let tests =
             
             input
             |> ReactNode.unit
-            |> containsClassName "input-lg"
+            |> hasClass "input-lg"
         }
 
         test "Input html props" {
@@ -43,7 +43,7 @@ let tests =
 
             input
             |> ReactNode.unit
-            |> containsClassName "custom"
+            |> hasClass "custom"
         }
 
         test "IconInput default" {
@@ -60,9 +60,9 @@ let tests =
 
             inputIcon
             |> ReactNode.unit
-            >>= containsClassName "has-icon-left"
-            >>= containsChild 1 icon
-            |> containsChild 1 input
+            >>= hasClass "has-icon-left"
+            >>= hasChild 1 icon
+            |> hasChild 1 input
         }
 
         test "IconInput with icon kind" {
@@ -86,9 +86,9 @@ let tests =
 
             inputIcon
             |> ReactNode.unit
-            >>= containsClassName "has-icon-left"
-            >>= containsChild 1 icon
-            |> containsChild 1 input
+            >>= hasClass "has-icon-left"
+            >>= hasChild 1 icon
+            |> hasChild 1 input
         }
 
         test "IconInput with icon size" {
@@ -112,9 +112,9 @@ let tests =
             
             inputIcon
             |> ReactNode.unit
-            >>= containsClassName "has-icon-left"
-            >>= containsChild 1 icon
-            |> containsChild 1 input
+            >>= hasClass "has-icon-left"
+            >>= hasChild 1 icon
+            |> hasChild 1 input
         }
 
         test "IconInput with input size" {
@@ -139,9 +139,9 @@ let tests =
             
             inputIcon
             |> ReactNode.unit
-            >>= containsClassName "has-icon-left"
-            >>= containsChild 1 icon
-            |> containsChild 1 input
+            >>= hasClass "has-icon-left"
+            >>= hasChild 1 icon
+            |> hasChild 1 input
         }
 
         test "InputGroup default" {
@@ -153,8 +153,8 @@ let tests =
 
             inputGroup
             |> ReactNode.unit
-            >>= containsClassName "input-group"
-            |> containsChild 1 (input |> ReactNode.unit)
+            >>= hasClass "input-group"
+            |> hasChild 1 (input |> ReactNode.unit)
         }
 
         test "InputGroup left addon" {
@@ -167,9 +167,9 @@ let tests =
 
             inputGroup
             |> ReactNode.unit
-            >>= containsClassName "input-group"
-            >>= containsDescedentClassName "input-group-addon"
-            |> containsChild 1 (input |> ReactNode.unit)
+            >>= hasClass "input-group"
+            >>= hasDescendentClass "input-group-addon"
+            |> hasChild 1 (input |> ReactNode.unit)
         }
 
         test "InputGroup right addon" {
@@ -190,10 +190,10 @@ let tests =
 
             inputGroup
             |> ReactNode.unit
-            >>= containsClassName "input-group"
-            >>= containsDescedentClassName "input-group-btn"
-            >>= containsChild 1 button
-            |> containsChild 1 (input |> ReactNode.unit)
+            >>= hasClass "input-group"
+            >>= hasDescendentClass "input-group-btn"
+            >>= hasChild 1 button
+            |> hasChild 1 (input |> ReactNode.unit)
         }
 
         test "InputGroup left and right addon" {
@@ -215,11 +215,11 @@ let tests =
 
             inputGroup
             |> ReactNode.unit
-            >>= containsClassName "input-group"
-            >>= containsDescedentClassName "input-group-addon"
-            >>= containsDescedentClassName "input-group-btn"
-            >>= containsChild 1 button
-            |> containsChild 1 (input |> ReactNode.unit)
+            >>= hasClass "input-group"
+            >>= hasDescendentClass "input-group-addon"
+            >>= hasDescendentClass "input-group-btn"
+            >>= hasChild 1 button
+            |> hasChild 1 (input |> ReactNode.unit)
         }
 
     ]

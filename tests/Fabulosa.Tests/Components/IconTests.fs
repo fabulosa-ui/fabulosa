@@ -25,7 +25,7 @@ let tests =
 
             icon
             |> ReactNode.unit
-            |> containsClassName "icon-2x"
+            |> hasClass "icon-2x"
         }
 
         test "Icon size x3" {
@@ -34,7 +34,7 @@ let tests =
 
             icon
             |> ReactNode.unit
-            |> containsClassName "icon-3x"
+            |> hasClass "icon-3x"
         }
 
         test "Icon size x4" {
@@ -43,7 +43,7 @@ let tests =
 
             icon
             |> ReactNode.unit
-            |> containsClassName "icon-4x"
+            |> hasClass "icon-4x"
         }
 
         test "Icon kind" {
@@ -52,7 +52,7 @@ let tests =
 
             icon
             |> ReactNode.unit
-            |> containsClassName "icon-apps"
+            |> hasClass "icon-apps"
         }
 
         test "Icon html props" {
@@ -61,7 +61,7 @@ let tests =
 
             icon
             |> ReactNode.unit
-            |> containsClassName "custom"
+            |> hasClass "custom"
         }
 
     ]
