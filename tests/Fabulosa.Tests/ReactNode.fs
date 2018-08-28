@@ -3,7 +3,9 @@ module ReactNode
     open System.Linq
     open Fable.Import.React
     module R = Fable.Helpers.React
+    open Fabulosa
     open Fabulosa.Extensions
+    open ClassNames
     open R.Props
 
     let stringEquals a b =
@@ -50,28 +52,23 @@ module ReactNode
         |> Seq.collect concat
         
     let className node =
+        let classes =
+            function
+            | ClassName c -> Some c
+            | _ -> None
         node.Props
-        |> Seq.map
-            (fun p ->
-                match p with
-                | :? HTMLAttr as htmlAttr -> 
-                  match htmlAttr with
-                  | ClassName c -> Some c
-                  | _ -> None
-                | _ -> None)
+        |> Seq.choose htmlAttrs
+        |> Seq.map classes
         |> Seq.choose id
         |> Seq.join " "
             
-    let find child node = 
+    let find child node =
+        let same x = x = child
         node 
         |> descendents
-        |> Seq.filter (fun x -> x = child)
+        |> Seq.filter same
 
     let rec text node =
-        let htmlAttrs (prop: IProp) =
-            match prop with
-            | :? HTMLAttr as htmlAttr -> Some htmlAttr
-            | _ -> None
         let value =
             function
             | Value value -> Some value
@@ -79,9 +76,10 @@ module ReactNode
         let childrenText = Seq.map text node.Children
         match node.Kind with
         | "<STRING>" ->
-            let nodeText =
-                Seq.choose htmlAttrs node.Props
-                  |> Seq.choose value
-            Seq.append nodeText childrenText |> String.concat " "
+            node.Props
+            |> Seq.choose htmlAttrs 
+            |> Seq.choose value
+            |> Seq.append childrenText
+            |> String.concat " "
         | _ ->  String.concat " " childrenText
         

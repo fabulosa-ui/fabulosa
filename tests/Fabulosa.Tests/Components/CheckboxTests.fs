@@ -4,38 +4,68 @@ open Expecto
 open Fabulosa
 module R = Fable.Helpers.React
 open R.Props
+open Expect
 
 [<Tests>]
 let tests =
     testList "Checkbox tests" [
 
-        // test "Checkbox default" {
-        //     let props = Checkbox.defaults
-        //     let checkbox = Checkbox.ƒ props
-        //     checkbox |> hasClasses ["form-checkbox"]
-        //     checkbox |> hasDescendent (R.input [Type "checkbox"])
-        //     checkbox |> hasDescendent (R.i [ClassName "form-icon"] [])
-        //     checkbox |> hasDescendent (R.str "Label")
-        // }
+        test "Checkbox default" {
+            let props = Checkbox.defaults
+            let checkbox = Checkbox.ƒ props
+            let input =
+                R.input [Type "checkbox"]
+                |> ReactNode.unit
+            let icon =
+                R.i [ClassName "form-icon"] []
+                |> ReactNode.unit
+            let label =
+                R.str "Label"
+                |> ReactNode.unit
 
-        // test "Checkbox inline" {
-        //     let props = { Checkbox.defaults with Inline = true }
-        //     let checkbox = Checkbox.ƒ props
-        //     checkbox |> hasClasses ["form-checkbox"; "form-inline"]
-        // }
+            checkbox
+            |> ReactNode.unit
+            >>= hasUniqueClass "form-checkbox"
+            >>= containsChild 1 input
+            >>= containsChild 1 icon
+            |> containsChild 1 label
+        }
 
-        // test "Checkbox text" {
-        //     let props = { Checkbox.defaults with Text = "custom" }
-        //     let checkbox = Checkbox.ƒ props
-        //     checkbox |> hasClasses ["form-checkbox"]
-        //     checkbox |> hasDescendent (R.str "custom")
-        // }
+        test "Checkbox inline" {
+            let props = { Checkbox.defaults with Inline = true }
+            let checkbox = Checkbox.ƒ props
 
-        // test "Checkbox html props" {
-        //     let props = { Checkbox.defaults with HTMLProps = [ClassName "custom"] }
-        //     let checkbox = Checkbox.ƒ props
-        //     checkbox |> hasClasses ["form-checkbox"]
-        //     checkbox |> hasDescendent (R.input [ClassName "custom"])
-        // }
+            checkbox
+            |> ReactNode.unit
+            |> containsClassName "form-checkbox form-inline"
+        }
+
+        test "Checkbox text" {
+            let props = { Checkbox.defaults with Text = "custom" }
+            let checkbox = Checkbox.ƒ props
+            let label =
+                R.str "custom"
+                |> ReactNode.unit
+            
+            checkbox
+            |> ReactNode.unit
+            >>= hasUniqueClass "form-checkbox"
+            |> containsChild 1 label
+        }
+
+        test "Checkbox html props" {
+            let props = { Checkbox.defaults with HTMLProps = [ClassName "custom"] }
+            let checkbox = Checkbox.ƒ props
+            let input =
+                R.input
+                    [ ClassName "custom"
+                      Type "checkbox" ]
+                |> ReactNode.unit
+            
+            checkbox
+            |> ReactNode.unit
+            >>= hasUniqueClass "form-checkbox"
+            |> containsChild 1 input
+        }
 
     ]

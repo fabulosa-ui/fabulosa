@@ -17,6 +17,11 @@ module ClassNames =
     let concatStrings =
         List.choose nonEmpty >> String.concat " "
 
+    let htmlAttrs (prop: IProp) =
+        match prop with
+        | :? HTMLAttr as htmlAttr -> Some htmlAttr
+        | _ -> None
+
     let appendToClassName htmlAttr newClassName =
         match htmlAttr with
         | ClassName className ->

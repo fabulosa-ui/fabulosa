@@ -133,7 +133,7 @@ module Grid =
 
         let xlSize: LGSize -> string =
              function
-             | n -> "col-lg-" + string n
+             | n -> "col-xl-" + string n
 
         let defaults = {
             Props.Kind = Kind.Unset

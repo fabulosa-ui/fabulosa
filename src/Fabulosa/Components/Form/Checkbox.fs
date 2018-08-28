@@ -5,6 +5,7 @@ module Checkbox =
 
     module R = Fable.Helpers.React
     open R.Props
+    open ClassNames
 
     [<RequireQualifiedAccess>]
     type Inline = bool
@@ -30,7 +31,7 @@ module Checkbox =
     let ƒ (props: Props) =
         let containerClasses = [
             "form-checkbox"
-            inlineCheckbox props.Inline ] |> String.concat " "
+            inlineCheckbox props.Inline ] |> concatStrings
         R.label [ClassName containerClasses] [
             R.input <| props.HTMLProps @ [Type "checkbox"]
             R.i [ClassName "form-icon"] []

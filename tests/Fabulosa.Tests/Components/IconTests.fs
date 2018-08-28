@@ -4,55 +4,64 @@ open Expecto
 open Fabulosa
 module R = Fable.Helpers.React
 open R.Props
+open Expect
 
 [<Tests>]
 let tests =
     testList "Icon tests" [
 
-        // test "Icon default" {
-        //     let props = Icon.defaults
-        //     let icon = Icon.ƒ props []
-        //     icon |> hasClasses ["icon"]
-        // }
+        test "Icon default" {
+            let props = Icon.defaults
+            let icon = Icon.ƒ props []
 
-        // test "Icon size x2" {
-        //     let props = { Icon.defaults with Size = Icon.Size.X2 }
-        //     let icon = Icon.ƒ props []
-        //     icon |> hasClasses ["icon"; "icon-2x"]
-        // }
+            icon
+            |> ReactNode.unit
+            |> hasUniqueClass "icon"
+        }
 
-        // test "Icon size x3" {
-        //     let props = { Icon.defaults with Size = Icon.Size.X3 }
-        //     let icon = Icon.ƒ props []
-        //     icon |> hasClasses ["icon"; "icon-3x"]
-        // }
+        test "Icon size x2" {
+            let props = { Icon.defaults with Size = Icon.Size.X2 }
+            let icon = Icon.ƒ props []
 
-        // test "Icon size x4" {
-        //     let props = { Icon.defaults with Size = Icon.Size.X4 }
-        //     let icon = Icon.ƒ props []
-        //     icon |> hasClasses ["icon"; "icon-4x"]
-        // }
+            icon
+            |> ReactNode.unit
+            |> containsClassName "icon-2x"
+        }
 
-        // test "Icon kind" {
-        //     let props = { Icon.defaults with Kind = Icon.Kind.Apps }
-        //     let icon = Icon.ƒ props []
-        //     icon |> hasClasses ["icon-apps"]
-        // }
+        test "Icon size x3" {
+            let props = { Icon.defaults with Size = Icon.Size.X3 }
+            let icon = Icon.ƒ props []
 
-        // test "Icon html props" {
-        //     let props = { Icon.defaults with HTMLProps = [ClassName "custom"] }
-        //     let icon = Icon.ƒ props []
-        //     icon |> hasClasses ["icon"; "custom"]
-        // }
+            icon
+            |> ReactNode.unit
+            |> containsClassName "icon-3x"
+        }
 
-        // test "IconInput default" {
-        //     let props = IconInput.defaults
-        //     let inputIcon = IconInput.ƒ props
-        //     let icon = Icon.ƒ { Icon.defaults with HTMLProps = [ClassName "form-icon"] } []
-        //     let input = Input.ƒ Input.defaults
-        //     inputIcon |> hasClasses ["has-icon-left"]
-        //     inputIcon |> hasDescendent icon
-        //     inputIcon |> hasDescendent input
-        // }
+        test "Icon size x4" {
+            let props = { Icon.defaults with Size = Icon.Size.X4 }
+            let icon = Icon.ƒ props []
+
+            icon
+            |> ReactNode.unit
+            |> containsClassName "icon-4x"
+        }
+
+        test "Icon kind" {
+            let props = { Icon.defaults with Kind = Icon.Kind.Apps }
+            let icon = Icon.ƒ props []
+
+            icon
+            |> ReactNode.unit
+            |> containsClassName "icon-apps"
+        }
+
+        test "Icon html props" {
+            let props = { Icon.defaults with HTMLProps = [ClassName "custom"] }
+            let icon = Icon.ƒ props []
+
+            icon
+            |> ReactNode.unit
+            |> containsClassName "custom"
+        }
 
     ]

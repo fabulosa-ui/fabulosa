@@ -15,8 +15,8 @@ let tests =
             let responsiveElement = Responsive.ƒ props [child]
             responsiveElement
             |> ReactNode.unit
-            >>= Expect.containsClassName "responsive"
-            |> Expect.containsChild 1 (child |> ReactNode.unit)
+            >>= containsClassName "responsive"
+            |> containsChild 1 (child |> ReactNode.unit)
          }
 
          test "Responsive hide small" {
@@ -26,8 +26,8 @@ let tests =
 
             responsiveElement
             |> ReactNode.unit
-            >>= Expect.containsClassName "responsive hide-sm"
-            |> Expect.containsChild 1 (child |> ReactNode.unit)
+            >>= containsClassName "responsive hide-sm"
+            |> containsChild 1 (child |> ReactNode.unit)
          }
 
          test "Responsive show large" {
@@ -37,8 +37,8 @@ let tests =
 
             responsiveElement
             |> ReactNode.unit
-            >>= Expect.containsClassName "responsive show-lg"
-            |> Expect.containsChild 1 (child |> ReactNode.unit)
+            >>= containsClassName "responsive show-lg"
+            |> containsChild 1 (child |> ReactNode.unit)
          }
 
          test "Responsive children with name" {
@@ -49,8 +49,8 @@ let tests =
 
             responsiveElement
             |> ReactNode.unit
-            >>= Expect.containsChild 1 (child |> ReactNode.unit)
-            |> Expect.containsChild 1 (grandChild |> ReactNode.unit)
+            >>= containsChild 1 (child |> ReactNode.unit)
+            |> containsChild 1 (grandChild |> ReactNode.unit)
          }
 
          test "Responsive children with class" {
@@ -61,7 +61,7 @@ let tests =
 
             responsiveElement
             |> ReactNode.unit
-            >>= Expect.containsChild 1 (child |> ReactNode.unit)
-            |> Expect.containsChild 1 (grandChild |> ReactNode.unit)
+            >>= containsChild 1 (child |> ReactNode.unit)
+            |> containsChild 1 (grandChild |> ReactNode.unit)
          }
     ]
