@@ -12,6 +12,7 @@
     <Compile Include="Extensions/ExpectoExtension.fs" />
     <Compile Include="Components/AccordionTests.fs" />
     <Compile Include="Components/AvatarTests.fs" />
+    <Compile Include="Components/BarTests.fs" />
     <Compile Include="Components/ButtonTests.fs" />
     <Compile Include="Components/CheckboxTests.fs" />
     <Compile Include="Components/CodeTests.fs" />

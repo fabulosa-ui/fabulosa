@@ -9,9 +9,11 @@
     <Compile Include="Extensions/StringExtension.fs" />
     <Compile Include="ClassNames.fs" />
     <Compile Include="Components/Icon.fs" />
+    <Compile Include="Components/Button.fs" />
     <Compile Include="Components/Accordion.fs" />
     <Compile Include="Components/Avatar.fs" />
-    <Compile Include="Components/Button.fs" />
+    <Compile Include="Components/Badge.fs" />
+    <Compile Include="Components/Bar.fs" />
     <Compile Include="Components/Code.fs" />
     <Compile Include="Components/Form/Checkbox.fs" />
     <Compile Include="Components/Form/Form.fs" />
@@ -29,8 +31,7 @@
     <Compile Include="Components/Table.fs" />
     <Compile Include="Components/Tag.fs" />
     <Compile Include="Components/Typography.fs" />
-    <Compile Include="Components\Badge.fs" />
     <None Include="paket.references" />
   </ItemGroup>
-  <Import Project="..\..\.paket\Paket.Restore.targets" />
+  <Import Project="../../.paket/Paket.Restore.targets" />
 </Project>
