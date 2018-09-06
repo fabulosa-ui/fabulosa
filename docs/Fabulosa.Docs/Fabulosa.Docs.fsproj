@@ -8,6 +8,7 @@
     <Compile Include="PropTable.fs" />
     <Compile Include="pages/Accordion.fs" />
     <Compile Include="pages/Avatar.fs" />
+    <Compile Include="pages/Bar.fs" />
     <Compile Include="pages/Button.fs" />
     <Compile Include="pages/Index.fs" />
     <Compile Include="pages/Form.fs" />

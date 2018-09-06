@@ -8,36 +8,19 @@ module Bar =
     open ClassNames
 
     [<RequireQualifiedAccess>]
-    type Props = {
-        Small: bool
-        HTMLProps: IHTMLProp list
-    }
-
-    let defaults = {
-        Props.Small = false
-        Props.HTMLProps = []
-    }
-
-    let small =
-        function
-        | true -> "bar-sm"
-        | false -> ""
-
-    let ƒ (props: Props) =
-        props.HTMLProps
-        |> addClasses
-            ["bar"
-             small props.Small]
-        |> R.div
-
-    [<RequireQualifiedAccess>]
     module Item =
 
         [<RequireQualifiedAccess>]
+        type Value = int
+
+        [<RequireQualifiedAccess>]
+        type Tooltip = bool
+
+        [<RequireQualifiedAccess>]
         type Props = {
-            Value: int
-            Tooltip: bool
-            HTMLProps: IHTMLProp list
+            Value: Value
+            Tooltip: Tooltip
+            HTMLProps: HTMLProps
         }
 
         let defaults = {
@@ -64,7 +47,7 @@ module Bar =
         let private style value =
             [Style [Width (toPercent value)]]
             |> List.cast<IHTMLProp>
-           
+
         let ƒ (props: Props) =
             props.HTMLProps
             @ tooltipData (props.Tooltip, props.Value)
@@ -72,4 +55,59 @@ module Bar =
             |> addClasses
                 ["bar-item"
                  tooltip props.Tooltip]
-            |> R.div <| []
+            |> R.div
+
+    [<RequireQualifiedAccess>]
+    type Small = bool
+
+    [<RequireQualifiedAccess>]
+    type Children = Item.Props list
+
+    [<RequireQualifiedAccess>]
+    type Props = {
+        Small: Small
+        HTMLProps: HTMLProps
+    }
+
+    let defaults = {
+        Props.Small = false
+        Props.HTMLProps = []
+    }
+
+    let private small =
+        function
+        | true -> "bar-sm"
+        | false -> ""
+
+    let private item child =
+        Item.ƒ child []
+
+    let ƒ (props: Props) (children: Children) =
+        props.HTMLProps
+        |> addClasses
+            ["bar"
+             small props.Small]
+        |> R.div
+        <| Seq.map (fun child -> Item.ƒ child []) children
+
+    [<RequireQualifiedAccess>]
+    module Slider =
+
+        let defaults = defaults
+
+        let private item child =
+            Item.ƒ child [
+                Button.ƒ {
+                    Button.defaults with
+                        HTMLProps = [ClassName "bar-slider-btn"]
+                } []
+            ]
+
+        let ƒ (props: Props) (children: Children) =
+            props.HTMLProps
+            |> addClasses
+                ["bar"
+                 "bar-slider"
+                 small props.Small]
+            |> R.div
+            <| Seq.map item children

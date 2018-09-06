@@ -3,9 +3,7 @@
 module ClassNames =
 
     open Fable.Helpers.React.Props
-
-    type HTMLProps = IHTMLProp list
-
+    
     let nonEmpty =
         function
         | "" -> None
@@ -32,7 +30,7 @@ module ClassNames =
             | _ -> true
         | _ -> true
         
-    let addClasses componentClasses (htmlProps: IHTMLProp list): IHTMLProp list =
+    let addClasses componentClasses (htmlProps: HTMLProps): HTMLProps =
         let classes = concatStrings componentClasses
         let htmlPropsAttrs = Seq.choose htmlAttrs htmlProps
         let concat existing = existing + " " + classes 

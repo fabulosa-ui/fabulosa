@@ -10,7 +10,7 @@ open R.Props
 [<Tests>]
 let tests =
     testList "Code tests" [
-        ptest "Code should be a react html node when defaults are provided" {
+        test "Code should be a react html node when defaults are provided" {
             let codeElement = Code.ƒ Code.defaults
             let data = Data ("lang", "F#")
             let innerCodeElement =

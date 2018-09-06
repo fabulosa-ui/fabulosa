@@ -47,7 +47,8 @@ var pages = [
     'icon.html',
     'navbar.html',
     'responsive.html',
-    'table.html'
+    'table.html',
+    'bar.html'
 ]
 
 // The HtmlWebpackPlugin allows us to use a template for the index.html page
