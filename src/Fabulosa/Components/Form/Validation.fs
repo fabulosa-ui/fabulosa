@@ -22,10 +22,7 @@ module Validation =
         | Kind.Success _ -> "has-success"
         | Kind.Error _ -> "has-error"
 
-    let test = R.div [] [R.str "WHATEVA"]
-
     let ƒ (elem: ReactElement) (kind: Kind) =
-        R.span [ClassName <| className kind] [
-            elem
-            R.p [ClassName "form-input-hint"] [R.str <| message kind]
-        ]
+        R.span [ClassName <| className kind]
+            [ elem
+              R.p [ClassName "form-input-hint"] [R.str <| message kind] ]

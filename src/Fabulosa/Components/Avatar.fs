@@ -3,9 +3,9 @@
 [<RequireQualifiedAccess>]
 module Avatar =
 
+    open Fabulosa.Extensions
     module R = Fable.Helpers.React
     open R.Props
-    open ClassNames
 
     [<RequireQualifiedAccess>]
     type HTMLProps = IHTMLProp list
@@ -63,6 +63,7 @@ module Avatar =
         | Size.Large -> "avatar-lg"
         | Size.ExtraLarge -> "avatar-xl"
         | Size.Unset -> "avatar-md"
+        >> ClassName
 
     let presence =
         function
@@ -70,28 +71,29 @@ module Avatar =
         | Presence.Busy -> "busy"
         | Presence.Online -> "online"
         | Presence.Unset -> ""
+        >> ClassName
 
     let kind =
         function
         | Kind.Icon source ->
-            Some <| R.img
+            R.img
                 [ ClassName "avatar-icon"
                   Src source ]
+            |> Some
         | Kind.Presence p ->
-            Some <| R.i
-                [R.classList [
-                    "avatar-presence", true
-                    presence p, true
-                ]] []
+            R.i
+                [ ClassName "avatar-presence"
+                  presence p ] []
+            |> Some
         | Kind.Unset -> None
 
 
     let ƒ (props: Props) =
         let containerProps =
-            addClasses
-                [ "avatar"
+            addProps
+                [ ClassName "avatar"
                   size props.Size ] props.HTMLProps
-                  @ [Data ("initial", props.Initial)]
+                  @ [ Data ("initial", props.Initial) ]
         R.figure containerProps
             [ (if props.Source <> ""
                then R.img [Src props.Source]

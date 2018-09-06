@@ -3,9 +3,9 @@ namespace Fabulosa
 [<RequireQualifiedAccess>]
 module Navbar =
 
+    open Fabulosa.Extensions
     module R = Fable.Helpers.React
     open R.Props
-    open ClassNames
 
     [<RequireQualifiedAccess>]
     type Props = {
@@ -21,7 +21,7 @@ module Navbar =
 
         let ƒ (props: Props) =
             props.HTMLProps
-            |> addClasses ["navbar"]
+            |> addProp (ClassName "navbar")
             |> R.header
 
         let render = ƒ
@@ -31,7 +31,7 @@ module Navbar =
 
         let ƒ (props: Props) =
             props.HTMLProps
-            |> addClasses ["navbar-section"]
+            |> addProp (ClassName "navbar-section")
             |> R.section
 
         let render = ƒ
@@ -41,7 +41,7 @@ module Navbar =
 
         let ƒ (props: Props) =
             props.HTMLProps
-            |> addClasses ["navbar-center"]
+            |> addProp (ClassName "navbar-center")
             |> R.section
 
     let center = Center.ƒ
@@ -51,7 +51,7 @@ module Navbar =
 
         let ƒ (props: Props) =
             props.HTMLProps
-            |> addClasses ["navbar-brand"]
+            |> addProp (ClassName "navbar-brand")
             |> R.a
 
         let render = ƒ

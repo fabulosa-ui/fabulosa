@@ -3,8 +3,7 @@ namespace Fabulosa
 [<RequireQualifiedAccess>]
 module Textarea =
 
-    open ClassNames
-
+    open Fabulosa.Extensions
     module R = Fable.Helpers.React
     open R.Props
 
@@ -19,7 +18,7 @@ module Textarea =
 
     let ƒ (props: Props) =
         props.HTMLProps
-        |> addClasses ["form-input"]
+        |> addProp (ClassName "form-input")
         |> R.textarea
 
     let render = ƒ

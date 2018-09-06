@@ -3,7 +3,7 @@ namespace Fabulosa
 [<RequireQualifiedAccess>]
 module Table =
 
-    open ClassNames
+    open Fabulosa.Extensions
     module R = Fable.Helpers.React
     open R.Props
 
@@ -29,12 +29,13 @@ module Table =
         | Kind.Striped -> "table-striped"
         | Kind.Hover -> "table-hover"
         | Kind.Unset -> ""
+        >> ClassName
 
     let ƒ (props: Props) =
         props.HTMLProps
-        |> addClasses [
-            "table"
-            kind props.Kind ]
+        |> addProps
+            [ ClassName "table"
+              kind props.Kind ]
         |> R.table
 
     let render = ƒ
@@ -96,10 +97,11 @@ module Table =
             function
             | true -> "active"
             | false -> ""
+            >> ClassName
 
         let ƒ (props: Props) =
             props.HTMLProps
-            |> addClasses [active props.Active]
+            |> addProp (active props.Active)
             |> R.tr
 
         let render = ƒ

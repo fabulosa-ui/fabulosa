@@ -1,11 +1,9 @@
 module ReactNode
 
     open System.Linq
+    open Fabulosa.Extensions
     open Fable.Import.React
     module R = Fable.Helpers.React
-    open Fabulosa
-    open Fabulosa.Extensions
-    open ClassNames
     open R.Props
 
     let stringEquals a b =

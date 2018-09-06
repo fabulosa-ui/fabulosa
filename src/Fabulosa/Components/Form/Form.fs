@@ -6,7 +6,7 @@ module Form =
     [<RequireQualifiedAccess>]
     module Group =
 
-        open ClassNames
+        open Fabulosa.Extensions
         module R = Fable.Helpers.React
         open R.Props
 
@@ -21,7 +21,7 @@ module Form =
 
         let ƒ (props: Props) =
             props.HTMLProps
-            |> addClasses ["form-group"]
+            |> addProp (ClassName "form-group")
             |> R.div
 
         let render = ƒ

@@ -3,7 +3,7 @@ namespace Fabulosa
 [<RequireQualifiedAccess>]
 module Icon =
 
-    open ClassNames
+    open Fabulosa.Extensions
     module R = Fable.Helpers.React
     open R.Props
 
@@ -112,6 +112,7 @@ module Icon =
         | Kind.Emoji -> "icon-emoji"
         | Kind.Loading -> "loading"
         | Kind.Unset -> ""
+        >> ClassName
 
     let size = 
         function
@@ -119,13 +120,14 @@ module Icon =
         | Size.X3 -> "icon-3x"
         | Size.X4 -> "icon-4x"
         | Size.Unset -> ""
+        >> ClassName
 
     let ƒ (props: Props) =
         props.HTMLProps
-        |> addClasses [
-            "icon"
-            kind props.Kind
-            size props.Size ]
+        |> addProps
+            [ ClassName "icon"
+              kind props.Kind
+              size props.Size ]
         |> R.i
 
     let render = ƒ

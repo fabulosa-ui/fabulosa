@@ -3,7 +3,7 @@ namespace Fabulosa
 [<RequireQualifiedAccess>]
 module Input =
 
-    open ClassNames
+    open Fabulosa.Extensions
     module R = Fable.Helpers.React
     open R.Props
 
@@ -32,9 +32,9 @@ module Input =
 
     let ƒ (props: Props) =
         props.HTMLProps
-        |> addClasses [
-            "form-input"
-            size props.Size ]
+        |> addProps
+            [ ClassName "form-input"
+              ClassName <| size props.Size ]
         |> R.input
 
     let render = ƒ
@@ -42,9 +42,9 @@ module Input =
 [<RequireQualifiedAccess>]
 module IconInput =
 
+    open Fabulosa.Extensions
     module R = Fable.Helpers.React
     open R.Props
-    open ClassNames
 
     [<RequireQualifiedAccess>]
     type Position =
@@ -77,23 +77,21 @@ module IconInput =
             |> String.concat " "
         let iconProps =
             { props.IconProps with
-                HTMLProps = addClasses
-                    ["form-icon"]
-                    props.IconProps.HTMLProps }
-        R.div [ClassName containerClasses] [
-            Input.ƒ props.InputProps
-            Icon.ƒ iconProps []
-        ]
+                HTMLProps = props.IconProps.HTMLProps
+                |> addProp (ClassName "form-icon") }
+        R.div [ClassName containerClasses]
+            [ Input.ƒ props.InputProps
+              Icon.ƒ iconProps [] ]
 
     let render = ƒ
 
 [<RequireQualifiedAccess>]
 module InputGroup =
 
+    open Fabulosa.Extensions
     open Fable.Import.React
     module R = Fable.Helpers.React
     open R.Props
-    open ClassNames
 
     [<RequireQualifiedAccess>]
     type AddonRight =
@@ -121,25 +119,31 @@ module InputGroup =
     let button =
         function
         | AddonRight.Button (props, children) ->
-            Some <| Button.ƒ
+            Button.ƒ
                 { props with
-                    HTMLProps = addClasses
-                        ["input-group-btn"]
-                        props.HTMLProps } children
+                    HTMLProps =
+                        props.HTMLProps
+                        |> addProp (ClassName "input-group-btn") }
+                children
+            |> Some
         | AddonRight.Unset -> None
 
     let text =
         function
         | AddonLeft.Text text ->
-            Some <| R.span [ClassName "input-group-addon"] [R.str text]
+            R.span
+                [ClassName "input-group-addon"]
+                [R.str text]
+            |> Some
         | AddonLeft.Unset -> None
 
     let ƒ (props: Props) children =
-        let containerProps = addClasses ["input-group"] props.HTMLProps
-        R.div containerProps [
-            text props.AddonLeft |> R.ofOption
-            R.fragment [] children
-            button props.AddonRight |> R.ofOption
-        ]
+        let containerProps =
+            props.HTMLProps
+            |> addProp (ClassName "input-group") 
+        R.div containerProps
+            [ text props.AddonLeft |> R.ofOption
+              R.fragment [] children
+              button props.AddonRight |> R.ofOption ]
 
     let render = ƒ

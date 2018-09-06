@@ -3,9 +3,9 @@ namespace Fabulosa
 [<RequireQualifiedAccess>]
 module Grid =
 
+    open Fabulosa.Extensions
     module R = Fable.Helpers.React
     open R.Props
-    open ClassNames
 
     type Props = {
         HTMLProps: IHTMLProp list
@@ -17,7 +17,7 @@ module Grid =
 
     let ƒ props =
         props.HTMLProps
-        |> addClasses ["container"]
+        |> addProp (ClassName "container")
         |> R.div
 
     let render = ƒ
@@ -48,18 +48,20 @@ module Grid =
             function
             | true -> "col-gapless"
             | false -> ""
+            >> ClassName
 
         let oneLine =
             function
             | true -> "col-oneline"
             | false -> ""
+            >> ClassName
 
         let ƒ (props: Props) =
             props.HTMLProps
-            |> addClasses [
-                "columns"
-                gapless props.Gapless
-                oneLine props.OneLine ]
+            |> addProps
+                [ ClassName "columns"
+                  gapless props.Gapless
+                  oneLine props.OneLine ]
             |> R.div
 
         let render = ƒ
@@ -110,30 +112,37 @@ module Grid =
             | Kind.MRAuto -> "col-mr-auto"
             | Kind.MXAuto -> "col-mx-auto"
             | Kind.Unset -> ""
+            >> ClassName
 
-        let size: ColSize -> string =
+        let size =
             function
             | n -> "col-" + string n
+            >> ClassName
 
-        let xsSize: XSSize -> string =
+        let xsSize =
             function
             | n -> "col-xs-" + string n
+            >> ClassName
 
-        let smSize: SMSize -> string =
+        let smSize =
             function
             | n -> "col-sm-" + string n
+            >> ClassName
 
-        let mdSize: MDSize -> string =
+        let mdSize =
             function
             | n -> "col-md-" + string n
+            >> ClassName
 
-        let lgSize: LGSize -> string =
+        let lgSize =
             function
             | n -> "col-lg-" + string n
+            >> ClassName
 
-        let xlSize: LGSize -> string =
+        let xlSize =
              function
              | n -> "col-xl-" + string n
+             >> ClassName
 
         let defaults = {
             Props.Kind = Kind.Unset
@@ -148,15 +157,15 @@ module Grid =
 
         let ƒ (props: Props) =
             props.HTMLProps
-            |> addClasses [
-                "column"
-                kind props.Kind
-                size props.Size
-                xsSize props.XSSize
-                smSize props.SMSize
-                mdSize props.MDSize
-                lgSize props.LGSize
-                xlSize props.XLSize ]
+            |> addProps
+                [ ClassName "column"
+                  kind props.Kind
+                  size props.Size
+                  xsSize props.XSSize
+                  smSize props.SMSize
+                  mdSize props.MDSize
+                  lgSize props.LGSize
+                  xlSize props.XLSize ]
             |> R.div
 
         let render = ƒ

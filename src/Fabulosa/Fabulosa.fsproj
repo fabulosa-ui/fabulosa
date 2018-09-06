@@ -8,7 +8,6 @@
     <Compile Include="Extensions/SeqExtension.fs" />
     <Compile Include="Extensions/StringExtension.fs" />
     <Compile Include="Extensions/PropExtension.fs" />
-    <Compile Include="ClassNames.fs" />
     <Compile Include="Components/Icon.fs" />
     <Compile Include="Components/Button.fs" />
     <Compile Include="Components/Accordion.fs" />

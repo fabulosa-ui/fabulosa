@@ -3,7 +3,7 @@ namespace Fabulosa
 [<RequireQualifiedAccess>]
 module Button =
 
-    open ClassNames
+    open Fabulosa.Extensions
     module R = Fable.Helpers.React
     open R.Props
 
@@ -54,18 +54,21 @@ module Button =
         | Kind.Primary -> "btn-primary"
         | Kind.Link -> "btn-link"
         | Kind.Unset -> ""
+        >> ClassName
 
     let color =
         function
         | Color.Success -> "btn-success"
         | Color.Error -> "btn-error"
         | Color.Unset -> ""
+        >> ClassName
 
     let size =
         function
         | Size.Small -> "btn-sm"
         | Size.Large -> "btn-lg"
         | Size.Unset -> ""
+        >> ClassName
 
     let state =
         function
@@ -73,12 +76,14 @@ module Button =
         | State.Loading -> "loading"
         | State.Active -> "active"
         | State.Unset -> ""
+        >> ClassName
 
     let format =
         function
         | Format.SquaredAction -> "btn-action"
         | Format.RoundAction -> "btn-action circle"
         | Format.Unset -> ""
+        >> ClassName
 
     let defaults = {
         Props.Kind = Kind.Unset
@@ -91,13 +96,13 @@ module Button =
 
     let ƒ (props: Props) =
         props.HTMLProps
-        |> addClasses [
-            "btn"
-            kind props.Kind
-            color props.Color
-            size props.Size
-            state props.State
-            format props.Format ]
+        |> addProps
+            [ ClassName "btn"
+              kind props.Kind
+              color props.Color
+              size props.Size
+              state props.State
+              format props.Format ]
         |> R.button
 
     let render = ƒ
@@ -105,7 +110,7 @@ module Button =
 [<RequireQualifiedAccess>]
 module Anchor =
 
-    open ClassNames
+    open Fabulosa.Extensions
     module R = Fable.Helpers.React
     open R.Props
 
@@ -118,22 +123,22 @@ module Anchor =
 
     let ƒ (props: Button.Props) =
         props.HTMLProps
-        |> addClasses [
-            "btn"
-            Button.kind props.Kind
-            Button.color props.Color
-            Button.size props.Size
-            Button.state props.State
-            Button.format props.Format ]
+        |> addProps
+            [ ClassName "btn"
+              Button.kind props.Kind
+              Button.size props.Size
+              Button.color props.Color
+              Button.state props.State
+              Button.format props.Format ]
         |> R.a
 
     let render = ƒ
 
 module ButtonGroup =
 
+    open Fabulosa.Extensions
     module R = Fable.Helpers.React
     open R.Props
-    open ClassNames
 
     type Block = bool
 
@@ -155,5 +160,5 @@ module ButtonGroup =
 
     let ƒ (props: Props) =
         props.HTMLProps
-        |> addClasses ["btn-group"]
+        |> addProp (ClassName "btn-group")
         |> R.div

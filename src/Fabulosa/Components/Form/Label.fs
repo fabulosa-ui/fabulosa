@@ -3,7 +3,7 @@ namespace Fabulosa
 [<RequireQualifiedAccess>]
 module Label =
 
-    open ClassNames
+    open Fabulosa.Extensions
     module R = Fable.Helpers.React
     open R.Props
 
@@ -34,9 +34,9 @@ module Label =
 
     let ƒ (props: Props) =
         props.HTMLProps
-        |> addClasses[
-            "form-label"
-            size props.Size ]
+        |> addProps
+            [ ClassName "form-label"
+              ClassName <| size props.Size ]
         |> R.label
         <| [R.str props.Text]
 

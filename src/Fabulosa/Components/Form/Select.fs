@@ -3,7 +3,7 @@ namespace Fabulosa
 [<RequireQualifiedAccess>]
 module Select =
 
-    open ClassNames
+    open Fabulosa.Extensions
     module R = Fable.Helpers.React
     open R.Props
 
@@ -29,13 +29,15 @@ module Select =
         | Size.Small -> "select-sm"
         | Size.Large -> "select-lg"
         | Size.Unset -> ""
+        >> ClassName
 
     let ƒ (props: Props) =
-        props.HTMLProps
-        |> addClasses [
-            "form-select"
-            size props.Size ]
-        |> R.select
+        let p =
+            props.HTMLProps
+            |> addProps
+                [ ClassName "form-select"
+                  size props.Size ]
+        p |> R.select
 
     let render = ƒ
 

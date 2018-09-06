@@ -18,10 +18,9 @@ module Switch =
     }
 
     let ƒ (props: Props) =
-        R.label [ClassName "form-switch"] [
-            R.input <| props.HTMLProps @ [Type "checkbox"]
-            R.i [ClassName "form-icon"] []
-            R.str props.Text
-        ]
+        R.label [ClassName "form-switch"]
+            [ R.input <| props.HTMLProps @ [Type "checkbox"]
+              R.i [ClassName "form-icon"] []
+              R.str props.Text ]
 
     let render = ƒ

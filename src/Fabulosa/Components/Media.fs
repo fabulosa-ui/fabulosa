@@ -3,7 +3,8 @@ namespace Fabulosa
 module Media =
     [<RequireQualifiedAccess>]
     module Caption =
-        open ClassNames
+
+        open Fabulosa.Extensions
         module R = Fable.Helpers.React
         open Fable.Import.React
     
@@ -32,16 +33,21 @@ module Media =
             | Center -> ["text-center"]
             | Right -> ["text-right"]
         
-        let getClasses (props: Props) = getClassOfTextDirection props.TextDirection |> List.append ["figure-caption"] 
+        let getClasses (props: Props) =
+            getClassOfTextDirection props.TextDirection
+            |> List.append ["figure-caption"]
+            |> String.concat " "
+            |> ClassName
            
         let ƒ (props: Props) =
-            (props.HTMLProps |> addClasses (getClasses props), props.Text)
+            (props.HTMLProps |> addProp (getClasses props), props.Text)
             ||> R.figcaption
     
         let render = ƒ
     
     module Image =
-        open ClassNames
+
+        open Fabulosa.Extensions
         module R = Fable.Helpers.React
         open Fable.Import.React
         open Fable.Helpers
@@ -67,16 +73,18 @@ module Media =
             | Responsive -> ["img-responsive"]
             | Contain -> ["img-fit-contain"]
             | Cover -> ["img-fit-cover"]
+            >> String.concat " "
+            >> ClassName
             
         let ƒ (props: Props) =
             props.HTMLProps 
-            |> addClasses (getClassOfKind props.Kind)
+            |> addProp (getClassOfKind props.Kind)
             |> R.img
     
         let render = ƒ
     
     module Figure =
-        open ClassNames
+        open Fabulosa.Extensions
         module R = Fable.Helpers.React
         open Fable.Import.React
         
@@ -110,7 +118,7 @@ module Media =
         let ƒ (props: Props) =
             let figureComponent = 
                 props.HTMLProps
-                |> addClasses ["figure"]
+                |> addProp (ClassName "figure")
                 |> R.figure
         
             figureComponent [

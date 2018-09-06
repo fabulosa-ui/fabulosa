@@ -2,10 +2,10 @@
 
 module Accordion =
 
+    open Fabulosa.Extensions
     open Fable.Import.React
     module R = Fable.Helpers.React
     open R.Props
-    open ClassNames
 
     [<RequireQualifiedAccess>]
     type Props = {
@@ -36,20 +36,24 @@ module Accordion =
             R.str text
         ]
 
+    let private renderBody (child: Child) =
+        let items = child.Content |> List.map renderItem
+        R.div [ClassName "accordion-body"]
+            [ R.ul [ClassName "menu menu-nav"] items ]
+
+    let private renderChild icon (child: Child) =
+        R.details [ClassName "accordion"]
+            [ renderHeader icon child.Header
+              renderBody child ]
+
     let private renderChildren children icon =
-        children |> List.map (fun (child: Child) ->
-            let items = child.Content |> List.map renderItem
-            R.details [ClassName "accordion"] [
-                renderHeader icon child.Header
-                R.div [ClassName "accordion-body"] [
-                    R.ul [ClassName "menu menu-nav"] items
-                ]
-            ]
-        )
+        children
+        |> List.map (renderChild icon)
 
     let ƒ (props: Props) children =
         let iconProps =
             { props.CustomIcon with
-                HTMLProps = addClasses ["mr-1"] props.CustomIcon.HTMLProps }
+                HTMLProps = props.CustomIcon.HTMLProps
+                |> addProp (ClassName "mr-1") }
         R.div [] (renderChildren children iconProps)
         

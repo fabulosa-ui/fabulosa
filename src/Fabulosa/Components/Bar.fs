@@ -3,9 +3,9 @@ namespace Fabulosa
 [<RequireQualifiedAccess>]
 module Bar =
 
+    open Fabulosa.Extensions
     module R = Fable.Helpers.React
     open R.Props
-    open ClassNames
 
     [<RequireQualifiedAccess>]
     module Item =
@@ -36,6 +36,7 @@ module Bar =
             function
             | true -> "tooltip"
             | false -> ""
+            >> ClassName
 
         let private tooltipData =
             function
@@ -49,13 +50,19 @@ module Bar =
             |> List.cast<IHTMLProp>
 
         let ƒ (props: Props) =
-            props.HTMLProps
-            @ tooltipData (props.Tooltip, props.Value)
-            @ style props.Value
-            |> addClasses
-                ["bar-item"
-                 tooltip props.Tooltip]
-            |> R.div
+            let p =
+                props.HTMLProps
+            // @ tooltipData (props.Tooltip, props.Value)
+                @ style props.Value
+            printfn "%A" p
+            let p2 =
+                p |> addProps
+                    [ ClassName "bar-item" ]
+                  //tooltip props.Tooltip ]
+            printfn "%A" p2
+            let test = List.tryFind (fun e -> e.Equals(ClassName "bar-item")) (p2 |> List.cast<HTMLAttr>)
+            printfn "%A" test
+            p2 |> R.div
 
     [<RequireQualifiedAccess>]
     type Small = bool
@@ -78,15 +85,16 @@ module Bar =
         function
         | true -> "bar-sm"
         | false -> ""
+        >> ClassName
 
     let private item child =
         Item.ƒ child []
 
     let ƒ (props: Props) (children: Children) =
         props.HTMLProps
-        |> addClasses
-            ["bar"
-             small props.Small]
+        |> addProps
+            [ ClassName "bar"
+              small props.Small ]
         |> R.div
         <| Seq.map (fun child -> Item.ƒ child []) children
 
@@ -105,9 +113,8 @@ module Bar =
 
         let ƒ (props: Props) (children: Children) =
             props.HTMLProps
-            |> addClasses
-                ["bar"
-                 "bar-slider"
-                 small props.Small]
+            |> addProps
+                [ ClassName "bar bar-slider"
+                  small props.Small ]
             |> R.div
             <| Seq.map item children
