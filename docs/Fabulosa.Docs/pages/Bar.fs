@@ -26,14 +26,11 @@ let tooltip = Bar.ƒ Bar.defaults [
 (*** define: bar-item-multiple-sample ***)
 let multiple = Bar.ƒ Bar.defaults [
     { Bar.Item.defaults with
-        Value = 25
-        Color = Bar.Item.Color.Success }
+        Value = 25 }
     { Bar.Item.defaults with
-        Value = 15
-        Color = Bar.Item.Color.Warning }
+        Value = 15 }
     { Bar.Item.defaults with
-        Value = 5
-        Color = Bar.Item.Color.Error }
+        Value = 5 }
 ]
 (*** hide ***)
 let render () =

@@ -51,27 +51,18 @@ module Bar =
             | false -> ""
             >> ClassName
 
-        let private color =
-            function
-            | Color.Primary -> "bg-primary"
-            | Color.Secondary -> "bg-secondary"
-            | Color.Dark -> "bg-dark"
-            | Color.Gray -> "bg-gray"
-            | Color.Success -> "bg-success"
-            | Color.Warning -> "bg-warning"
-            | Color.Error -> "bg-error"
-            | Color.Unset -> "bg-primary"
-            >> ClassName
-
         let private tooltipData =
             function
             | true, value ->
                 [Data ("tooltip", toPercent value)]
             | false, _ -> []
-            >> List.cast<IHTMLProp>        
+            >> List.cast<IHTMLProp>
 
         let private style value =
-            [Style [Width (toPercent value)]]
+            let width = R.Props.CSSProp.Width (toPercent value)
+            let style = Fable.Helpers.React.Props.Style [width]
+            printfn "%A" style
+            [style]
             |> List.cast<IHTMLProp>
 
         let ƒ (props: Props) =
@@ -80,7 +71,6 @@ module Bar =
             @ style props.Value
             |> addProps
                 [ ClassName "bar-item"
-                  color props.Color
                   tooltip props.Tooltip ]
             |> R.div
 
