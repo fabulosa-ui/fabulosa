@@ -17,15 +17,28 @@ module Bar =
         type Tooltip = bool
 
         [<RequireQualifiedAccess>]
+        type Color =
+        | Primary
+        | Secondary
+        | Dark
+        | Gray
+        | Success
+        | Warning
+        | Error
+        | Unset
+
+        [<RequireQualifiedAccess>]
         type Props = {
             Value: Value
             Tooltip: Tooltip
+            Color: Color
             HTMLProps: HTMLProps
         }
 
         let defaults = {
             Props.Value = 0
             Props.Tooltip = false
+            Props.Color = Color.Unset
             Props.HTMLProps = []
         }
 
@@ -36,6 +49,18 @@ module Bar =
             function
             | true -> "tooltip"
             | false -> ""
+            >> ClassName
+
+        let private color =
+            function
+            | Color.Primary -> "bg-primary"
+            | Color.Secondary -> "bg-secondary"
+            | Color.Dark -> "bg-dark"
+            | Color.Gray -> "bg-gray"
+            | Color.Success -> "bg-success"
+            | Color.Warning -> "bg-warning"
+            | Color.Error -> "bg-error"
+            | Color.Unset -> "bg-primary"
             >> ClassName
 
         let private tooltipData =
@@ -50,19 +75,14 @@ module Bar =
             |> List.cast<IHTMLProp>
 
         let ƒ (props: Props) =
-            let p =
-                props.HTMLProps
-            // @ tooltipData (props.Tooltip, props.Value)
-                @ style props.Value
-            printfn "%A" p
-            let p2 =
-                p |> addProps
-                    [ ClassName "bar-item" ]
-                  //tooltip props.Tooltip ]
-            printfn "%A" p2
-            let test = List.tryFind (fun e -> e.Equals(ClassName "bar-item")) (p2 |> List.cast<HTMLAttr>)
-            printfn "%A" test
-            p2 |> R.div
+            props.HTMLProps
+            @ tooltipData (props.Tooltip, props.Value)
+            @ style props.Value
+            |> addProps
+                [ ClassName "bar-item"
+                  color props.Color
+                  tooltip props.Tooltip ]
+            |> R.div
 
     [<RequireQualifiedAccess>]
     type Small = bool

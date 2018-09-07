@@ -16,7 +16,7 @@ let tests =
 
             avatar
             |> ReactNode.unit
-            |> hasUniqueClass "avatar avatar-md"
+            |> hasClass "avatar avatar-md"
         }
 
         test "Avatar size small" {
@@ -25,7 +25,7 @@ let tests =
 
             avatar
             |> ReactNode.unit
-            |> hasUniqueClass "avatar avatar-sm"
+            |> hasClass "avatar avatar-sm"
         }
 
         test "Avatar data initial" {

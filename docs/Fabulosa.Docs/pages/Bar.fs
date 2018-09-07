@@ -27,13 +27,13 @@ let tooltip = Bar.ƒ Bar.defaults [
 let multiple = Bar.ƒ Bar.defaults [
     { Bar.Item.defaults with
         Value = 25
-        HTMLProps = [Style [Background "red"]] }
+        Color = Bar.Item.Color.Success }
     { Bar.Item.defaults with
         Value = 15
-        HTMLProps = [Style [Background "green"]] }
+        Color = Bar.Item.Color.Warning }
     { Bar.Item.defaults with
         Value = 5
-        HTMLProps = [Style [Background "blue"]] }
+        Color = Bar.Item.Color.Error }
 ]
 (*** hide ***)
 let render () =

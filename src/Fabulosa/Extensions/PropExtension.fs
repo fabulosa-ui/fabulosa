@@ -24,19 +24,21 @@ module Fable =
 
                 let combineProp (prop: IHTMLProp) (htmlProp: IHTMLProp) =
                     match prop :?> HTMLAttr, htmlProp :?> HTMLAttr with
-                    | ClassName a, ClassName b -> (true, ClassName <| concatStrings [a;b] :> IHTMLProp)
-                    | Style a, Style b -> (true, Style <| a @ b :> IHTMLProp)
-                    | _ -> (false, htmlProp)
+                    | ClassName a, ClassName b ->
+                        concatStrings [a;b]
+                        |> ClassName
+                        :> IHTMLProp
+                        |> Some
+                    | _ -> None
 
                 let addProp (prop: IHTMLProp) (htmlProps: IHTMLProp list) =
-                    let len = htmlProps |> List.length
-                    if len > 0 then
-                        htmlProps |> List.map
-                            (fun htmlProp ->
-                                let (combined, newProp) = combineProp prop htmlProp
-                                if combined then newProp
-                                else htmlProp
-                            )
+                    if htmlProps |> List.length > 0 then
+                        let filtered = htmlProps |> List.filter (combineProp prop >> Option.isNone)
+                        let combined = htmlProps |> List.choose (combineProp prop)
+                        if combined |> List.length > 0 then
+                            combined @ filtered
+                        else
+                            [prop] @ filtered
                     else [prop]
 
                 let addProps (props: HTMLProps) (htmlProps: HTMLProps) =
