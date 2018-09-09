@@ -61,7 +61,8 @@ module Bar =
         let private style value =
             let width = R.Props.CSSProp.Width (toPercent value)
             let style = Fable.Helpers.React.Props.Style [width]
-            printfn "%A" style
+            printfn "%A" <| style.ToString()
+            printfn "%A" <| style.GetType().ToString()
             [style]
             |> List.cast<IHTMLProp>
 
