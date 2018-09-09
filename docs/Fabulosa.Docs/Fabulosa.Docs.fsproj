@@ -19,6 +19,7 @@
     <Compile Include="pages/Navbar.fs" />
     <Compile Include="pages/Responsive.fs" />
     <Compile Include="pages/Table.fs" />
+    <Compile Include="pages/Tag.fs" />
     <None Include="README.md" />
     <None Include="assets/logo_1280.svg" />
     <None Include="assets/logo_320.svg" />

@@ -4,6 +4,7 @@ open Expecto
 open Expect
 open Fabulosa
 module R = Fable.Helpers.React
+open Fable.Import.React
 open R.Props
 
 [<Tests>]
@@ -199,3 +200,41 @@ let figureTests =
         }
     ]
     
+[<Tests>]
+let videoTests =
+    testList "Video tests" [
+        test "should display defaults" {
+            let video = Media.Video.ƒ Media.Video.defaults |> ReactNode.unit
+            
+            video
+            |>! hasClass "video-responsive video-responsive-16-9"
+            |> hasProp (Src "")
+        }
+        
+        test "should display different ratios" {
+            let video = Media.Video.ƒ { Media.Video.defaults with Ratio = Media.Video.Ratio16x9} |> ReactNode.unit
+            video |> hasClass "video-responsive video-responsive-16-9"
+            
+            let video = Media.Video.ƒ { Media.Video.defaults with Ratio = Media.Video.Ratio4x3} |> ReactNode.unit
+            video |> hasClass "video-responsive video-responsive-4-3"
+            
+            let video = Media.Video.ƒ { Media.Video.defaults with Ratio = Media.Video.Ratio1x1} |> ReactNode.unit
+            video |> hasClass "video-responsive video-responsive-1-1"
+            
+        }
+        
+        test "should render source video " {
+            let video = Media.Video.ƒ { Media.Video.defaults with Kind = Media.Video.Source "https://interactive-examples.mdn.mozilla.net/media/examples/stream_of_water.webm"} |> ReactNode.unit
+            video 
+            |>! hasClass "video-responsive video-responsive-16-9"
+            |> hasProp (Src "https://interactive-examples.mdn.mozilla.net/media/examples/stream_of_water.webm")
+        }
+        
+        test "should render embedded video " {
+            let youtubeVideo = R.iframe [Src "https://www.youtube.com/embed/7DbslbKsQSk"; AllowFullScreen true; HTMLAttr.Width 560; HTMLAttr.Height 315] []  
+            let video = Media.Video.ƒ { Media.Video.defaults with Kind = Media.Video.Embedded youtubeVideo } |> ReactNode.unit
+            video 
+            |>! hasClass "video-responsive video-responsive-16-9"
+            |> hasChild 1 (youtubeVideo |> ReactNode.unit)
+        }
+    ]

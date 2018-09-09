@@ -80,7 +80,7 @@ module PropTable =
         ]
     
     let renderTable rowValues =
-        Table.ƒ Table.defaults [
+        Table.ƒ { Table.defaults with Kind = Table.Kind.Striped } [
             Table.Head.ƒ Table.Head.defaults [
                 Table.Row.ƒ Table.Row.defaults [
                     Table.TitleColumn.ƒ Table.TitleColumn.defaults [R.str "Name"]

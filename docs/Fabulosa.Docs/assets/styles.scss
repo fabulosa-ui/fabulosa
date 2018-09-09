@@ -190,3 +190,13 @@ summary {
 .props-table {
     overflow-x: auto;
 }
+
+.tag-container {
+    display: flex;
+    justify-content: space-around;
+    padding: 20px 0;
+}
+
+.tag-container > div {
+    padding: 20px 0;
+}

@@ -127,3 +127,52 @@ module Media =
             ]    
             
         let render = ƒ
+
+    module Video =
+        open ClassNames
+        module R = Fable.Helpers.React
+        open Fable.Import.React
+        open Fable.Helpers
+        open R.Props
+        
+        type Ratio =
+        | Ratio16x9
+        | Ratio4x3
+        | Ratio1x1
+        
+        type Kind =
+        | Embedded of ReactElement
+        | Source of string
+        
+        [<RequireQualifiedAccess>]
+        type Props = {
+           Ratio: Ratio
+           Kind: Kind
+        }
+        
+        let defaults: Props = {
+            Ratio = Ratio16x9
+            Kind = Source ""
+        }
+        
+        let getClassOfRatio =
+            function 
+            | Ratio16x9 -> ["video-responsive-16-9"]
+            | Ratio4x3 -> ["video-responsive-4-3"]
+            | Ratio1x1 -> ["video-responsive-1-1"]
+            
+        let ƒ (props: Props) =
+            let (parent, propsOfKind, children) =
+                match props.Kind with
+                | Source source -> R.video, seq [Src source], []
+                | Embedded element -> R.iframe, seq [], [element]
+            
+            propsOfKind 
+            |> Seq.append [ClassName "video-responsive"] 
+            |> Seq.cast
+            |> List.ofSeq
+            |> addClasses (getClassOfRatio props.Ratio)
+            |> parent 
+            <| children
+            
+        let render = ƒ

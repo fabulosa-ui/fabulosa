@@ -37,18 +37,19 @@ var CopyWebpackPlugin = require('copy-webpack-plugin');
 var MiniCssExtractPlugin = require("mini-css-extract-plugin");
 
 var pages = [
-    'button.html',
-    'form.html',
-    'grid.html',
     'accordion.html',
     'avatar.html',
     'badge.html',
-    'media.html',
+    'button.html',
+    'form.html',
+    'grid.html',
     'icon.html',
+    'media.html',
     'navbar.html',
     'responsive.html',
     'table.html',
     'bar.html'
+    'tag.html'
 ]
 
 // The HtmlWebpackPlugin allows us to use a template for the index.html page

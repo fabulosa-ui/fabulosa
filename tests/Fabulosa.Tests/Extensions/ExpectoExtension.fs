@@ -1,5 +1,4 @@
 module Expect
-
     open Expecto
     module R = Fable.Helpers.React
     open R.Props
