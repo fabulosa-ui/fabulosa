@@ -1,4 +1,5 @@
 module Expect
+    
     open Expecto
     module R = Fable.Helpers.React
     open R.Props
@@ -11,54 +12,46 @@ module Expect
         with 
         | x -> raise x
 
-    let private parseDependent (expectedClassName: string) (node: ReactNode.T) =
-        let descendentClasses = node |> ReactNode.classNames
-        let actualDescendentsClasses =
-            descendentClasses.Split()
-            |> Seq.ofArray
-            |> Seq.filter (String.isNotEmpty)
-        let expectedClasses =
-            expectedClassName.Split()
-            |> Seq.ofArray
-            |> Seq.filter (String.isNotEmpty)
-        (actualDescendentsClasses, expectedClasses)
+    let private filterEmpty (classes: string) =
+        classes.Split()
+        |> Seq.ofArray
+        |> Seq.filter (String.isNotEmpty)
+
+    let private parseDependent (expected: string) (node: ReactNode.T) =
+        let actual = node |> ReactNode.descendentClassName
+        (actual |> filterEmpty, expected |> filterEmpty)
 
     let hasUniqueClass expectedClasses node = 
         let actualClasses = node |> ReactNode.className
         Expect.equal expectedClasses actualClasses
             (sprintf "hasUniqueClass should contain %s only. Found %s" expectedClasses actualClasses)
-                
-    let hasClass (expectedClassName: string) node =
-        let actualClassName = 
-            node 
-            |> ReactNode.className
-        let actualClasses =
-            actualClassName.Split()
-            |> Seq.ofArray
-            |> Seq.filter (String.isNotEmpty)
-        let expectedClasses =
-            expectedClassName.Split()
-            |> Seq.ofArray
-            |> Seq.filter (String.isNotEmpty)
-        Expect.containsAll actualClasses expectedClasses "Classes mismatch"
+
+    let hasClass (expected: string) node =
+        let actual = node |> ReactNode.className |> filterEmpty
+        Expect.containsAll actual (expected |> filterEmpty) "Classes mismatch"
 
     let hasDescendentClass (expectedClassName: string) (node: ReactNode.T) =
         let actualDescendentsClasses, expectedClasses = parseDependent expectedClassName node
         Expect.containsAll actualDescendentsClasses expectedClasses "Classes mismatch"
 
-    let hasOrderedDescendentClass multiplier (expectedClassName: string) (node: ReactNode.T) =
-        let multiplied = String.replicate multiplier (expectedClassName + " ")
-        let actualDescendentsClasses, expectedClasses = parseDependent multiplied node
-        Expect.sequenceContainsOrder actualDescendentsClasses expectedClasses "Classes mismatch"
+    let hasOrderedDescendentClass multiplier (expected: string) (node: ReactNode.T) =
+        let multiplied = String.replicate multiplier (expected + " ")
+        let actual, expectedClasses = parseDependent multiplied node
+        Expect.sequenceContainsOrder actual expectedClasses "Classes mismatch"
 
     let hasProp (prop: IProp) node =
         let propSequence = node |> ReactNode.props
         Expect.contains propSequence prop "Prop not found"
-        
+
+    let hasDescendentProp (prop: IProp) node =
+        let props = node |> ReactNode.descendentProps
+        printfn "%A" props
+        Expect.contains props prop "Prop not found"
+
     let hasChild expectedMatches child parent =
         let foundNodes = ReactNode.find child parent
         Expect.equal expectedMatches (Seq.length foundNodes) "Number of children found mismatch"
-    
+
     let hasText expectedText node =
-        let text = node |> ReactNode.text
+        let text = node |> ReactNode.descendentText
         Expect.equal expectedText text "Text value mismatch"

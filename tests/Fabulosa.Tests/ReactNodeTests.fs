@@ -114,7 +114,7 @@
                             R.str "Qué horas son, mi corazón"
                         ]
                     ]
-                let subject = root |> ReactNode.unit |> ReactNode.text
+                let subject = root |> ReactNode.unit |> ReactNode.descendentText
                 let str =
                     [ "Qué voy a hacer Je ne sais pas"
                       "Qué voy a hacer Je ne sais plus"

@@ -10,10 +10,13 @@
     <Compile Include="Extensions/PropExtension.fs" />
     <Compile Include="Components/Icon.fs" />
     <Compile Include="Components/Button.fs" />
+    <Compile Include="Components/Media.fs" />
     <Compile Include="Components/Accordion.fs" />
     <Compile Include="Components/Avatar.fs" />
     <Compile Include="Components/Badge.fs" />
     <Compile Include="Components/Bar.fs" />
+    <Compile Include="Components/Card.fs" />
+    <Compile Include="Components/Chip.fs" />
     <Compile Include="Components/Code.fs" />
     <Compile Include="Components/Form/Checkbox.fs" />
     <Compile Include="Components/Form/Form.fs" />
@@ -25,13 +28,11 @@
     <Compile Include="Components/Form/Textarea.fs" />
     <Compile Include="Components/Form/Validation.fs" />
     <Compile Include="Components/Grid.fs" />
-    <Compile Include="Components/Media.fs" />
     <Compile Include="Components/Navbar.fs" />
     <Compile Include="Components/Responsive.fs" />
     <Compile Include="Components/Table.fs" />
     <Compile Include="Components/Tag.fs" />
     <Compile Include="Components/Typography.fs" />
-    <Compile Include="Components\Card.fs" />
     <None Include="paket.references" />
   </ItemGroup>
   <Import Project="../../.paket/Paket.Restore.targets" />

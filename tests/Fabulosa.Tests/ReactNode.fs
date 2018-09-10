@@ -30,12 +30,6 @@ module ReactNode
                 | :? T as y -> compare x y
                 | _ -> invalidArg "yobj" "different types"
 
-    let props node = node.Props
-
-    let kind node = node.Kind
-
-    let children node = node.Children
-
     let rec unit (element: ReactElement) =
         let (kind, props, children) =
             element :?> R.HTMLNode |> ReactNodeElement.extract
@@ -43,47 +37,58 @@ module ReactNode
           Props = props
           Children = Seq.map unit children }
 
+    let props node = node.Props
+
+    let kind node = node.Kind
+
+    let children node = node.Children
+
     let rec descendents node =
         let concat child =
             [child] @ (descendents child |> List.ofSeq)
         node.Children
         |> Seq.collect concat
         
-    let className node =
+    let className =
         let classes =
             function
             | ClassName c -> Some c
             | _ -> None
-        node.Props
-        |> Seq.choose htmlAttrs
-        |> Seq.map classes
-        |> Seq.choose id
-        |> Seq.join " "
-
-    let rec classNames (node: T) =
-        seq {
-            yield className node
-            yield! Seq.map classNames node.Children
-        } |> String.concat " "
-            
-    let find child node =
-        let same x = x = child
-        node 
-        |> descendents
-        |> Seq.filter same
-
-    let rec text node =
+        props
+        >> Seq.choose htmlAttrs
+        >> Seq.map classes
+        >> Seq.choose id
+        >> Seq.join " "
+    
+    let text node =
         let value =
             function
             | Value value -> Some value
             | _ -> None
-        let childrenText = Seq.map text node.Children
-        match node.Kind with
+        match kind node with
         | "<STRING>" ->
-            node.Props
-            |> Seq.choose htmlAttrs 
-            |> Seq.choose value
-            |> Seq.append childrenText
-            |> String.concat " "
-        | _ ->  String.concat " " childrenText
+            props node
+            |> Seq.choose htmlAttrs
+            |> Seq.pick value
+        | _ ->  ""
+
+    let find child =
+        let same x = x = child
+        descendents
+        >> Seq.filter same
+
+    let descendentClassName =
+        descendents
+        >> Seq.map className
+        >> String.concat " "
+
+    let descendentProps =
+        descendents
+        >> Seq.collect props
+
+    let descendentText =
+        descendents
+        >> Seq.map text
+        >> Seq.filter String.isNotEmpty
+        >> Seq.join " "
         

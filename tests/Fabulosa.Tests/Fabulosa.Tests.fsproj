@@ -12,9 +12,12 @@
     <Compile Include="Extensions/ExpectoExtension.fs" />
     <Compile Include="Components/AccordionTests.fs" />
     <Compile Include="Components/AvatarTests.fs" />
+    <Compile Include="Components/BadgeTests.fs" />
     <Compile Include="Components/BarTests.fs" />
     <Compile Include="Components/ButtonTests.fs" />
+    <Compile Include="Components/CardTests.fs" />
     <Compile Include="Components/CheckboxTests.fs" />
+    <Compile Include="Components/ChipTests.fs" />
     <Compile Include="Components/CodeTests.fs" />
     <Compile Include="Components/GridTests.fs" />
     <Compile Include="Components/IconTests.fs" />
@@ -29,11 +32,9 @@
     <Compile Include="Components/TableTests.fs" />
     <Compile Include="Components/TagTests.fs" />
     <Compile Include="Components/TextareaTests.fs" />
-    <Compile Include="Components\BadgeTests.fs" />
-    <Compile Include="Components\CardTests.fs" />
     <Compile Include="Main.fs" />
     <None Include="paket.references" />
     <ProjectReference Include="../../src/Fabulosa/Fabulosa.fsproj" />
   </ItemGroup>
-  <Import Project="..\..\.paket\Paket.Restore.targets" />
+  <Import Project="../../.paket/Paket.Restore.targets" />
 </Project>
