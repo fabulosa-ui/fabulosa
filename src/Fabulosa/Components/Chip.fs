@@ -9,7 +9,12 @@ module Chip =
     open R.Props
 
     [<RequireQualifiedAccess>]
-    type Children = ReactElement list
+    type Child = 
+    | Text of string
+    | Avatar of Avatar.Props
+
+    [<RequireQualifiedAccess>]
+    type Children = Child seq
 
     [<RequireQualifiedAccess>]
     type OnRemove = MouseEvent -> unit
@@ -26,7 +31,7 @@ module Chip =
 
     let defaults = {
         Props.Removable = false
-        Props.OnRemove = (fun _ -> ())
+        Props.OnRemove = ignore
         Props.HTMLProps = []
     }
 
@@ -40,12 +45,37 @@ module Chip =
                 []
             |> Some
         | false, _ -> None
+        |> R.ofOption
 
-    let ƒ (props: Props) (children: Children)=
+    let private avatar =
+        function
+        | Child.Avatar props ->
+            Avatar.ƒ
+                { props with
+                    Size = Avatar.Size.Small }
+            |> Some
+        | _ -> None
+        |> List.tryPick
+        >> R.ofOption
+
+    let private text =
+        function
+        | Child.Text text -> R.str text |> Some
+        | _ -> None
+        |> List.tryPick
+        >> R.ofOption
+
+    let renderChildren children =
+        seq {
+            yield avatar children
+            yield text children
+        }
+
+    let ƒ (props: Props) children =
         props.HTMLProps
         |> addProp (ClassName "chip")
         |> R.div
         <| seq {
-            yield! children
-            yield R.ofOption (renderRemove props.Removable props.OnRemove)
+            yield! renderChildren children
+            yield renderRemove props.Removable props.OnRemove
         }

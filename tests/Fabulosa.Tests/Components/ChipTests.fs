@@ -29,7 +29,6 @@ let tests =
 
         test "Chip removable" {
             let onRemove = ignore
-            printfn "%A" onRemove
             Chip.ƒ
                 { Chip.defaults with
                     Removable = true
@@ -39,17 +38,22 @@ let tests =
             |> hasDescendentProp (OnClick onRemove)
         }
 
-        // test "Chip with children" {
-        //     let body = R.p [] [R.str "Body" ]
-        //     let footer = Button.ƒ Button.defaults [R.str "Footer"]
-        //     let imageProps =
-        //         { Media.Image.defaults with
-        //             HTMLProps = [Src "bla.png"] }
-        //     let image = Media.Image.ƒ imageProps |> ReactNode.unit
-        //     Chip.ƒ
-        //         Chip.defaults
-        //         []
-        //     |> ReactNode.unit
-        //     |> ignore
-        // }
+        test "Chip with children" {
+            let avatar =
+                Avatar.ƒ
+                    { Avatar.defaults with
+                        Size = Avatar.Size.Small }
+                |> ReactNode.unit
+            let text =
+                R.str "Text"
+                |> ReactNode.unit
+            Chip.ƒ
+                Chip.defaults
+                [ Chip.Child.Avatar Avatar.defaults
+                  Chip.Child.Text "Text" ]
+            |> ReactNode.unit
+            |>! hasChild 1 avatar
+            |>! hasChild 1 text
+            |> ignore
+        }
     ]

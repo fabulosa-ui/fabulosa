@@ -43,11 +43,15 @@ module ReactNode
 
     let children node = node.Children
 
-    let rec descendents node =
-        let concat child =
-            [child] @ (descendents child |> List.ofSeq)
-        node.Children
-        |> Seq.collect concat
+    #nowarn "40"
+    let rec descendents =
+        children
+        >> Seq.collect
+            (fun child ->
+                seq {
+                    yield child
+                    yield! descendents child
+                })
         
     let className =
         let classes =

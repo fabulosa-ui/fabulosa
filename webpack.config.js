@@ -50,7 +50,8 @@ var pages = [
     'table.html',
     'bar.html',
     'tag.html',
-    'card.html'
+    'card.html',
+    'chip.html'
 ]
 
 // The HtmlWebpackPlugin allows us to use a template for the index.html page

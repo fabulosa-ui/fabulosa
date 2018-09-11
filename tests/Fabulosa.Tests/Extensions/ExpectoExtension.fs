@@ -40,13 +40,12 @@ module Expect
         Expect.sequenceContainsOrder actual expectedClasses "Classes mismatch"
 
     let hasProp (prop: IProp) node =
-        let propSequence = node |> ReactNode.props
-        Expect.contains propSequence prop "Prop not found"
+        let props = node |> ReactNode.props
+        Expect.contains (Seq.map string props) (string prop) "Prop not found"
 
     let hasDescendentProp (prop: IProp) node =
         let props = node |> ReactNode.descendentProps
-        printfn "%A" props
-        Expect.contains props prop "Prop not found"
+        Expect.contains (Seq.map string props) (string prop) "Prop not found"
 
     let hasChild expectedMatches child parent =
         let foundNodes = ReactNode.find child parent

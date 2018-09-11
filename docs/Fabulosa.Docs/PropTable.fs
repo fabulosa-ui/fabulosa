@@ -36,6 +36,8 @@ module PropTable =
             |> Array.truncate 4
             |> Array.map name
             |> String.concat " | ") + more
+        else if FSharpType.IsFunction(typeInfo.PropertyType) then
+            typeInfo.Name
         else
             describeName typeInfo
         
