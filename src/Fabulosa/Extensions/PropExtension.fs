@@ -33,8 +33,12 @@ module Fable =
 
                 let addProp (prop: IHTMLProp) (htmlProps: IHTMLProp list) =
                     if htmlProps |> List.length > 0 then
-                        let filtered = htmlProps |> List.filter (combineProp prop >> Option.isNone)
-                        let combined = htmlProps |> List.choose (combineProp prop)
+                        let filtered =
+                            htmlProps
+                            |> List.filter (combineProp prop >> Option.isNone)
+                        let combined =
+                            htmlProps
+                            |> List.choose (combineProp prop)
                         if combined |> List.length > 0 then
                             combined @ filtered
                         else

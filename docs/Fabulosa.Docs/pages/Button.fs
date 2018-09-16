@@ -107,6 +107,8 @@ let render () =
 
 <div id="buttons">
 
+<div id="alt"></div>
+
 <h2 class="s-title">
     Buttons
 </h2>
