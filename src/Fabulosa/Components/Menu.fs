@@ -31,7 +31,8 @@ module Menu =
 
     type Props =
         { HTMLProps: HTMLProps
-          Trigger: Trigger }
+          Trigger: Trigger
+          Opened: bool }
 
     type State =
         { Opened: bool
@@ -64,7 +65,7 @@ module Menu =
                 [ ClassName "divider" ] []
 
     let private renderItem =
-        R.li [ClassName "menu-item"]
+        R.li [ ClassName "menu-item" ]
 
     let private renderChild =
         function
@@ -87,8 +88,8 @@ module Menu =
             |> R.ul <| children
         else R.ofOption None
 
-    let private init _ =
-        { Opened = false
+    let private init (props: Props) =
+        { Opened = props.Opened
           Position = 0, 0 }
 
     let private update message state =
@@ -110,9 +111,13 @@ module Menu =
         { HTMLProps = []
           Trigger =
             Button.defaults,
-            Seq.cast<ReactElement> [R.str "Menu"] }
+            Seq.cast<ReactElement>
+                [ Icon.ƒ
+                    { Icon.defaults with Kind = Icon.Kind.Menu }
+                    [] ]
+          Opened = false }
 
-    let ƒ (props: Props) children =
+    let ƒ props children =
         R.reactiveCom
             init
             update

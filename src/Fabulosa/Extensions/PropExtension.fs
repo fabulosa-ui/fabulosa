@@ -22,8 +22,11 @@ module Fable =
                     | :? HTMLAttr as htmlAttr -> Some htmlAttr
                     | _ -> None
 
+                let tryCast (prop: IHTMLProp) =
+                    try  prop :?> HTMLAttr with e -> Id ""
+
                 let combineProp (prop: IHTMLProp) (htmlProp: IHTMLProp) =
-                    match prop :?> HTMLAttr, htmlProp :?> HTMLAttr with
+                    match tryCast prop , tryCast htmlProp with
                     | ClassName a, ClassName b ->
                         concatStrings [a;b]
                         |> ClassName
