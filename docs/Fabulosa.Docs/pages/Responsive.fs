@@ -8,16 +8,20 @@ open Renderer
 
 (*** define: responsive-sample ***)
 let hideSmall =
-    Responsive.ƒ {
-        Responsive.defaults with
-            Hide = Responsive.Size.SM
-    } [Button.ƒ Button.defaults [R.str "Hide small"]]
+    Responsive.ƒ
+        ( { Responsive.defaults with
+              Hide = Responsive.Size.SM },
+          [ Button.ƒ
+              ( Button.defaults,
+                [ R.str "Hide small" ] ) ] )
 
 let showLarge =
-    Responsive.ƒ {
-        Responsive.defaults with
-            Show = Responsive.Size.LG
-    } [Button.ƒ Button.defaults [R.str "Show large"]]
+    Responsive.ƒ
+        ( { Responsive.defaults with
+              Show = Responsive.Size.LG },
+          [ Button.ƒ
+              ( Button.defaults,
+                [R.str "Show large"] ) ] )
 (*** hide ***)
 let render () =
     tryMount "responsive-demo-hide" hideSmall

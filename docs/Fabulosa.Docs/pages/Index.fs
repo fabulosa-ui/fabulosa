@@ -8,11 +8,11 @@ open Renderer
 
 (*** define: sample ***)
 let fabulousButton =
-    Anchor.ƒ {
-        Anchor.defaults with
-            Kind = Button.Kind.Primary
-            HTMLProps = [Href "button.html"]
-    } [R.str "Fabulosa"]
+    Anchor.ƒ
+        ( { Anchor.defaults with
+              Kind = Button.Kind.Primary
+              HTMLProps = [Href "button.html"] },
+          [R.str "Fabulosa"] )
 (*** hide ***)
 let render () =
     tryMount "button-demo" fabulousButton

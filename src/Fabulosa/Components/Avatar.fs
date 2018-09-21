@@ -39,23 +39,24 @@ module Avatar =
     type Source = string
 
     [<RequireQualifiedAccess>]
-    type Props = {
-        Kind: Kind
-        Initial: Initial
-        Size: Size
-        Source: Source
-        HTMLProps: HTMLProps
-    }
+    type Props =
+        { Kind: Kind
+          Initial: Initial
+          Size: Size
+          Source: Source
+          HTMLProps: HTMLProps }
 
-    let defaults = {
-        Props.Kind = Kind.Unset
-        Props.Initial = ""
-        Props.Size = Size.Unset
-        Props.Source = ""
-        Props.HTMLProps = []
-    }
+    [<RequireQualifiedAccess>]
+    type T = Props
 
-    let size =
+    let defaults =
+        { Props.Kind = Kind.Unset
+          Props.Initial = ""
+          Props.Size = Size.Unset
+          Props.Source = ""
+          Props.HTMLProps = [] }
+
+    let private size =
         function
         | Size.ExtraSmall -> "avatar-xs"
         | Size.Small -> "avatar-sm"
@@ -65,7 +66,7 @@ module Avatar =
         | Size.Unset -> "avatar-md"
         >> ClassName
 
-    let presence =
+    let private presence =
         function
         | Presence.Away -> "away"
         | Presence.Busy -> "busy"
@@ -73,7 +74,7 @@ module Avatar =
         | Presence.Unset -> ""
         >> ClassName
 
-    let kind =
+    let private kind =
         function
         | Kind.Icon source ->
             R.img
@@ -87,17 +88,16 @@ module Avatar =
             |> Some
         | Kind.Unset -> None
 
-
-    let ƒ (props: Props) =
+    let ƒ (avatar: T) =
         let containerProps =
             addProps
                 [ ClassName "avatar"
-                  size props.Size ] props.HTMLProps
-                  @ [ Data ("initial", props.Initial) ]
+                  size avatar.Size ] avatar.HTMLProps
+                  @ [ Data ("initial", avatar.Initial) ]
         R.figure containerProps
-            [ (if props.Source <> ""
-               then R.img [Src props.Source]
-               else R.ofOption None)
-              kind props.Kind |> R.ofOption ]
+            [ ( if avatar.Source <> ""
+                then R.img [ Src avatar.Source ]
+                else R.ofOption None )
+              kind avatar.Kind |> R.ofOption ]
               
     let render = ƒ

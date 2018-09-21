@@ -19,7 +19,8 @@ let card =
                 the world by making tools for the mind
                 that advance humankind." ] ]
           Footer =
-            [ Button.ƒ Button.defaults [ R.str "Purchase" ] ]
+            [ Button.ƒ
+                ( Button.defaults, [ R.str "Purchase" ] ) ]
           Image =
             { Media.Image.defaults with
                 HTMLProps = [ Src "assets/macos-sierra-2.jpg" ] } }

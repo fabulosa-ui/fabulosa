@@ -18,17 +18,18 @@ module Responsive =
     | Unset
 
     [<RequireQualifiedAccess>]
-    type Props = {
-        Hide: Size
-        Show: Size
-    }
+    type Props =
+        { Hide: Size
+          Show: Size }
 
-    let defaults = {
-        Props.Hide = Size.Unset
-        Props.Show = Size.Unset
-    }
+    [<RequireQualifiedAccess>]
+    type T = Props * ReactElement list
 
-    let hide =
+    let defaults =
+        { Props.Hide = Size.Unset
+          Props.Show = Size.Unset }
+
+    let private hide =
         function
         | Size.XS -> "hide-xs"
         | Size.SM -> "hide-sm"
@@ -38,7 +39,7 @@ module Responsive =
         | Size.Unset -> ""
         >> ClassName
 
-    let show =
+    let private show =
         function
         | Size.XS -> "show-xs"
         | Size.SM -> "show-sm"
@@ -48,14 +49,14 @@ module Responsive =
         | Size.Unset -> ""
         >> ClassName
         
-
-    let ƒ (props: Props) =
+    let ƒ (responsive: T) =
+        let props, children = responsive
         []
         |> addProps
             [ ClassName "responsive"
               hide props.Hide
               show props.Show ]
-        |> R.span
+        |> R.span <| children
 
     let render = ƒ
 

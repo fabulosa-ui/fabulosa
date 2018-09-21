@@ -12,9 +12,7 @@ let tests =
          test "Responsive default" {
             let child = R.str "text"
             let props = Responsive.defaults
-            let responsiveElement = Responsive.ƒ props [child]
-            
-            responsiveElement
+            Responsive.ƒ ( props, [ child ] )
             |> ReactNode.unit
             |>! hasClass "responsive"
             |> hasChild 1 (child |> ReactNode.unit)
@@ -23,9 +21,7 @@ let tests =
          test "Responsive hide small" {
             let child = Button.ƒ ( Button.defaults, [R.str "text"] )
             let props = { Responsive.defaults with Hide = Responsive.Size.SM }
-            let responsiveElement = Responsive.ƒ props [child]
-
-            responsiveElement
+            Responsive.ƒ ( props, [ child ] )
             |> ReactNode.unit
             |>! hasClass "responsive hide-sm"
             |> hasChild 1 (child |> ReactNode.unit)
@@ -34,9 +30,7 @@ let tests =
          test "Responsive show large" {
             let child = Button.ƒ ( Button.defaults, [R.str "text"] )
             let props = { Responsive.defaults with Show = Responsive.Size.LG }
-            let responsiveElement = Responsive.ƒ props [child]
-
-            responsiveElement
+            Responsive.ƒ ( props, [ child ] )
             |> ReactNode.unit
             |>! hasClass "responsive show-lg"
             |> hasChild 1 (child |> ReactNode.unit)
@@ -46,9 +40,7 @@ let tests =
             let grandChild = R.span [] []
             let child = R.div [] [grandChild]
             let props = Responsive.defaults
-            let responsiveElement = Responsive.ƒ props [child]
-
-            responsiveElement
+            Responsive.ƒ ( props, [ child ] )
             |> ReactNode.unit
             |>! hasChild 1 (child |> ReactNode.unit)
             |> hasChild 1 (grandChild |> ReactNode.unit)
@@ -58,9 +50,7 @@ let tests =
             let props = Responsive.defaults
             let grandChild = R.span [ClassName "grand-child"] []
             let child = R.div [ClassName "child"] [grandChild]
-            let responsiveElement = Responsive.ƒ props [child]
-
-            responsiveElement
+            Responsive.ƒ ( props, [ child ] )
             |> ReactNode.unit
             |>! hasChild 1 (child |> ReactNode.unit)
             |> hasChild 1 (grandChild |> ReactNode.unit)

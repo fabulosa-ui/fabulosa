@@ -9,32 +9,30 @@ open Renderer
 (*** define: accordion-sample ***)
 let accordion =
     Accordion.ƒ
-        Accordion.defaults
-        [ { Header = "Header One"
-            Content = [
-                R.a [] [R.str "Item One"]
-                R.a [] [R.str "Item Two"]
-            ] }
-          { Header = "Header Two"
-            Content = [
-                R.a [] [R.str "Item One"]
-                R.a [] [R.str "Item Two"]
-            ] } ]
+        ( Accordion.defaults,
+          [ { Header = "Header One"
+              Body =
+                [ R.a [] [ R.str "Item One" ]
+                  R.a [] [ R.str "Item Two" ] ] }
+            { Header = "Header Two"
+              Body =
+                [ R.a [] [ R.str "Item One" ]
+                  R.a [] [ R.str "Item Two" ] ] } ] )
 (*** define: accordion-custom-sample ***)
 let custom =
     Accordion.ƒ
-        { Accordion.defaults with
-            CustomIcon =
+        ( { Accordion.defaults with
+              CustomIcon =
                 { Icon.defaults with
-                    Kind = Icon.Kind.Forward } }
-        [ { Header = "Header One"
-            Content =
+                    Kind = Icon.Kind.Forward } },
+          [ { Header = "Header One"
+              Body =
                 [ R.a [] [R.str "Item One"]
                   R.a [] [R.str "Item Two"] ] }
-          { Header = "Header Two"
-            Content =
+            { Header = "Header Two"
+              Body =
                 [ R.a [] [R.str "Item One"]
-                  R.a [] [R.str "Item Two"] ] } ]
+                  R.a [] [R.str "Item Two"] ] } ] )
 (**
 
 <div id="accordions">

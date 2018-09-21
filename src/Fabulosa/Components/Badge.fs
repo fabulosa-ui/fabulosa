@@ -28,8 +28,11 @@ module Badge =
         { Badge: Badge
           Kind: Kind }
 
+    [<RequireQualifiedAccess>]
+    type T = Props
+
     let private combine htmlProps badge =
-        (htmlProps |> addProp (ClassName "badge"))
+        ( htmlProps |> addProp (ClassName "badge") )
         @ [Data ("badge", badge)]
 
     let private create kind badge =
@@ -56,5 +59,5 @@ module Badge =
         { Props.Badge = 0
           Props.Kind = Kind.Div ([], []) }
 
-    let ƒ (props: Props) =
-        create props.Kind props.Badge
+    let ƒ (badge: T) =
+        create badge.Kind badge.Badge

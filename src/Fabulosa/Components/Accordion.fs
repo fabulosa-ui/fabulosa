@@ -7,53 +7,93 @@ module Accordion =
     module R = Fable.Helpers.React
     open R.Props
 
-    [<RequireQualifiedAccess>]
-    type Props = {
-        CustomIcon: Icon.Props
-        HTMLProps: IHTMLProp list
-    }
+    module Header =
+
+        [<RequireQualifiedAccess>]
+        type Children =
+            { Icon: Icon.T
+              Text: string }
+
+        [<RequireQualifiedAccess>]
+        type T = Children
+
+        let ƒ (header: T) =
+            R.summary
+                [ ClassName "accordion-header" ]
+                [ Icon.ƒ header.Icon
+                  R.RawText "\n"
+                  R.str header.Text ]
+
+    module Body =
+
+        [<RequireQualifiedAccess>]
+        type Children = ReactElement list
+
+        [<RequireQualifiedAccess>]
+        type T = Children
+
+        let private renderItem content =
+            R.li
+                [ ClassName "menu-item" ]
+                [ content ]
+
+        let ƒ (body: T) =
+            R.div
+                [ ClassName "accordion-body" ]
+                [ R.ul
+                    [ ClassName "menu menu-nav"] 
+                    ( List.map renderItem body ) ]
+
+    module Item =
+
+        [<RequireQualifiedAccess>]
+        type Children =
+            { Header: Header.T
+              Body: Body.T }
+
+        [<RequireQualifiedAccess>]
+        type T = Children
+
+        let ƒ (item: T) =
+            R.details
+                [ ClassName "accordion" ]
+                [ Header.ƒ item.Header
+                  Body.ƒ item.Body ]
 
     [<RequireQualifiedAccess>]
-    type Child = {
-        Header: string
-        Content: ReactElement list
-    }
+    type Props =
+        { CustomIcon: Icon.Props
+          HTMLProps: IHTMLProp list }
 
-    let defaults = {
-        Props.CustomIcon =
+    [<RequireQualifiedAccess>]
+    type Child =
+        { Header: string
+          Body: ReactElement list }
+
+    [<RequireQualifiedAccess>]
+    type Children = Child list
+
+    [<RequireQualifiedAccess>]
+    type T = Props * Children    
+    let defaults =
+        { Props.CustomIcon =
             { Icon.defaults with
                 Kind = Icon.Kind.ArrowRight }
-        Props.HTMLProps = []
-    }
+          Props.HTMLProps = [] }
 
-    let private renderItem content =
-        R.li [ClassName "menu-item"] [content]
-
-    let private renderHeader icon text =
-        R.summary [ClassName "accordion-header"] [
-            Icon.ƒ icon
-            R.RawText "\n"
-            R.str text
-        ]
-
-    let private renderBody (child: Child) =
-        let items = child.Content |> List.map renderItem
-        R.div [ClassName "accordion-body"]
-            [ R.ul [ClassName "menu menu-nav"] items ]
-
-    let private renderChild icon (child: Child) =
-        R.details [ClassName "accordion"]
-            [ renderHeader icon child.Header
-              renderBody child ]
-
-    let private renderChildren children icon =
-        children
-        |> List.map (renderChild icon)
-
-    let ƒ (props: Props) children =
+    let ƒ (accordion: T) =
+        let props, children = accordion
         let iconProps =
             { props.CustomIcon with
                 HTMLProps = props.CustomIcon.HTMLProps
                 |> addProp (ClassName "mr-1") }
-        R.div [] (renderChildren children iconProps)
+        R.div []
+        <| Seq.map
+            (fun (child: Child) ->
+                Item.ƒ
+                    { Header =
+                        { Icon = iconProps
+                          Text = child.Header }
+                      Body = child.Body } )
+            children
         

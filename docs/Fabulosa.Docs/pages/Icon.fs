@@ -8,17 +8,15 @@ open Fable.Import.React
 
 (*** define: icon-sample ***)
 let icon =
-    Icon.ƒ {
-        Icon.defaults with
-            Kind = Icon.Kind.Download
-    } []
+    Icon.ƒ
+        ( { Icon.defaults with
+              Kind = Icon.Kind.Download } )
 (*** define: icon-size-sample ***)
 let x4 =
-    Icon.ƒ {
-        Icon.defaults with
-            Kind = Icon.Kind.Upload
-            Size = Icon.Size.X4
-    } []
+    Icon.ƒ
+        ( { Icon.defaults with
+              Kind = Icon.Kind.Upload
+              Size = Icon.Size.X4 } )
 (**
 
 <div id="icon">

@@ -15,7 +15,7 @@ let empty =
         { Icon = { Icon.defaults with Kind = Icon.Kind.Mail }
           Title = "You have no new messages" 
           SubTitle = "Click the button to start a conversation"
-          Action = [ Button.ƒ Button.defaults [R.str "Send a message"] ] }
+          Action = [ Button.ƒ ( Button.defaults, [R.str "Send a message"] ) ] }
 (*** hide ***)
 let render () =
     tryMount "empty-default-demo" empty

@@ -13,24 +13,24 @@ let navbar =
           [ Navbar.Child.Section
               ( Navbar.defaults,
                 [ Anchor.ƒ
-                    { Anchor.defaults with
-                        Kind = Button.Kind.Link }
-                    [ R.str "Left 1" ]
+                    ( { Anchor.defaults with
+                          Kind = Button.Kind.Link },
+                      [ R.str "Left 1" ] )
                   Anchor.ƒ
-                    { Anchor.defaults with
-                        Kind = Button.Kind.Link }
-                    [ R.str "Left 2" ] ] )
+                    ( { Anchor.defaults with
+                          Kind = Button.Kind.Link },
+                      [ R.str "Left 2" ] ) ] )
             Navbar.Child.Center
               ( Navbar.defaults,
                 [ Anchor.ƒ
-                    { Anchor.defaults with
-                        Kind = Button.Kind.Link }
-                    [ R.str "Center" ] ] )
+                    ( { Anchor.defaults with
+                          Kind = Button.Kind.Link },
+                      [ R.str "Center" ] ) ] )
             Navbar.Child.Section
               ( Navbar.defaults,
                 [ Anchor.ƒ
-                    Anchor.defaults
-                    [ R.str "Right" ] ] ) ] )
+                    ( Anchor.defaults,
+                      [ R.str "Right" ] ) ] ) ] )
 (*** hide ***)
 let render () =
     tryMount "navbar-demo" navbar
