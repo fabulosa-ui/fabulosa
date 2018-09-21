@@ -12,12 +12,12 @@ module Validation =
     | Error of string
     | Success of string
 
-    let message =
+    let private message =
         function
         | Kind.Success message -> message 
         | Kind.Error message -> message
 
-    let className =
+    let private className =
         function
         | Kind.Success _ -> "has-success"
         | Kind.Error _ -> "has-error"

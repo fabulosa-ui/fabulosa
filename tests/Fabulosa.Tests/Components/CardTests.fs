@@ -29,7 +29,10 @@ let tests =
 
         test "Card with children" {
             let body = R.p [] [R.str "Body" ]
-            let footer = Button.ƒ Button.defaults [R.str "Footer"]
+            let footer =
+                Button.ƒ
+                    ( Button.defaults,
+                      [ R.str "Footer" ] )
             let imageProps =
                 { Media.Image.defaults with
                     HTMLProps = [Src "bla.png"] }

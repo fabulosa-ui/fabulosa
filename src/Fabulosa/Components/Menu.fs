@@ -50,9 +50,9 @@ module Menu =
         let withClick =
             props.HTMLProps @ [ OnClick (onClick >> dispatch) ]
         Anchor.ƒ
-            { props with
-                HTMLProps = withClick }
-            children
+            ( { props with
+                  HTMLProps = withClick },
+              children :?> Button.Children )
 
     let private renderDivider =
         function
@@ -113,8 +113,7 @@ module Menu =
             Button.defaults,
             Seq.cast<ReactElement>
                 [ Icon.ƒ
-                    { Icon.defaults with Kind = Icon.Kind.Menu }
-                    [] ]
+                    { Icon.defaults with Kind = Icon.Kind.Menu } ]
           Opened = false }
 
     let ƒ props children =

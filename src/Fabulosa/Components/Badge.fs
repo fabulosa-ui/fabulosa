@@ -40,9 +40,9 @@ module Badge =
                     HTMLProps = combine props.HTMLProps badge }
         | Kind.Button (props, children) ->
             Button.ƒ
-                { props with
-                    HTMLProps = combine props.HTMLProps badge }
-                children
+                ( { props with
+                      HTMLProps = combine props.HTMLProps badge },
+                  children )
         | Kind.Div (props, children) ->
             R.div
                 (combine props badge)

@@ -32,10 +32,10 @@ let tests =
                 { Icon.defaults with
                         Kind = Icon.Kind.Mail }
             let icon =
-                Icon.ƒ { iconProps with Size = Icon.Size.X3 } []
+                Icon.ƒ { iconProps with Size = Icon.Size.X3 }
                 |> ReactNode.unit
             let action =
-                Button.ƒ Button.defaults [R.str "Action"]
+                Button.ƒ ( Button.defaults, [R.str "Action"] )
             Empty.ƒ
                 Empty.defaults
                 { Icon = iconProps

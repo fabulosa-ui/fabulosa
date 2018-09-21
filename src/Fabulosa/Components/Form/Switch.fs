@@ -7,20 +7,21 @@ module Switch =
     open R.Props
 
     [<RequireQualifiedAccess>]
-    type Props = {
-        Text: string
-        HTMLProps: IHTMLProp list
-    }
+    type Props =
+        { Text: string
+          HTMLProps: IHTMLProp list }
 
-    let defaults = {
-        Props.Text = "Label"
-        Props.HTMLProps = []
-    }
+    [<RequireQualifiedAccess>]
+    type T = Props
 
-    let ƒ (props: Props) =
-        R.label [ClassName "form-switch"]
-            [ R.input <| props.HTMLProps @ [Type "checkbox"]
-              R.i [ClassName "form-icon"] []
-              R.str props.Text ]
+    let defaults =
+        { Props.Text = "Label"
+          Props.HTMLProps = [] }
+
+    let ƒ (switch: T) =
+        R.label [ ClassName "form-switch" ]
+            [ R.input <| switch.HTMLProps @ [ Type "checkbox" ]
+              R.i [ ClassName "form-icon" ] []
+              R.str switch.Text ]
 
     let render = ƒ

@@ -8,34 +8,35 @@ module Radio =
     open R.Props
 
     [<RequireQualifiedAccess>]
-    type Inline = bool
+    type private Inline = bool
 
     [<RequireQualifiedAccess>]
-    type Props = {
-        Inline: Inline
-        Text: string
-        HTMLProps: IHTMLProp list
-    }
+    type Props =
+        { Inline: Inline
+          Text: string
+          HTMLProps: IHTMLProp list }
 
-    let defaults = {
-        Props.Inline = false
-        Props.Text = "Label"
-        Props.HTMLProps = []
-    }
+    [<RequireQualifiedAccess>]
+    type T = Props
 
-    let inlineRadio =
+    let defaults =
+        { Props.Inline = false
+          Props.Text = "Label"
+          Props.HTMLProps = [] }
+
+    let private inlineRadio =
         function
         | true -> "form-inline"
         | false -> ""
 
-    let ƒ (props: Props) =
+    let ƒ (radio: T) =
         let containerClass =
             [ "form-radio"
-              inlineRadio props.Inline ]
+              inlineRadio radio.Inline ]
             |> concatStrings
         R.label [ClassName containerClass]
-            [ R.input <| props.HTMLProps @ [Type "radio"]
+            [ R.input <| radio.HTMLProps @ [Type "radio"]
               R.i [ClassName "form-icon"] []
-              R.str props.Text ]
+              R.str radio.Text ]
 
     let render = ƒ

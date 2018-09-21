@@ -8,14 +8,16 @@ module Checkbox =
     open R.Props
 
     [<RequireQualifiedAccess>]
-    type Inline = bool
+    type private Inline = bool
 
     [<RequireQualifiedAccess>]
-    type Props = {
-        Inline: Inline
-        Text: string
-        HTMLProps: IHTMLProp list
-    }
+    type Props =
+        { Inline: Inline
+          Text: string
+          HTMLProps: IHTMLProp list }
+
+    [<RequireQualifiedAccess>]
+    type T = Props
 
     let inlineCheckbox =
         function
@@ -23,20 +25,19 @@ module Checkbox =
         | false -> ""
         >> ClassName
 
-    let defaults = {
-        Props.Inline = false
-        Props.Text = "Label"
-        Props.HTMLProps = []
-    }
+    let defaults =
+        { Props.Inline = false
+          Props.Text = "Label"
+          Props.HTMLProps = [] }
 
-    let ƒ (props: Props) =
+    let ƒ (checkbox: T) =
         let containerProps =
             [] |> addProps
                 [ ClassName "form-checkbox"
-                  inlineCheckbox props.Inline ]
+                  inlineCheckbox checkbox.Inline ]
         R.label containerProps
-            [ R.input <| props.HTMLProps @ [Type "checkbox"]
+            [ R.input <| checkbox.HTMLProps @ [Type "checkbox"]
               R.i [ClassName "form-icon"] []
-              R.str props.Text ]
+              R.str checkbox.Text ]
 
     let render = ƒ

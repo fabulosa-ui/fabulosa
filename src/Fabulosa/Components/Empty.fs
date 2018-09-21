@@ -9,33 +9,29 @@ module Empty =
     open R.Props
 
     [<RequireQualifiedAccess>]
-    type Props = {
-        HTMLProps: HTMLProps
-    }
+    type Props =
+        { HTMLProps: HTMLProps }
 
     [<RequireQualifiedAccess>]
-    type Children = {
-        Icon: Icon.Props
-        Title: string
-        SubTitle: string
-        Action: ReactElement seq
-    }
+    type Children =
+        { Icon: Icon.Props
+          Title: string
+          SubTitle: string
+          Action: ReactElement seq }
 
-    let defaults = {
-        Props.HTMLProps = []
-    }
+    let defaults =
+        { Props.HTMLProps = [] }
 
-    let children = {
-        Children.Icon = Icon.defaults
-        Children.Title = ""
-        Children.SubTitle = ""
-        Children.Action = []
-    }
+    let children =
+        { Children.Icon = Icon.defaults
+          Children.Title = ""
+          Children.SubTitle = ""
+          Children.Action = [] }
 
     let private icon props =
         R.div
             [ ClassName "empty-icon" ]
-            [ Icon.ƒ { props with Size = Icon.Size.X3 } [] ]
+            [ Icon.ƒ { props with Size = Icon.Size.X3 } ]
 
     let private title text =
         R.p [ ClassName "empty-title h5" ] [ R.str text ]

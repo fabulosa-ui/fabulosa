@@ -12,7 +12,9 @@ let tests =
 
         test "Textarea default" {
             let props = Textarea.defaults
-            let textarea = Textarea.ƒ props []
+            let textarea =
+                Textarea.ƒ
+                    ( props, [] )
             
             textarea
             |> ReactNode.unit
@@ -21,7 +23,9 @@ let tests =
 
         test "Textarea html props" {
             let props = { Textarea.defaults with HTMLProps = [ClassName "custom"] }
-            let textarea = Textarea.ƒ props []
+            let textarea =
+                Textarea.ƒ
+                    ( props, [] )
             
             textarea
             |> ReactNode.unit
@@ -32,7 +36,9 @@ let tests =
             let props = Textarea.defaults
             let grandChild = R.span [] []
             let child = R.div [] [grandChild]
-            let textarea = Textarea.ƒ props [child]
+            let textarea =
+                Textarea.ƒ
+                    ( props, [child] )
             
             textarea
             |> ReactNode.unit
@@ -44,7 +50,9 @@ let tests =
             let props = Textarea.defaults
             let grandChild = R.span [ClassName "grand-child"] []
             let child = R.div [ClassName "child"] [grandChild]
-            let textarea = Textarea.ƒ props [child]
+            let textarea =
+                Textarea.ƒ
+                    ( props, [child] )
             
             textarea
             |> ReactNode.unit

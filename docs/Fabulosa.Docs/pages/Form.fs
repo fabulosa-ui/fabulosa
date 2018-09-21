@@ -8,152 +8,140 @@ open Renderer
 
 (*** define: form-checkbox-sample ***)
 let checkbox =
-    Form.Group.ƒ Form.Group.defaults [
-        Label.ƒ {
-            Label.defaults with Text = "Login Preferences"
-        }
-        Checkbox.ƒ {
-            Checkbox.defaults with
-                Text = "Remember Me"
-                HTMLProps = [Name "remember-me"]
-        }
-    ]
+    Form.Group.ƒ
+        ( Form.Group.defaults,
+          [ Label.ƒ
+              { Label.defaults with Text = "Login Preferences" }
+            Checkbox.ƒ
+              { Checkbox.defaults with
+                  Text = "Remember Me"
+                  HTMLProps = [Name "remember-me"] } ] )
 (*** define: form-input-sample ***)
 let input =
-    Form.Group.ƒ Form.Group.defaults [
-        Label.ƒ {
-            Label.defaults with Text = "Name"
-        }
-        Input.ƒ {
-            Input.defaults with
-                HTMLProps = [Placeholder "Please enter your name"]
-        }
-    ]
+    Form.Group.ƒ
+        ( Form.Group.defaults,
+          [ Label.ƒ
+              { Label.defaults with Text = "Name" }
+            Input.ƒ
+              { Input.defaults with
+                  HTMLProps = [ Placeholder "Please enter your name" ] } ] )
 (*** define: form-input-group-sample ***)
 let inputGroup =
-    Form.Group.ƒ Form.Group.defaults [
-        Label.ƒ { Label.defaults with Text = "Email Address" }
-        InputGroup.ƒ InputGroup.defaults [
-            Input.ƒ {
-                Input.defaults with
-                    HTMLProps = [Placeholder "Please enter email address"]
-            }
-            Select.ƒ Select.defaults [
-                Select.Option.ƒ Select.Option.defaults [R.str "@gmail.com"]
-                Select.Option.ƒ Select.Option.defaults [R.str "@hotmail.com"]
-            ]
-        ]
-        Label.ƒ { Label.defaults with Text = "Website" }
-        InputGroup.ƒ {
-            InputGroup.defaults with
-                AddonLeft = InputGroup.AddonLeft.Text "https://"                                        
-                AddonRight = InputGroup.AddonRight.Button
-                    ( Button.defaults, [
-                        R.str "Save"
-                        R.RawText "\n"
-                        Icon.ƒ { Icon.defaults with Kind = Icon.Kind.Check } []
-                    ] )
-        } [
-            Input.ƒ {
-                Input.defaults with
-                    HTMLProps = [Placeholder "Please enter website address"]
-            }
-        ]
-    ]
+    Form.Group.ƒ
+        ( Form.Group.defaults,
+          [ Label.ƒ
+              { Label.defaults with Text = "Email Address" }
+            InputGroup.ƒ
+              ( InputGroup.defaults,
+                [ Input.ƒ
+                    { Input.defaults with
+                        HTMLProps = [ Placeholder "Please enter email address" ] }
+                  Select.ƒ
+                    ( Select.defaults,
+                      [ Select.Child.Option
+                          ( Select.Option.defaults, [ R.str "@gmail.com" ] )
+                        Select.Child.Option
+                          ( Select.Option.defaults, [ R.str "@hotmail.com" ] ) ] ) ] )
+            Label.ƒ { Label.defaults with Text = "Website" }
+            InputGroup.ƒ
+                ( { InputGroup.defaults with
+                      AddonLeft = InputGroup.AddonLeft.Text "https://"                                        
+                      AddonRight = InputGroup.AddonRight.Button
+                        ( Button.defaults,
+                            [ R.str "Save"
+                              R.RawText "\n"
+                              Icon.ƒ { Icon.defaults with Kind = Icon.Kind.Check } ] ) },
+                  [ Input.ƒ
+                      ( { Input.defaults with
+                            HTMLProps = [Placeholder "Please enter website address"] } ) ] ) ] )
 (*** define: form-radio-sample ***)
 let radio =
-    Form.Group.ƒ Form.Group.defaults [
-        Label.ƒ {
-            Label.defaults with Text = "Gender"
-        }
-        Radio.ƒ {
-            Radio.defaults with
-                Text = "Male"
-                HTMLProps = [Name "gender"]
-        }
-        Radio.ƒ {
-            Radio.defaults with
-                Text = "Female"
-                HTMLProps = [Name "gender"]
-        }
-    ]
+    Form.Group.ƒ
+        ( Form.Group.defaults,
+          [ Label.ƒ
+              { Label.defaults with Text = "Gender" }
+            Radio.ƒ
+              { Radio.defaults with
+                  Text = "Male"
+                  HTMLProps = [Name "gender"] }
+            Radio.ƒ
+              { Radio.defaults with
+                  Text = "Female"
+                  HTMLProps = [Name "gender"] } ] )
 (*** define: form-select-sample ***)
 let select =
-    Form.Group.ƒ Form.Group.defaults [
-        Label.ƒ {
-            Label.defaults with Text = "Language"
-        }
-        Select.ƒ Select.defaults [
-            Select.Option.ƒ Select.Option.defaults [R.str "English"]
-            Select.Option.ƒ Select.Option.defaults [R.str "Spanish"]
-            Select.Option.ƒ Select.Option.defaults [R.str "Assembly"]
-        ]
-    ]
+    Form.Group.ƒ
+        ( Form.Group.defaults,
+          [ Label.ƒ
+              { Label.defaults with Text = "Language" }
+            Select.ƒ
+              ( Select.defaults,
+                [ Select.Child.Option
+                    ( Select.Option.defaults,
+                      [ R.str "English" ] )
+                  Select.Child.Option
+                    ( Select.Option.defaults,
+                      [ R.str "Spanish" ] )
+                  Select.Child.Option
+                    ( Select.Option.defaults,
+                      [ R.str "Assembly" ] ) ] ) ] )
 (*** define: form-sizes-sample ***)
 let sizes =
-    Form.Group.ƒ Form.Group.defaults [
-        Label.ƒ {
-            Label.defaults with
-                Text = "Small"
-                Size = Label.Size.Small
-        }
-        Input.ƒ {
-            Input.defaults with
-                HTMLProps = [Placeholder "Please enter a value"]
-                Size = Input.Size.Small
-        }
-        Label.ƒ {
-            Label.defaults with
-                Text = "Large"
-                Size = Label.Size.Large
-        }
-        Select.ƒ {
-            Select.defaults with
-                Size = Select.Size.Large
-        } [
-            Select.Option.ƒ Select.Option.defaults [R.str "Large"]
-        ]
-    ]
+    Form.Group.ƒ
+        ( Form.Group.defaults,
+          [ Label.ƒ
+              { Label.defaults with
+                  Text = "Small"
+                  Size = Label.Size.Small }
+            Input.ƒ
+              { Input.defaults with
+                  HTMLProps = [Placeholder "Please enter a value"]
+                  Size = Input.Size.Small }
+            Label.ƒ
+              { Label.defaults with
+                  Text = "Large"
+                  Size = Label.Size.Large }
+            Select.ƒ
+              ( { Select.defaults with
+                    Size = Select.Size.Large },
+                [ Select.Child.Option
+                    ( Select.Option.defaults,
+                      [ R.str "Large" ] ) ] ) ] )
 (*** define: form-switch-sample ***)
 let switch =
-    Form.Group.ƒ Form.Group.defaults [
-        Label.ƒ {
-            Label.defaults with Text = "Email Preferences"
-        }
-        Switch.ƒ {
-            Switch.defaults with
-                Text = "Send me promotional emails"
-        }
-    ]
+    Form.Group.ƒ
+        ( Form.Group.defaults,
+          [ Label.ƒ
+              { Label.defaults with Text = "Email Preferences" }
+            Switch.ƒ
+              { Switch.defaults with
+                  Text = "Send me promotional emails" } ] )
 (*** define: form-textarea-sample ***)
 let textarea =
-    Form.Group.ƒ Form.Group.defaults [
-        Label.ƒ {
-            Label.defaults with Text = "Description"
-        }
-        Textarea.ƒ {
-            Textarea.defaults with
-                HTMLProps = [Placeholder "Please enter a description"]
-        } []
-    ]
+    Form.Group.ƒ
+        ( Form.Group.defaults,
+          [ Label.ƒ
+              { Label.defaults with Text = "Description" }
+            Textarea.ƒ
+              ( { Textarea.defaults with
+                    HTMLProps = [Placeholder "Please enter a description"] },
+                [] ) ] )
 (*** define: form-validation-sample ***)
 let validation =
-    Form.Group.ƒ Form.Group.defaults [
-        Label.ƒ {
-            Label.defaults with Text = "Valid Input"
-        }
-        Input.ƒ {
-            Input.defaults with
-                HTMLProps = [Placeholder "Please enter a value"]
-        } |> Validation.ƒ <| Validation.Kind.Success "This input is valid."
-        Label.ƒ {
-            Label.defaults with Text = "Invalid Input"
-        }
-        Input.ƒ {
-            Input.defaults with
-                HTMLProps = [Placeholder "Please enter a value"]
-        } |> Validation.ƒ <| Validation.Kind.Error "This input is invalid."
-    ]
+    Form.Group.ƒ
+        ( Form.Group.defaults,
+          [ Label.ƒ
+              { Label.defaults with Text = "Valid Input" }
+            Input.ƒ
+              { Input.defaults with
+                  HTMLProps = [ Placeholder "Please enter a value" ] }
+            |> Validation.ƒ <| Validation.Kind.Success "This input is valid."
+            Label.ƒ
+              { Label.defaults with Text = "Invalid Input" }
+            Input.ƒ
+              { Input.defaults with
+                  HTMLProps = [Placeholder "Please enter a value"] }
+            |> Validation.ƒ <| Validation.Kind.Error "This input is invalid." ] )
 (*** hide ***)
 let render () =
     tryMount "form-input-demo" input

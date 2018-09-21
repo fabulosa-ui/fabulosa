@@ -14,31 +14,32 @@ module Label =
     | Unset
 
     [<RequireQualifiedAccess>]
-    type Props = {
-        Size: Size
-        Text: string
-        HTMLProps: IHTMLProp list
-    }
+    type Props =
+        { Size: Size
+          Text: string
+          HTMLProps: IHTMLProp list }
 
-    let defaults = {
-        Props.Size = Size.Unset
-        Props.Text = "Checkbox"
-        Props.HTMLProps = []
-    }
+    [<RequireQualifiedAccess>]
+    type T = Props
 
-    let size =
+    let defaults =
+        { Props.Size = Size.Unset
+          Props.Text = "Checkbox"
+          Props.HTMLProps = [] }
+
+    let private size =
         function
         | Size.Small -> "label-sm"
         | Size.Large -> "label-lg"
         | Size.Unset -> ""
 
-    let ƒ (props: Props) =
-        props.HTMLProps
+    let ƒ (label: T) =
+        label.HTMLProps
         |> addProps
             [ ClassName "form-label"
-              ClassName <| size props.Size ]
+              ClassName <| size label.Size ]
         |> R.label
-        <| [R.str props.Text]
+        <| [R.str label.Text]
 
     let render = ƒ
     

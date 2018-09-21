@@ -114,10 +114,10 @@ module Bar =
 
         let private item child =
             Item.ƒ child [
-                Button.ƒ {
+                Button.ƒ ( {
                     Button.defaults with
                         HTMLProps = [ClassName "bar-slider-btn"]
-                } []
+                }, [] )
             ]
 
         let ƒ (props: Props) (children: Children) =

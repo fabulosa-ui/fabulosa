@@ -6,22 +6,28 @@ module Form =
     [<RequireQualifiedAccess>]
     module Group =
 
+        open Fable.Import.React
         open Fabulosa.Extensions
         module R = Fable.Helpers.React
         open R.Props
 
         [<RequireQualifiedAccess>]
-        type Props = {
-            HTMLProps: IHTMLProp list
-        }
+        type Props =
+            { HTMLProps: IHTMLProp list }
 
-        let defaults = {
-            Props.HTMLProps = []
-        }
+        [<RequireQualifiedAccess>]
+        type Children = ReactElement list
 
-        let ƒ (props: Props) =
+        [<RequireQualifiedAccess>]
+        type T = Props * Children
+
+        let defaults =
+            { Props.HTMLProps = [] }
+
+        let ƒ (group: T) =
+            let props, children = group
             props.HTMLProps
             |> addProp (ClassName "form-group")
-            |> R.div
+            |> R.div <| children
 
         let render = ƒ

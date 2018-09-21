@@ -3,6 +3,7 @@ namespace Fabulosa
 [<RequireQualifiedAccess>]
 module Button =
 
+    open Fable.Import.React
     open Fabulosa.Extensions
     module R = Fable.Helpers.React
     open R.Props
@@ -48,6 +49,12 @@ module Button =
           Format: Format
           HTMLProps: IHTMLProp list }
 
+    [<RequireQualifiedAccess>]
+    type Children = ReactElement list
+
+    [<RequireQualifiedAccess>]
+    type T = Props * Children
+
     let kind =
         function
         | Kind.Default -> "btn-default"
@@ -85,16 +92,16 @@ module Button =
         | Format.Unset -> ""
         >> ClassName
 
-    let defaults = {
-        Props.Kind = Kind.Unset
-        Props.Color = Color.Unset
-        Props.Size = Size.Unset
-        Props.State = State.Unset
-        Props.Format = Format.Unset
-        Props.HTMLProps = []
-    }
+    let defaults =
+        { Props.Kind = Kind.Unset
+          Props.Color = Color.Unset
+          Props.Size = Size.Unset
+          Props.State = State.Unset
+          Props.Format = Format.Unset
+          Props.HTMLProps = [] }
 
-    let ƒ (props: Props) =
+    let ƒ (button: T) =
+        let props, children = button
         props.HTMLProps
         |> addProps
             [ ClassName "btn"
@@ -103,25 +110,28 @@ module Button =
               size props.Size
               state props.State
               format props.Format ]
-        |> R.button
+        |> R.button <| children
 
     let render = ƒ
 
 [<RequireQualifiedAccess>]
 module Anchor =
 
+    open Fable.Import.React
     open Fabulosa.Extensions
     module R = Fable.Helpers.React
     open R.Props
 
-    type Props = {
-        props: Button.Props list
-        HTMLProps: IHTMLProp list
-    }
+    [<RequireQualifiedAccess>]
+    type Children = ReactElement list
+
+    [<RequireQualifiedAccess>]
+    type T = Button.T
 
     let defaults = Button.defaults
 
-    let ƒ (props: Button.Props) =
+    let ƒ (anchor: T) =
+        let props, children = anchor
         props.HTMLProps
         |> addProps
             [ ClassName "btn"
@@ -130,35 +140,43 @@ module Anchor =
               Button.color props.Color
               Button.state props.State
               Button.format props.Format ]
-        |> R.a
+        |> R.a <| children
 
     let render = ƒ
 
 module ButtonGroup =
 
+    open Fable.Import.React
     open Fabulosa.Extensions
     module R = Fable.Helpers.React
     open R.Props
 
+    [<RequireQualifiedAccess>]
     type Block = bool
 
-    type Props = {
-        Block: Block
-        HTMLProps: IHTMLProp list
-    }
+    [<RequireQualifiedAccess>]
+    type Props =
+        { Block: Block
+          HTMLProps: IHTMLProp list }
 
-    let defaults = {
-        Block = false
-        HTMLProps = []
-    }
+    [<RequireQualifiedAccess>]
+    type Children = ReactElement list
 
-    let block =
+    [<RequireQualifiedAccess>]
+    type T = Props * Button.T list
+
+    let defaults =
+        { Props.Block = false
+          Props.HTMLProps = [] }
+
+    let private block =
         function
         | true -> "btn-group-block"
         | false -> ""
-        
 
-    let ƒ (props: Props) =
+    let ƒ (buttonGroup: T) =
+        let props, children = buttonGroup
         props.HTMLProps
         |> addProp (ClassName "btn-group")
         |> R.div
+        <| Seq.map Button.ƒ children

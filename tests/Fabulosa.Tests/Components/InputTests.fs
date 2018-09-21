@@ -53,7 +53,7 @@ let tests =
                 Icon.ƒ {
                     Icon.defaults with
                         HTMLProps = [ClassName "form-icon"]
-                } [] |> ReactNode.unit
+                } |> ReactNode.unit
             let input =
                 Input.ƒ Input.defaults
                 |> ReactNode.unit
@@ -78,7 +78,7 @@ let tests =
                     Icon.defaults  with
                         Kind = Icon.Kind.ArrowDown
                         HTMLProps = [ClassName "form-icon"]
-                } [] |> ReactNode.unit
+                } |> ReactNode.unit
             let input =
                 Input.ƒ Input.defaults
                 |> ReactNode.unit
@@ -103,7 +103,7 @@ let tests =
                     Icon.defaults  with
                         Size = Icon.Size.X2
                         HTMLProps = [ClassName "form-icon"]
-                } [] |> ReactNode.unit
+                } |> ReactNode.unit
             let input =
                 Input.ƒ Input.defaults
                 |> ReactNode.unit
@@ -130,7 +130,7 @@ let tests =
                 Icon.ƒ {
                     Icon.defaults with
                         HTMLProps = [ClassName "form-icon"]
-                } [] |> ReactNode.unit
+                } |> ReactNode.unit
             let input =
                 Input.ƒ inputProps
                 |> ReactNode.unit
@@ -144,12 +144,9 @@ let tests =
 
         test "InputGroup default" {
             let input = Input.ƒ Input.defaults
-            let inputGroup =
-                InputGroup.ƒ
-                    InputGroup.defaults
-                    [input]
-
-            inputGroup
+            InputGroup.ƒ
+                ( InputGroup.defaults,
+                  [ input ] )
             |> ReactNode.unit
             |>! hasClass "input-group"
             |> hasChild 1 (input |> ReactNode.unit)
@@ -157,13 +154,10 @@ let tests =
 
         test "InputGroup left addon" {
             let input = Input.ƒ Input.defaults
-            let inputGroup =
-                InputGroup.ƒ {
-                    InputGroup.defaults with
-                        AddonLeft = InputGroup.AddonLeft.Text "text"
-                } [input]
-
-            inputGroup
+            InputGroup.ƒ
+                ( { InputGroup.defaults with
+                      AddonLeft = InputGroup.AddonLeft.Text "text" },
+                  [ input ] )
             |> ReactNode.unit
             |>! hasClass "input-group"
             |>! hasDescendentClass "input-group-addon"
@@ -174,19 +168,16 @@ let tests =
             let input = Input.ƒ Input.defaults
             let buttonProps = Button.defaults
             let buttonChildren = []
-            let inputGroup =
-                InputGroup.ƒ {
-                    InputGroup.defaults with
-                        AddonRight = InputGroup.AddonRight.Button
-                            (buttonProps, buttonChildren)
-                } [input]
             let button =
-                Button.ƒ {
-                    buttonProps with
-                        HTMLProps = [ClassName "input-group-btn"]
-                } buttonChildren |> ReactNode.unit
-
-            inputGroup
+                Button.ƒ
+                    ( { buttonProps with
+                          HTMLProps = [ClassName "input-group-btn"] },
+                      buttonChildren ) |> ReactNode.unit
+            InputGroup.ƒ
+                ( { InputGroup.defaults with
+                      AddonRight = InputGroup.AddonRight.Button
+                        (buttonProps, buttonChildren) },
+                  [ input ] )
             |> ReactNode.unit
             |>! hasClass "input-group"
             |>! hasDescendentClass "input-group-btn"
@@ -198,20 +189,17 @@ let tests =
             let input = Input.ƒ Input.defaults
             let buttonProps = Button.defaults
             let buttonChildren = []
-            let inputGroup =
-                InputGroup.ƒ {
-                    InputGroup.defaults with
-                        AddonLeft = InputGroup.AddonLeft.Text "text"
-                        AddonRight = InputGroup.AddonRight.Button
-                            (buttonProps, buttonChildren)
-                } [input]
             let button =
-                Button.ƒ {
-                    buttonProps with
-                        HTMLProps = [ClassName "input-group-btn"]
-                } buttonChildren |> ReactNode.unit
-
-            inputGroup
+                Button.ƒ
+                    ( { buttonProps with
+                          HTMLProps = [ClassName "input-group-btn"] },
+                      buttonChildren ) |> ReactNode.unit
+            InputGroup.ƒ
+                ( { InputGroup.defaults with
+                      AddonLeft = InputGroup.AddonLeft.Text "text"
+                      AddonRight = InputGroup.AddonRight.Button
+                        (buttonProps, buttonChildren) },
+                  [ input ] )
             |> ReactNode.unit
             |>! hasClass "input-group"
             |>! hasDescendentClass "input-group-addon"

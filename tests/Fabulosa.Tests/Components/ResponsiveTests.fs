@@ -21,7 +21,7 @@ let tests =
          }
 
          test "Responsive hide small" {
-            let child = Button.ƒ Button.defaults [R.str "text"]
+            let child = Button.ƒ ( Button.defaults, [R.str "text"] )
             let props = { Responsive.defaults with Hide = Responsive.Size.SM }
             let responsiveElement = Responsive.ƒ props [child]
 
@@ -32,7 +32,7 @@ let tests =
          }
 
          test "Responsive show large" {
-            let child = Button.ƒ Button.defaults [R.str "text"]
+            let child = Button.ƒ ( Button.defaults, [R.str "text"] )
             let props = { Responsive.defaults with Show = Responsive.Size.LG }
             let responsiveElement = Responsive.ƒ props [child]
 

@@ -31,7 +31,7 @@ module Accordion =
 
     let private renderHeader icon text =
         R.summary [ClassName "accordion-header"] [
-            Icon.ƒ icon []
+            Icon.ƒ icon
             R.RawText "\n"
             R.str text
         ]

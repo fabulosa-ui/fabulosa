@@ -48,7 +48,7 @@ let tests =
                 Icon.ƒ {
                     iconProps with
                         HTMLProps = [ClassName "mr-1"]
-                } [] |> ReactNode.unit
+                } |> ReactNode.unit
 
             accordion
             |> ReactNode.unit

@@ -58,19 +58,20 @@ module Icon =
     | Unset
 
     [<RequireQualifiedAccess>]
-    type Props = {
-        Kind: Kind
-        Size: Size
-        HTMLProps: IHTMLProp list
-    }
+    type Props =
+        { Kind: Kind
+          Size: Size
+          HTMLProps: IHTMLProp list }
 
-    let defaults = {
-        Props.Kind = Kind.Unset
-        Props.Size = Size.Unset
-        Props.HTMLProps = []
-    }
+    [<RequireQualifiedAccess>]
+    type T = Props
 
-    let kind =
+    let defaults =
+        { Props.Kind = Kind.Unset
+          Props.Size = Size.Unset
+          Props.HTMLProps = [] }
+
+    let private kind =
         function
         | Kind.ArrowUp -> "icon-arrow-up"
         | Kind.ArrowRight -> "icon-arrow-right"
@@ -114,7 +115,7 @@ module Icon =
         | Kind.Unset -> ""
         >> ClassName
 
-    let size = 
+    let private size =
         function
         | Size.X2 -> "icon-2x"
         | Size.X3 -> "icon-3x"
@@ -122,12 +123,12 @@ module Icon =
         | Size.Unset -> ""
         >> ClassName
 
-    let ƒ (props: Props) =
-        props.HTMLProps
+    let ƒ (icon: T) =
+        icon.HTMLProps
         |> addProps
             [ ClassName "icon"
-              kind props.Kind
-              size props.Size ]
-        |> R.i
+              kind icon.Kind
+              size icon.Size ]
+        |> R.i <| []
 
     let render = ƒ

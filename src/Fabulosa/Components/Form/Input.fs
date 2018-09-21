@@ -14,27 +14,28 @@ module Input =
     | Unset
 
     [<RequireQualifiedAccess>]
-    type Props = {
-        Size: Size
-        HTMLProps: IHTMLProp list
-    }
+    type Props =
+        { Size: Size
+          HTMLProps: IHTMLProp list }
 
-    let defaults = {
-        Props.Size = Size.Unset
-        Props.HTMLProps = []
-    }
+    [<RequireQualifiedAccess>]
+    type T = Props
 
-    let size =
+    let defaults =
+        { Props.Size = Size.Unset
+          Props.HTMLProps = [] }
+
+    let private size =
         function
         | Size.Small -> "input-sm"
         | Size.Large -> "input-lg"
         | Size.Unset -> ""
 
-    let ƒ (props: Props) =
-        props.HTMLProps
+    let ƒ (input: T) =
+        input.HTMLProps
         |> addProps
             [ ClassName "form-input"
-              ClassName <| size props.Size ]
+              ClassName <| size input.Size ]
         |> R.input
 
     let render = ƒ
@@ -52,50 +53,51 @@ module IconInput =
     | Right
 
     [<RequireQualifiedAccess>]
-    type Props = {
-        Position: Position
-        InputProps: Input.Props
-        IconProps: Icon.Props
-        HTMLProps: IHTMLProp list
-    }
+    type Props =
+        { Position: Position
+          InputProps: Input.Props
+          IconProps: Icon.Props
+          HTMLProps: IHTMLProp list }
 
-    let defaults = {
-        Props.Position = Position.Left
-        Props.InputProps = Input.defaults
-        Props.IconProps = Icon.defaults
-        Props.HTMLProps = []
-    }
+    [<RequireQualifiedAccess>]
+    type T = Props
 
-    let position =
+    let defaults =
+        { Props.Position = Position.Left
+          Props.InputProps = Input.defaults
+          Props.IconProps = Icon.defaults
+          Props.HTMLProps = [] }
+
+    let private position =
         function
         | Position.Left -> "has-icon-left"
         | Position.Right -> "has-icon-right"
 
-    let ƒ (props: Props) =
+    let ƒ (iconInput: T) =
         let containerClasses =
-            [ position props.Position ]
+            [ position iconInput.Position ]
             |> String.concat " "
         let iconProps =
-            { props.IconProps with
-                HTMLProps = props.IconProps.HTMLProps
+            { iconInput.IconProps with
+                HTMLProps = iconInput.IconProps.HTMLProps
                 |> addProp (ClassName "form-icon") }
         R.div [ClassName containerClasses]
-            [ Input.ƒ props.InputProps
-              Icon.ƒ iconProps [] ]
+            [ Input.ƒ iconInput.InputProps
+              Icon.ƒ iconProps ]
 
     let render = ƒ
 
 [<RequireQualifiedAccess>]
 module InputGroup =
 
-    open Fabulosa.Extensions
     open Fable.Import.React
+    open Fabulosa.Extensions
     module R = Fable.Helpers.React
     open R.Props
 
     [<RequireQualifiedAccess>]
     type AddonRight =
-    | Button of Button.Props * ReactElement list
+    | Button of Button.T
     | Unset
 
     [<RequireQualifiedAccess>]
@@ -104,31 +106,35 @@ module InputGroup =
     | Unset
 
     [<RequireQualifiedAccess>]
-    type Props = {
-        AddonRight: AddonRight
-        AddonLeft: AddonLeft
-        HTMLProps: IHTMLProp list
-    }
+    type Props =
+        { AddonRight: AddonRight
+          AddonLeft: AddonLeft
+          HTMLProps: IHTMLProp list }
 
-    let defaults = {
-        Props.AddonRight = AddonRight.Unset
-        Props.AddonLeft = AddonLeft.Unset
-        Props.HTMLProps = []
-    }
+    [<RequireQualifiedAccess>]
+    type Children = ReactElement list
 
-    let button =
+    [<RequireQualifiedAccess>]
+    type T = Props * Children
+
+    let defaults =
+        { Props.AddonRight = AddonRight.Unset
+          Props.AddonLeft = AddonLeft.Unset
+          Props.HTMLProps = [] }
+
+    let private button =
         function
         | AddonRight.Button (props, children) ->
             Button.ƒ
-                { props with
-                    HTMLProps =
-                        props.HTMLProps
-                        |> addProp (ClassName "input-group-btn") }
-                children
+                ( { props with
+                      HTMLProps =
+                          props.HTMLProps
+                          |> addProp (ClassName "input-group-btn") },
+                  children )
             |> Some
         | AddonRight.Unset -> None
 
-    let text =
+    let private text =
         function
         | AddonLeft.Text text ->
             R.span
@@ -137,7 +143,8 @@ module InputGroup =
             |> Some
         | AddonLeft.Unset -> None
 
-    let ƒ (props: Props) children =
+    let ƒ (inputGroup: T) =
+        let props, children = inputGroup
         let containerProps =
             props.HTMLProps
             |> addProp (ClassName "input-group") 

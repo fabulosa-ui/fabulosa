@@ -88,10 +88,10 @@ let tests =
 
         test "Bar slider default" {
             let button =
-                Button.ƒ {
-                    Button.defaults with
-                        HTMLProps = [ClassName "bar-slider-btn"]
-                } []
+                Button.ƒ
+                    ( { Button.defaults with
+                          HTMLProps = [ ClassName "bar-slider-btn" ] },
+                      [] )
             Bar.Slider.ƒ Bar.defaults [Bar.Item.defaults]
             |> ReactNode.unit
             |>! hasClass "bar bar-slider"
@@ -102,10 +102,10 @@ let tests =
 
         test "Bar slider multiple" {
             let button =
-                Button.ƒ {
-                    Button.defaults with
-                        HTMLProps = [ClassName "bar-slider-btn"]
-                } []
+                Button.ƒ
+                    ( { Button.defaults with
+                          HTMLProps = [ ClassName "bar-slider-btn" ] },
+                      [] )
             let item1 = {Bar.Item.defaults with Value = 25}
             let item2 = {Bar.Item.defaults with Value = 20}
             Bar.Slider.ƒ Bar.Slider.defaults [item1; item2]
