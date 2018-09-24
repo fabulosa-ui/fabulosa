@@ -8,30 +8,34 @@ open Fable.Import.React
 open Renderer
 
 (*** define: bar-default-sample ***)
-let bar = Bar.ƒ Bar.defaults [
-    { Bar.Item.defaults with Value = 25 }
-]
+let bar =
+    Bar.ƒ
+        ( Bar.defaults,
+          [ ( { Bar.Item.defaults with
+                  Value = 25 }, [] ) ] )
 (*** define: bar-small-sample ***)
 let small =
-    Bar.ƒ {
-        Bar.defaults with
-            Small = true
-    } [ { Bar.Item.defaults with Value = 25 } ]
+    Bar.ƒ
+        ( { Bar.defaults with
+              Small = true },
+          [ ( { Bar.Item.defaults with Value = 25 }, [] ) ] )
 (*** define: bar-item-tooltip-sample ***)
-let tooltip = Bar.ƒ Bar.defaults [
-    { Bar.Item.defaults with
-        Value = 25
-        Tooltip = true }
-]
+let tooltip =
+    Bar.ƒ
+        ( Bar.defaults,
+          [ ( { Bar.Item.defaults with
+                  Value = 25
+                  Tooltip = true }, [] ) ] )
 (*** define: bar-item-multiple-sample ***)
-let multiple = Bar.ƒ Bar.defaults [
-    { Bar.Item.defaults with
-        Value = 25 }
-    { Bar.Item.defaults with
-        Value = 15 }
-    { Bar.Item.defaults with
-        Value = 5 }
-]
+let multiple =
+    Bar.ƒ
+        ( Bar.defaults,
+          [ ( { Bar.Item.defaults with
+                  Value = 25 }, [] )
+            ( { Bar.Item.defaults with
+                  Value = 15 }, [] )
+            ( { Bar.Item.defaults with
+                  Value = 5 }, [] ) ] )
 (*** hide ***)
 let render () =
     tryMount "bar-default-demo" bar

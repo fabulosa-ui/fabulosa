@@ -12,17 +12,16 @@ let tests =
 
         test "Card default" {
             Card.ƒ
-                Card.defaults 
-                Card.children
+                ( Card.defaults, Card.children )
             |> ReactNode.unit
             |> hasUniqueClass "card"
         }
 
         test "Card html props" {
             Card.ƒ
-                { Card.defaults with 
-                    HTMLProps = [ClassName "custom"] }
-                Card.children
+                ( { Card.defaults with 
+                      HTMLProps = [ClassName "custom"] },
+                  Card.children )
             |> ReactNode.unit
             |> hasClass "card custom"
         }
@@ -38,15 +37,15 @@ let tests =
                     HTMLProps = [Src "bla.png"] }
             let image = Media.Image.ƒ imageProps |> ReactNode.unit
             Card.ƒ
-                Card.defaults
-                { Header =
-                    { Title = "Title" 
-                      SubTitle = "Sub title" }
-                  Body =
-                    [ body ]
-                  Footer =
-                    [ footer ]
-                  Image = imageProps }
+                ( Card.defaults,
+                  { Header =
+                      { Title = "Title" 
+                        SubTitle = "Sub title" }
+                    Body =
+                      [ body ]
+                    Footer =
+                      [ footer ]
+                    Image = imageProps } )
             |> ReactNode.unit
             |>! hasOrderedDescendentClass 1 "card-header card-title card-subtitle card-image card-body card-footer"
             |>! hasChild 1 image

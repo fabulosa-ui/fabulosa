@@ -8,55 +8,88 @@ module Card =
     module R = Fable.Helpers.React
     open R.Props
 
-    [<RequireQualifiedAccess>]
-    type Props = {
-        HTMLProps: HTMLProps
-    }
+    module Header =
         
-    [<RequireQualifiedAccess>]
-    type Header = {
-        Title: string
-        SubTitle: string
-    }
+        [<RequireQualifiedAccess>]
+        type T =
+            { Title: string
+              SubTitle: string }
+
+        let defaults =
+            { T.Title = ""
+              T.SubTitle = "" }
+
+        let ƒ (header: T) =
+            R.div
+                [ ClassName "card-header" ]
+                [ R.div
+                    [ ClassName "card-title h5" ]
+                    [ R.str header.Title ]
+                  R.div
+                    [ ClassName "card-subtitle text-gray" ]
+                    [ R.str header.SubTitle ] ]
+
+    module Body =
+
+        [<RequireQualifiedAccess>]
+        type Children = ReactElement list
+
+        [<RequireQualifiedAccess>]
+        type T = Children
+
+        let defaults = []
+
+        let ƒ (body: T) =
+            if not (List.isEmpty body) then
+                R.div [ClassName "card-body"] body
+            else
+                R.ofOption None
+
+    module Footer =
+
+        [<RequireQualifiedAccess>]
+        type Children = ReactElement list
+
+        [<RequireQualifiedAccess>]
+        type T = Children
+
+        let defaults = []
+
+        let ƒ (footer: T) =
+            if not (List.isEmpty footer) then
+                R.div [ClassName "card-footer"] footer
+            else
+                R.ofOption None
 
     [<RequireQualifiedAccess>]
-    type Children = {
-        Image: Media.Image.Props
-        Header: Header
-        Body: ReactElement list
-        Footer: ReactElement list
-    }
+    type Props =
+        { HTMLProps: HTMLProps }
 
-    let defaults = {
-        Props.HTMLProps = []
-    }
+    [<RequireQualifiedAccess>]
+    type Children =
+        { Image: Media.Image.Props
+          Header: Header.T
+          Body: Body.T
+          Footer: Footer.T }
 
-    let children: Children = {
-        Header =
-            { Header.Title = ""
-              Header.SubTitle = ""} 
-        Body = []
-        Footer = []
-        Image = Media.Image.defaults
-    }
+    [<RequireQualifiedAccess>]
+    type T = Props * Children
 
-    let private renderIfNotEmpty elements className =
-        if List.length elements > 0 then
-            R.div [ClassName className] elements
-        else
-            R.ofOption None
+    let defaults =
+        { Props.HTMLProps = [] }
 
-    let private renderHeader (header: Header) =
-        [ R.div [ ClassName "card-title h5" ] [ R.str header.Title ]
-          R.div [ ClassName "card-subtitle text-gray" ] [ R.str header.SubTitle ] ]
-             
-    let private renderChildren (children: Children) =
-        seq { yield renderHeader children.Header |> R.div [ ClassName "card-header" ]
-              yield R.div [ ClassName "card-image" ] [ Media.Image.ƒ children.Image ]
-              yield renderIfNotEmpty children.Body "card-body"
-              yield renderIfNotEmpty children.Footer "card-footer" }
+    let children =
+        { Children.Header = Header.defaults
+          Children.Body = Body.defaults
+          Children.Footer = Footer.defaults
+          Children.Image = Media.Image.defaults }
 
-    let ƒ (props: Props) children = 
+    let ƒ (card: T) =
+        let props, children = card
         props.HTMLProps
         |> addProp (ClassName "card")
-        |> R.div <| renderChildren children
+        |> R.div <|
+        [ Header.ƒ children.Header
+          R.div [ ClassName "card-image" ] [ Media.Image.ƒ children.Image ]
+          Body.ƒ children.Body
+          Footer.ƒ children.Footer ]
