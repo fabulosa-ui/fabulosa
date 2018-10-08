@@ -16,15 +16,16 @@ module Label =
     [<RequireQualifiedAccess>]
     type Props =
         { Size: Size
-          Text: string
           HTMLProps: IHTMLProp list }
 
     [<RequireQualifiedAccess>]
-    type T = Props
+    type Children = string
+
+    [<RequireQualifiedAccess>]
+    type T = Props * Children
 
     let props =
         { Props.Size = Size.Unset
-          Props.Text = "Checkbox"
           Props.HTMLProps = [] }
 
     let private size =
@@ -34,12 +35,13 @@ module Label =
         | Size.Unset -> ""
 
     let ƒ (label: T) =
-        label.HTMLProps
+        let props, children = label
+        props.HTMLProps
         |> addProps
             [ ClassName "form-label"
-              ClassName <| size label.Size ]
+              ClassName <| size props.Size ]
         |> R.label
-        <| [R.str label.Text]
+        <| [ R.str children ]
 
     let render = ƒ
     

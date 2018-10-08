@@ -1,33 +1,30 @@
 ﻿namespace Fabulosa
 
 [<RequireQualifiedAccess>]
-module Form =
+module Group =
+
+    open Fable.Import.React
+    open Fabulosa.Extensions
+    module R = Fable.Helpers.React
+    open R.Props
 
     [<RequireQualifiedAccess>]
-    module Group =
+    type Props =
+        { HTMLProps: IHTMLProp list }
 
-        open Fable.Import.React
-        open Fabulosa.Extensions
-        module R = Fable.Helpers.React
-        open R.Props
+    [<RequireQualifiedAccess>]
+    type Children = ReactElement list
 
-        [<RequireQualifiedAccess>]
-        type Props =
-            { HTMLProps: IHTMLProp list }
+    [<RequireQualifiedAccess>]
+    type T = Props * Children
 
-        [<RequireQualifiedAccess>]
-        type Children = ReactElement list
+    let props =
+        { Props.HTMLProps = [] }
 
-        [<RequireQualifiedAccess>]
-        type T = Props * Children
+    let ƒ (group: T) =
+        let props, children = group
+        props.HTMLProps
+        |> addProp (ClassName "form-group")
+        |> R.div <| children
 
-        let props =
-            { Props.HTMLProps = [] }
-
-        let ƒ (group: T) =
-            let props, children = group
-            props.HTMLProps
-            |> addProp (ClassName "form-group")
-            |> R.div <| children
-
-        let render = ƒ
+    let render = ƒ

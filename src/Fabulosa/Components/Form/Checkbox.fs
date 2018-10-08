@@ -13,11 +13,13 @@ module Checkbox =
     [<RequireQualifiedAccess>]
     type Props =
         { Inline: Inline
-          Text: string
           HTMLProps: IHTMLProp list }
 
     [<RequireQualifiedAccess>]
-    type T = Props
+    type Children = string
+
+    [<RequireQualifiedAccess>]
+    type T = Props * Children
 
     let inlineCheckbox =
         function
@@ -27,17 +29,17 @@ module Checkbox =
 
     let props =
         { Props.Inline = false
-          Props.Text = "Label"
           Props.HTMLProps = [] }
 
     let ƒ (checkbox: T) =
+        let props, children = checkbox
         let containerProps =
             [] |> addProps
                 [ ClassName "form-checkbox"
-                  inlineCheckbox checkbox.Inline ]
+                  inlineCheckbox props.Inline ]
         R.label containerProps
-            [ R.input <| checkbox.HTMLProps @ [Type "checkbox"]
+            [ R.input <| props.HTMLProps @ [Type "checkbox"]
               R.i [ClassName "form-icon"] []
-              R.str checkbox.Text ]
+              R.str children ]
 
     let render = ƒ

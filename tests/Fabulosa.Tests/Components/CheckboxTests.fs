@@ -11,8 +11,6 @@ let tests =
     testList "Checkbox tests" [
 
         test "Checkbox default" {
-            let props = Checkbox.props
-            let checkbox = Checkbox.ƒ props
             let input =
                 R.input [Type "checkbox"]
                 |> ReactNode.unit
@@ -23,49 +21,34 @@ let tests =
                 R.str "Label"
                 |> ReactNode.unit
 
-            checkbox
+            Checkbox.ƒ
+                (Checkbox.props, "Checkbox")
             |> ReactNode.unit
             |>! hasUniqueClass "form-checkbox"
             |>! hasChild 1 input
             |>! hasChild 1 icon
-            |> hasChild 1 label
+            |>! hasChild 1 label
+            |> hasText "Checkbox"
+
         }
 
         test "Checkbox inline" {
-            let props = { Checkbox.props with Inline = true }
-            let checkbox = Checkbox.ƒ props
-
-            checkbox
+            Checkbox.ƒ
+                ({ Checkbox.props with
+                     Inline = true },
+                 "Checkbox")
             |> ReactNode.unit
-            |> hasClass "form-checkbox form-inline"
-        }
-
-        test "Checkbox text" {
-            let props = { Checkbox.props with Text = "custom" }
-            let checkbox = Checkbox.ƒ props
-            let label =
-                R.str "custom"
-                |> ReactNode.unit
-            
-            checkbox
-            |> ReactNode.unit
-            |>! hasUniqueClass "form-checkbox"
-            |> hasChild 1 label
+            |> hasClass "form-inline"
         }
 
         test "Checkbox html props" {
-            let props = { Checkbox.props with HTMLProps = [ClassName "custom"] }
-            let checkbox = Checkbox.ƒ props
-            let input =
-                R.input
-                    [ ClassName "custom"
-                      Type "checkbox" ]
-                |> ReactNode.unit
-            
-            checkbox
+            let prop = ClassName "custom"
+            Checkbox.ƒ
+                ({ Checkbox.props with
+                     HTMLProps = [ prop ] }, "Checkbox")
             |> ReactNode.unit
             |>! hasUniqueClass "form-checkbox"
-            |> hasChild 1 input
+            |> hasDescendentProp prop
         }
 
     ]
