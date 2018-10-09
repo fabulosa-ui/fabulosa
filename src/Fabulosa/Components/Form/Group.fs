@@ -12,7 +12,7 @@ module Group =
         { HTMLProps: IHTMLProp list }
 
     [<RequireQualifiedAccess>]
-    type Child<'Checkbox, 'Input, 'InputGroup, 'Label, 'Radio, 'Select, 'Switch, 'Textarea> =
+    type Child<'Checkbox, 'Input, 'InputGroup, 'Label, 'Radio, 'Select, 'Switch, 'Textarea, 'Validation> =
         | Checkbox of 'Checkbox
         | Input of 'Input
         | InputGroup of 'InputGroup
@@ -21,15 +21,16 @@ module Group =
         | Select of 'Select
         | Switch of 'Switch
         | Textarea of 'Textarea
+        | Validation of 'Validation
 
 
     [<RequireQualifiedAccess>]
-    type Children<'Checkbox, 'Input, 'InputGroup, 'Label, 'Radio, 'Select, 'Switch, 'Textarea> =
-        Child<'Checkbox, 'Input, 'InputGroup, 'Label, 'Radio, 'Select, 'Switch, 'Textarea> list
+    type Children<'Checkbox, 'Input, 'InputGroup, 'Label, 'Radio, 'Select, 'Switch, 'Textarea, 'Validation> =
+        Child<'Checkbox, 'Input, 'InputGroup, 'Label, 'Radio, 'Select, 'Switch, 'Textarea, 'Validation> list
 
     [<RequireQualifiedAccess>]
-    type T<'Checkbox, 'Input, 'InputGroup, 'Label, 'Radio, 'Select, 'Switch, 'Textarea> =
-        Props * Children<'Checkbox, 'Input, 'InputGroup, 'Label, 'Radio, 'Select, 'Switch, 'Textarea>
+    type T<'Checkbox, 'Input, 'InputGroup, 'Label, 'Radio, 'Select, 'Switch, 'Textarea, 'Validation> =
+        Props * Children<'Checkbox, 'Input, 'InputGroup, 'Label, 'Radio, 'Select, 'Switch, 'Textarea, 'Validation>
 
     let props =
         { Props.HTMLProps = [] }
@@ -43,7 +44,8 @@ module Group =
         selectƒ
         switchƒ
         textareaƒ
-        (group: T<'Checkbox, 'Input, 'InputGroup, 'Label, 'Radio, 'Select, 'Switch, 'Textarea>) =
+        validationƒ
+        (group: T<'Checkbox, 'Input, 'InputGroup, 'Label, 'Radio, 'Select, 'Switch, 'Textarea, 'Validation>) =
         let props, children = group
         props.HTMLProps
         |> addProp (ClassName "form-group")
@@ -57,7 +59,8 @@ module Group =
              | Child.Radio radio -> radioƒ radio
              | Child.Select select -> selectƒ select
              | Child.Switch switch -> switchƒ switch
-             | Child.Textarea textarea -> textareaƒ textarea)
+             | Child.Textarea textarea -> textareaƒ textarea
+             | Child.Validation validation -> validationƒ validation)
              children
 
     let ƒ =
@@ -70,3 +73,4 @@ module Group =
             Select.ƒ
             Switch.ƒ
             Textarea.ƒ
+            Validation.ƒ
