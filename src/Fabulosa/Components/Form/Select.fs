@@ -3,7 +3,6 @@
 [<RequireQualifiedAccess>]
 module Select =
 
-    open Fable.Import.React
     open Fabulosa.Extensions
     module R = Fable.Helpers.React
     open R.Props
@@ -15,7 +14,7 @@ module Select =
             { HTMLProps: IHTMLProp list }
 
         [<RequireQualifiedAccess>]
-        type Children = ReactElement list
+        type Children = string
 
         [<RequireQualifiedAccess>]
         type T = Props * Children
@@ -23,12 +22,13 @@ module Select =
         let props =
             { Props.HTMLProps = [] }
 
-        let ƒ (option: T) =
+        let build (option: T) =
             let props, children = option
             props.HTMLProps
-            |> R.option <| children
+            |> R.option
+            <| [ R.str children ]
 
-        let render = ƒ
+        let ƒ = build
 
     module OptionGroup =
     
@@ -37,18 +37,18 @@ module Select =
             { HTMLProps: IHTMLProp list }
 
         [<RequireQualifiedAccess>]
-        type T = Props * Option.T list
+        type T<'Option> = Props * 'Option list
 
         let props =
             { Props.HTMLProps = [] }
 
-        let ƒ (optionGroup: T) =
+        let build optionƒ (optionGroup: T<'Option>) =
             let props, children = optionGroup
             props.HTMLProps
             |> R.optgroup
-            <| Seq.map Option.ƒ children
+            <| Seq.map optionƒ children
 
-        let render = ƒ
+        let ƒ = build Option.ƒ
 
     [<RequireQualifiedAccess>]
     type Size =
@@ -62,15 +62,17 @@ module Select =
           HTMLProps: IHTMLProp list }
 
     [<RequireQualifiedAccess>]
-    type Child =
-    | OptionGroup of OptionGroup.T
-    | Option of Option.T
+    type Child<'Group, 'Option> =
+    | Group of 'Group
+    | Option of 'Option
 
     [<RequireQualifiedAccess>]
-    type Children = Child list
+    type Children<'Group, 'Option> =
+        Child<'Group, 'Option> list
 
     [<RequireQualifiedAccess>]
-    type T = Props * Children
+    type T<'Group, 'Option> =
+        Props * Children<'Group, 'Option>
 
     let props =
         { Props.Size = Size.Unset
@@ -83,20 +85,17 @@ module Select =
         | Size.Unset -> ""
         >> ClassName
 
-    let private renderChild =
-        function
-        | Child.OptionGroup (props, children) ->
-            OptionGroup.ƒ (props, children)
-        | Child.Option (props, children) ->
-            Option.ƒ (props, children)
-
-    let ƒ (select: T) =
+    let build groupƒ optionƒ (select: T<'Group, 'Option>) =
         let props, children = select
         props.HTMLProps
         |> addProps
             [ ClassName "form-select"
               size props.Size ]
         |> R.select
-        <| Seq.map renderChild children
+        <| Seq.map
+            (function
+             | Child.Group group -> groupƒ group
+             | Child.Option option -> optionƒ option)
+            children
 
-    let render = ƒ
+    let ƒ = build OptionGroup.ƒ Option.ƒ

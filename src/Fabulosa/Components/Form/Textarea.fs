@@ -18,10 +18,10 @@ module Textarea =
     let props =
         { Props.HTMLProps = [] }
 
-    let ƒ (textarea: T) =
+    let build (textarea: T) =
         let props, children = textarea
         props.HTMLProps
         |> addProp (ClassName "form-input")
         |> R.textarea <| children
 
-    let render = ƒ
+    let ƒ = build

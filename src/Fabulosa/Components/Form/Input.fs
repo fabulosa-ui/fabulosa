@@ -55,17 +55,18 @@ module IconInput =
     [<RequireQualifiedAccess>]
     type Props =
         { Position: Position
-          InputProps: Input.Props
-          IconProps: Icon.Props
           HTMLProps: IHTMLProp list }
 
     [<RequireQualifiedAccess>]
-    type T = Props
+    type Children =
+        { Input: Input.T
+          Icon: Icon.T }
+
+    [<RequireQualifiedAccess>]
+    type T = Props * Children
 
     let props =
         { Props.Position = Position.Left
-          Props.InputProps = Input.props
-          Props.IconProps = Icon.props
           Props.HTMLProps = [] }
 
     let private position =
@@ -73,31 +74,46 @@ module IconInput =
         | Position.Left -> "has-icon-left"
         | Position.Right -> "has-icon-right"
 
-    let ƒ (iconInput: T) =
+    let build (iconInput: T) =
+        let props, children = iconInput
         let containerClasses =
-            [ position iconInput.Position ]
+            [ position props.Position ]
             |> String.concat " "
-        let iconProps =
-            { iconInput.IconProps with
-                HTMLProps = iconInput.IconProps.HTMLProps
+        let icon =
+            { children.Icon with
+                HTMLProps = children.Icon.HTMLProps
                 |> addProp (ClassName "form-icon") }
         R.div [ClassName containerClasses]
-            [ Input.ƒ iconInput.InputProps
-              Icon.ƒ iconProps ]
+            [ Input.ƒ children.Input
+              Icon.ƒ icon ]
 
-    let render = ƒ
+    let ƒ = build
 
 [<RequireQualifiedAccess>]
 module InputGroup =
 
-    open Fable.Import.React
     open Fabulosa.Extensions
     module R = Fable.Helpers.React
     open R.Props
 
     [<RequireQualifiedAccess>]
-    type AddonRight =
-    | Button of Button.T
+    module GroupButton =
+
+        [<RequireQualifiedAccess>]
+        type T = Button.T
+
+        let ƒ (groupButton: T) =
+            let props, children = groupButton
+            Button.ƒ
+                ({ props with
+                     HTMLProps =
+                       props.HTMLProps
+                       |> addProp (ClassName "input-group-btn") },
+                  children)
+
+    [<RequireQualifiedAccess>]
+    type AddonRight<'Button> =
+    | Button of 'Button
     | Unset
 
     [<RequireQualifiedAccess>]
@@ -106,17 +122,24 @@ module InputGroup =
     | Unset
 
     [<RequireQualifiedAccess>]
-    type Props =
-        { AddonRight: AddonRight
+    type Props<'Button> =
+        { AddonRight: AddonRight<'Button>
           AddonLeft: AddonLeft
           Inline: bool
           HTMLProps: IHTMLProp list }
 
     [<RequireQualifiedAccess>]
-    type Children = ReactElement list
+    type Child<'Input, 'Select> =
+        | Input of 'Input
+        | Select of 'Select
 
     [<RequireQualifiedAccess>]
-    type T = Props * Children
+    type Children<'Input, 'Select> =
+        Child<'Input, 'Select> list
+
+    [<RequireQualifiedAccess>]
+    type T<'Input, 'Select, 'Button> =
+        Props<'Button> * Children<'Input, 'Select>
 
     let props =
         { Props.AddonRight = AddonRight.Unset
@@ -124,15 +147,10 @@ module InputGroup =
           Props.Inline = false
           Props.HTMLProps = [] }
 
-    let private button =
+    let private button buttonƒ =
         function
-        | AddonRight.Button (props, children) ->
-            Button.ƒ
-                ({ props with
-                     HTMLProps =
-                       props.HTMLProps
-                       |> addProp (ClassName "input-group-btn") },
-                  children)
+        | AddonRight.Button button ->
+            buttonƒ button
             |> Some
         | AddonRight.Unset -> None
 
@@ -151,7 +169,11 @@ module InputGroup =
         | false -> ""
         >> ClassName
 
-    let ƒ (inputGroup: T) =
+    let build
+        inputƒ
+        selectƒ
+        buttonƒ
+        (inputGroup: T<'Input, 'Select, 'Button>) =
         let props, children = inputGroup
         let containerProps =
             props.HTMLProps
@@ -160,7 +182,13 @@ module InputGroup =
                   groupInline props.Inline ]
         R.div containerProps
             [ text props.AddonLeft |> R.ofOption
-              R.fragment [] children
-              button props.AddonRight |> R.ofOption ]
+              R.fragment
+                []
+                (Seq.map
+                    (function
+                     | Child.Input input -> inputƒ input
+                     | Child.Select select -> selectƒ select)
+                     children)
+              button buttonƒ props.AddonRight |> R.ofOption ]
 
-    let render = ƒ
+    let ƒ = build Input.ƒ Select.ƒ GroupButton.ƒ

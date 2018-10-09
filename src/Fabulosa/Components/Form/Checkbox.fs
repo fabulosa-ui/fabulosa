@@ -31,7 +31,7 @@ module Checkbox =
         { Props.Inline = false
           Props.HTMLProps = [] }
 
-    let ƒ (checkbox: T) =
+    let build (checkbox: T) =
         let props, children = checkbox
         let containerProps =
             [] |> addProps
@@ -42,4 +42,4 @@ module Checkbox =
               R.i [ClassName "form-icon"] []
               R.str children ]
 
-    let render = ƒ
+    let ƒ = build

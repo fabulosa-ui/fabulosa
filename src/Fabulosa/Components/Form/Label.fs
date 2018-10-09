@@ -34,7 +34,7 @@ module Label =
         | Size.Large -> "label-lg"
         | Size.Unset -> ""
 
-    let ƒ (label: T) =
+    let build (label: T) =
         let props, children = label
         props.HTMLProps
         |> addProps
@@ -43,5 +43,5 @@ module Label =
         |> R.label
         <| [ R.str children ]
 
-    let render = ƒ
+    let ƒ = build
     

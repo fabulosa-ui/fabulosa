@@ -21,14 +21,14 @@
     <Compile Include="Components/Code.fs" />
     <Compile Include="Components/Empty.fs" />
     <Compile Include="Components/Form/Checkbox.fs" />
-    <Compile Include="Components/Form/Form.fs" />
+    <Compile Include="Components/Form/Select.fs" />
     <Compile Include="Components/Form/Input.fs" />
     <Compile Include="Components/Form/Label.fs" />
     <Compile Include="Components/Form/Radio.fs" />
-    <Compile Include="Components/Form/Select.fs" />
     <Compile Include="Components/Form/Switch.fs" />
     <Compile Include="Components/Form/Textarea.fs" />
     <Compile Include="Components/Form/Validation.fs" />
+    <Compile Include="Components/Form/Group.fs" />
     <Compile Include="Components/Grid.fs" />
     <Compile Include="Components/Menu.fs" />
     <Compile Include="Components/Modal.fs" />
