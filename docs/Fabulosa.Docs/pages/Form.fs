@@ -121,7 +121,7 @@ let textarea =
              ({ Textarea.props with
                   HTMLProps =
                     [ Placeholder "Please enter a description" ] },
-              []) ])
+              "") ])
 (*** define: form-validation-sample ***)
 let validation =
     Group.ƒ

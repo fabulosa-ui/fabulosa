@@ -42,7 +42,7 @@ let footer =
                  ({ Button.props with
                       Kind = Button.Kind.Primary },
                   [ R.str "Send" ]) },
-           [ Input.ƒ
+           [ InputGroup.Child.Input
                ({ Input.props with
                     HTMLProps =
                        [ Placeholder "Say Hello!" ] }) ]) ]
