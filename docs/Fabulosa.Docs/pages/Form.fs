@@ -61,73 +61,63 @@ let inputGroup =
 let radio =
     Group.ƒ
         (Group.props,
-         [ Label.ƒ
-             { Label.props with Text = "Gender" }
-           Radio.ƒ
-             { Radio.props with
-                 Text = "Male"
-                 HTMLProps = [Name "gender"] }
-           Radio.ƒ
-             { Radio.props with
-                 Text = "Female"
-                 HTMLProps = [Name "gender"] } ])
+         [ Group.Child.Label
+             (Label.props, "Gender")
+           Group.Child.Radio
+             ({ Radio.props with
+                 HTMLProps = [Name "gender"] }, "Male")
+           Group.Child.Radio
+             ({ Radio.props with
+                 HTMLProps = [Name "gender"] }, "Female") ])
 (*** define: form-select-sample ***)
 let select =
     Group.ƒ
         (Group.props,
-         [ Label.ƒ
-             { Label.props with Text = "Language" }
-           Select.ƒ
+         [ Group.Child.Label
+             (Label.props, "Language")
+           Group.Child.Select
              (Select.props,
               [ Select.Child.Option
-                  (Select.Option.props,
-                   [ R.str "English" ])
+                  (Select.Option.props, "English")
                 Select.Child.Option
-                  (Select.Option.props,
-                    [ R.str "Spanish" ])
+                  (Select.Option.props, "Spanish")
                 Select.Child.Option
-                  (Select.Option.props,
-                   [ R.str "Assembly" ]) ]) ])
+                  (Select.Option.props, "Assembly") ]) ])
 (*** define: form-sizes-sample ***)
 let sizes =
     Group.ƒ
         (Group.props,
-         [ Label.ƒ
-             { Label.props with
-                 Text = "Small"
-                 Size = Label.Size.Small }
-           Input.ƒ
+         [ Group.Child.Label
+             ({ Label.props with
+                 Size = Label.Size.Small }, "Small")
+           Group.Child.Input
              { Input.props with
                  HTMLProps =
                     [ Placeholder "Please enter a value" ]
                  Size = Input.Size.Small }
-           Label.ƒ
-             { Label.props with
-                 Text = "Large"
-                 Size = Label.Size.Large }
-           Select.ƒ
+           Group.Child.Label
+             ({ Label.props with
+                 Size = Label.Size.Large }, "Large")
+           Group.Child.Select
              ({ Select.props with
                   Size = Select.Size.Large },
               [ Select.Child.Option
-                  (Select.Option.props,
-                     [ R.str "Large" ]) ]) ])
+                  (Select.Option.props, "Large") ]) ])
 (*** define: form-switch-sample ***)
 let switch =
     Group.ƒ
         (Group.props,
-         [ Label.ƒ
-             { Label.props with
-                 Text = "Email Preferences" }
-           Switch.ƒ
-             { Switch.props with
-                 Text = "Send me promotional emails" } ])
+         [ Group.Child.Label
+             (Label.props, "Email Preferences")
+           Group.Child.Switch
+             (Switch.props, "Send me promotional emails") ])
 (*** define: form-textarea-sample ***)
 let textarea =
     Group.ƒ
         (Group.props,
-         [ Label.ƒ
-             { Label.props with Text = "Description" }
-           Textarea.ƒ
+         [ Group.Child.Label
+             (Label.props, "Description")
+           Group.Child.Textarea
              ({ Textarea.props with
                   HTMLProps =
                     [ Placeholder "Please enter a description" ] },
@@ -136,21 +126,20 @@ let textarea =
 let validation =
     Group.ƒ
         (Group.props,
-         [ Label.ƒ
-             { Label.props with
-                 Text = "Valid Input" }
-           Input.ƒ
-             { Input.props with
-                 HTMLProps = [ Placeholder "Please enter a value" ] }
-           |> Validation.ƒ
-            <| Validation.Kind.Success "This input is valid."
-           Label.ƒ
-             { Label.props with Text = "Invalid Input" }
-           Input.ƒ
-             { Input.props with
-                 HTMLProps = [Placeholder "Please enter a value"] }
-           |> Validation.ƒ
-            <| Validation.Kind.Error "This input is invalid." ])
+         [ Group.Child.Label
+             (Label.props, "Valid Input")
+           Group.Child.Validation
+             (Validation.Kind.Success "This input is valid",
+              Validation.Children.Input
+                { Input.props with
+                    HTMLProps = [ Placeholder "Please enter a value" ] })
+           Group.Child.Label
+             (Label.props, "Invalid Input")
+           Group.Child.Validation
+             (Validation.Kind.Success "This input is valid",
+              Validation.Children.Input
+                { Input.props with
+                    HTMLProps = [Placeholder "Please enter a value"] }) ])
 (*** hide ***)
 let render () =
     tryMount "form-input-demo" input

@@ -18,7 +18,7 @@ let tests =
                 R.i [ClassName "form-icon"] []
                 |> ReactNode.unit
             let label =
-                R.str "Label"
+                R.str "Checkbox"
                 |> ReactNode.unit
 
             Checkbox.ƒ

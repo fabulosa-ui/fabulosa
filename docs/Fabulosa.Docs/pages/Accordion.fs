@@ -3,36 +3,44 @@
 open Fabulosa
 open Fabulosa.Docs
 module R = Fable.Helpers.React
-open Fable.Import.React
 open Renderer
 
 (*** define: accordion-sample ***)
 let accordion =
     Accordion.ƒ
         (Accordion.props,
-         [ { Header = "Header One"
+         [ { Header =
+                { Accordion.Header.children with
+                    Text = "Header One"}
              Body =
                [ R.a [] [ R.str "Item One" ]
                  R.a [] [ R.str "Item Two" ] ] }
-           { Header = "Header Two"
+           { Header =
+                { Accordion.Header.children with
+                    Text = "Header Two" }
              Body =
                [ R.a [] [ R.str "Item One" ]
                  R.a [] [ R.str "Item Two" ] ] } ])
 (*** define: accordion-custom-sample ***)
 let custom =
     Accordion.ƒ
-        ({ Accordion.props with
-             CustomIcon =
-               { Icon.props with
-                   Kind = Icon.Kind.Forward } },
-         [ { Header = "Header One"
+        (Accordion.props,
+         [ { Header =
+                { Icon =
+                    { Icon.props with
+                        Kind = Icon.Kind.Forward }
+                  Text = "Header One"}
              Body =
-               [ R.a [] [R.str "Item One"]
-                 R.a [] [R.str "Item Two"] ] }
-           { Header = "Header Two"
+               [ R.a [] [ R.str "Item One" ]
+                 R.a [] [ R.str "Item Two" ] ] }
+           { Header =
+                { Icon =
+                    { Icon.props with
+                        Kind = Icon.Kind.Forward }
+                  Text = "Header One" }
              Body =
-               [ R.a [] [R.str "Item One"]
-                 R.a [] [R.str "Item Two"] ] } ])
+               [ R.a [] [ R.str "Item One" ]
+                 R.a [] [ R.str "Item Two" ] ] } ])
 (**
 
 <div id="accordions">

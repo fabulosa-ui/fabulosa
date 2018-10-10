@@ -123,7 +123,7 @@ module Icon =
         | Size.Unset -> ""
         >> ClassName
 
-    let ƒ (icon: T) =
+    let build (icon: T) =
         icon.HTMLProps
         |> addProps
             [ ClassName "icon"
@@ -131,4 +131,4 @@ module Icon =
               size icon.Size ]
         |> R.i <| []
 
-    let render = ƒ
+    let ƒ = build

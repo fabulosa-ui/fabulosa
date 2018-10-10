@@ -52,15 +52,15 @@ module Breadcrumb =
         { HTMLProps: HTMLProps }
 
     [<RequireQualifiedAccess>]
-    type Children = Item.T list
+    type Children<'Item> = 'Item list
 
     [<RequireQualifiedAccess>]
-    type T = Props * Children
+    type T<'Item> = Props * Children<'Item>
 
     let props =
         { Props.HTMLProps = [] }
 
-    let build itemƒ (breadcrumb: T) =
+    let build itemƒ (breadcrumb: T<'Item>) =
         let props, children = breadcrumb
         props.HTMLProps
         |> addProp (ClassName "breadcrumb")
@@ -68,5 +68,3 @@ module Breadcrumb =
         <| List.map itemƒ children
 
     let ƒ = build Item.ƒ
-
-    let render = ƒ

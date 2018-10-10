@@ -17,12 +17,24 @@ module Accordion =
         [<RequireQualifiedAccess>]
         type T = Children
 
-        let ƒ (header: T) =
+        let children =
+            { Children.Icon =
+                { Icon.props with
+                    Kind = Icon.Kind.ArrowRight }
+              Children.Text = "" }
+
+        let build (header: T) =
+            let iconProps =
+                { header.Icon with
+                    HTMLProps = header.Icon.HTMLProps
+                    |> addProp (ClassName "mr-1") }
             R.summary
                 [ ClassName "accordion-header" ]
-                [ Icon.ƒ header.Icon
+                [ Icon.ƒ iconProps
                   R.RawText "\n"
                   R.str header.Text ]
+
+        let ƒ = build
 
     module Body =
 
@@ -37,63 +49,57 @@ module Accordion =
                 [ ClassName "menu-item" ]
                 [ content ]
 
-        let ƒ (body: T) =
+        let build (body: T) =
             R.div
                 [ ClassName "accordion-body" ]
                 [ R.ul
                     [ ClassName "menu menu-nav"] 
                     ( List.map renderItem body ) ]
 
+        let ƒ = build
+
     module Item =
 
         [<RequireQualifiedAccess>]
-        type Children =
-            { Header: Header.T
-              Body: Body.T }
+        type Children<'Header, 'Body> =
+            { Header: 'Header
+              Body: 'Body }
 
         [<RequireQualifiedAccess>]
-        type T = Children
+        type T<'Header, 'Body> = Children<'Header, 'Body>
 
-        let ƒ (item: T) =
+        let build headerƒ bodyƒ (item: T<'Header, 'Body>) =
             R.details
                 [ ClassName "accordion" ]
-                [ Header.ƒ item.Header
-                  Body.ƒ item.Body ]
+                [ headerƒ item.Header
+                  bodyƒ item.Body ]
+
+        let ƒ = build Header.ƒ Body.ƒ
 
     [<RequireQualifiedAccess>]
     type Props =
-        { CustomIcon: Icon.Props
-          HTMLProps: IHTMLProp list }
+        { CustomIcon: Icon.T
+          HTMLProps: HTMLProps }
 
     [<RequireQualifiedAccess>]
-    type Child =
-        { Header: string
-          Body: ReactElement list }
+    type Children<'Item> = 'Item list
 
     [<RequireQualifiedAccess>]
-    type Children = Child list
-
-    [<RequireQualifiedAccess>]
-    type T = Props * Children    
+    type T<'Item> = Props * Children<'Item>
+      
     let props =
         { Props.CustomIcon =
             { Icon.props with
                 Kind = Icon.Kind.ArrowRight }
           Props.HTMLProps = [] }
 
-    let ƒ (accordion: T) =
+    let build itemƒ (accordion: T<'Item>) =
         let props, children = accordion
         let iconProps =
             { props.CustomIcon with
                 HTMLProps = props.CustomIcon.HTMLProps
                 |> addProp (ClassName "mr-1") }
         R.div []
-        <| Seq.map
-            (fun (child: Child) ->
-                Item.ƒ
-                    { Header =
-                        { Icon = iconProps
-                          Text = child.Header }
-                      Body = child.Body } )
-            children
-        
+        <| Seq.map itemƒ children
+
+    let ƒ = build Item.ƒ

@@ -100,7 +100,7 @@ module Button =
           Props.Format = Format.Unset
           Props.HTMLProps = [] }
 
-    let ƒ (button: T) =
+    let build (button: T) =
         let props, children = button
         props.HTMLProps
         |> addProps
@@ -112,7 +112,7 @@ module Button =
               format props.Format ]
         |> R.button <| children
 
-    let render = ƒ
+    let ƒ = build
 
 [<RequireQualifiedAccess>]
 module Anchor =
@@ -130,7 +130,7 @@ module Anchor =
 
     let props = Button.props
 
-    let ƒ (anchor: T) =
+    let build (anchor: T) =
         let props, children = anchor
         props.HTMLProps
         |> addProps
@@ -142,11 +142,10 @@ module Anchor =
               Button.format props.Format ]
         |> R.a <| children
 
-    let render = ƒ
+    let ƒ = build
 
 module ButtonGroup =
 
-    open Fable.Import.React
     open Fabulosa.Extensions
     module R = Fable.Helpers.React
     open R.Props
@@ -160,10 +159,10 @@ module ButtonGroup =
           HTMLProps: IHTMLProp list }
 
     [<RequireQualifiedAccess>]
-    type Children = ReactElement list
+    type Children<'Button> = 'Button list
 
     [<RequireQualifiedAccess>]
-    type T = Props * Button.T list
+    type T<'Button> = Props * Children<'Button>
 
     let props =
         { Props.Block = false
@@ -174,9 +173,11 @@ module ButtonGroup =
         | true -> "btn-group-block"
         | false -> ""
 
-    let ƒ (buttonGroup: T) =
+    let build buttonƒ (buttonGroup: T<'Button>) =
         let props, children = buttonGroup
         props.HTMLProps
         |> addProp (ClassName "btn-group")
         |> R.div
-        <| Seq.map Button.ƒ children
+        <| Seq.map buttonƒ children
+
+    let ƒ = build Button.ƒ

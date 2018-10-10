@@ -28,7 +28,7 @@ module Badge =
     let private combine htmlProps badge =
         (htmlProps
          |> addProp (ClassName "badge"))
-        @ [Data ("badge", badge)]
+        @ [ Data ("badge", badge) ]
 
     let private renderChildren child badge =
         match child with
@@ -38,9 +38,9 @@ module Badge =
                     HTMLProps = combine props.HTMLProps badge }
         | Child.Button (props, children) ->
             Button.ƒ
-                ( { props with
+                ({ props with
                       HTMLProps = combine props.HTMLProps badge },
-                  children )
+                  children)
         | Child.Anchor (props, children) ->
             R.a
                 (combine props badge)

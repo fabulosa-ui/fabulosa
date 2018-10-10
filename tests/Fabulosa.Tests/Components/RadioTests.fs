@@ -11,8 +11,6 @@ let tests =
     testList "Radio tests" [
 
         test "Radio default" {
-            let props = Radio.props
-            let radio = Radio.ƒ props
             let input =
                 R.input [Type "radio"]
                 |> ReactNode.unit
@@ -20,47 +18,37 @@ let tests =
                 R.i [ClassName "form-icon"] []
                 |> ReactNode.unit
             let label =
-                R.str "Label"
+                R.str "Radio"
                 |> ReactNode.unit
-            
-            radio
+
+            Radio.ƒ
+                (Radio.props, "Radio")
             |> ReactNode.unit
             |>! hasUniqueClass "form-radio"
             |>! hasChild 1 input
             |>! hasChild 1 icon
-            |> hasChild 1 label
+            |>! hasChild 1 label
+            |> hasText "Radio"
+
         }
 
         test "Radio inline" {
-            let props = { Radio.props with Inline = true }
-            let radio = Radio.ƒ props
-            
-            radio
+            Radio.ƒ
+                ({ Radio.props with
+                     Inline = true },
+                 "Radio")
             |> ReactNode.unit
-            |> hasClass "form-radio form-inline"
-        }
-
-        test "Radio text" {
-            let props = { Radio.props with Text = "custom" }
-            let radio = Radio.ƒ props
-            let text =
-                R.str "custom"
-                |> ReactNode.unit
-            
-            radio
-            |> ReactNode.unit
-            |>! hasUniqueClass "form-radio"
-            |> hasChild 1 text
+            |> hasClass "form-inline"
         }
 
         test "Radio html props" {
-            let props = { Radio.props with HTMLProps = [ClassName "custom"] }
-            let radio = Radio.ƒ props
-            
-            radio
+            let prop = ClassName "custom"
+            Radio.ƒ
+                ({ Radio.props with
+                     HTMLProps = [ prop ] }, "Radio")
             |> ReactNode.unit
             |>! hasUniqueClass "form-radio"
-            |> hasDescendentClass "custom"
+            |> hasDescendentProp prop
         }
 
     ]
