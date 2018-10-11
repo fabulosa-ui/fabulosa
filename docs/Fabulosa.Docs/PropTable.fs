@@ -15,21 +15,21 @@ module PropTable =
         let name (typ: PropertyInfo) = typ.Name
     
     let rec systemTypeName(aType: System.Type) =
+        let appendMap = ["FSharpList`1", "list"; "FSharpOption`1", "option"] |> Map.ofList
+        let exists comparison key value = comparison = key
+        
+        let (|APPENDABLE|_|) (aType: System.Type) =
+           match Map.tryFind aType.Name appendMap with 
+           | Some appendableName -> Some appendableName
+           | _ -> None
+        
         match aType with 
-            | list when list.Name = "FSharpList`1" -> 
-                list.GenericTypeArguments
+            | APPENDABLE appendableName->
+                aType.GenericTypeArguments
                 |> List.ofArray
                 |> List.map (fun f -> systemTypeName f)
-                |> flip List.append ["list"]
+                |> flip List.append [appendableName]
                 |> List.reduce (fun x -> (fun y -> x + " " + y))
-            
-            | option when option.Name = "FSharpOption`1" -> 
-                option.GenericTypeArguments
-                |> List.ofArray
-                |> List.map (fun f -> systemTypeName f)
-                |> flip List.append ["option"]
-                |> List.reduce (fun x -> (fun y -> x + " " + y))
-                
             | option when option.Name = "FSharpFunc`2" -> 
                 option.GenericTypeArguments
                 |> List.ofArray
@@ -38,9 +38,7 @@ module PropTable =
             | t ->
                 t.Name
     
-    
     let rec describeName (typeInfo: PropertyInfo) =
-        Browser.console.log(typeInfo.PropertyType)
         systemTypeName typeInfo.PropertyType
 
     let rec describeType (typeInfo: PropertyInfo) =

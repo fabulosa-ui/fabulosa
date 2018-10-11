@@ -1,4 +1,4 @@
-﻿namespace Fabulosa
+namespace Fabulosa
 
 [<RequireQualifiedAccess>]
 module Badge =
