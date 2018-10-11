@@ -44,17 +44,19 @@ module Step =
         { HTMLProps: HTMLProps }
 
     [<RequireQualifiedAccess>]
-    type Children = Item.T list
+    type Children<'Item> = 'Item list
 
     [<RequireQualifiedAccess>]
-    type T = Props * Children
+    type T<'Item> = Props * Children<'Item>
 
     let props =
         { Props.HTMLProps = [] }
 
-    let ƒ (step: T) =
+    let build itemƒ (step: T<'Item>) =
         let props, children = step
         props.HTMLProps
         |> addProp (ClassName "step")
         |> R.div
-        <| Seq.map Item.ƒ children
+        <| Seq.map itemƒ children
+
+    let ƒ = build Item.ƒ

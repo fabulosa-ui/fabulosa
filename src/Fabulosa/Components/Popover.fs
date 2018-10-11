@@ -38,12 +38,13 @@ module Popover =
           Position: Position }
 
     [<RequireQualifiedAccess>]
-    type Children =
-        { Trigger: Trigger.T
-          Content: ReactElement list }
+    type Children<'Trigger, 'Content> =
+        { Trigger: 'Trigger
+          Content: 'Content }
 
     [<RequireQualifiedAccess>]
-    type T = Props * Children
+    type T<'Trigger, 'Content> =
+        Props * Children<'Trigger, 'Content>
 
     let private position =
         function
@@ -57,12 +58,14 @@ module Popover =
         { Props.HTMLProps = []
           Props.Position = Position.Top }
 
-    let ƒ (popover: T) =
+    let build triggerƒ contentƒ (popover: T<'Trigger, 'Content>) =
         let props, children = popover
         props.HTMLProps
         |> addProps
             [ ClassName "popover"
               position props.Position ]
         |> R.div
-        <| [ Trigger.ƒ children.Trigger
-             Content.ƒ children.Content ] 
+        <| [ triggerƒ children.Trigger
+             contentƒ children.Content ] 
+
+    let ƒ = build Trigger.ƒ Content.ƒ

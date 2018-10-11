@@ -19,7 +19,7 @@ let search =
                     Kind = Button.Kind.Primary
                     Size = Button.Size.Small },
                 [ R.str "Search" ]) },
-         [ Input.ƒ
+         [ InputGroup.Child.Input
              ({ Input.props with
                   Size = Input.Size.Small
                   HTMLProps =

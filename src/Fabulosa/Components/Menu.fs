@@ -15,8 +15,10 @@ module Menu =
         [<RequireQualifiedAccess>]
         type T = ReactElement list
 
-        let ƒ (item: T) =
+        let build (item: T) =
             R.li [ ClassName "menu-item" ] item
+
+        let ƒ = build
 
     [<RequireQualifiedAccess>]
     module Divider =
@@ -24,7 +26,7 @@ module Menu =
         [<RequireQualifiedAccess>]
         type T = string option
 
-        let ƒ (divider: T) =
+        let build (divider: T) =
             match divider with
             | Some text ->
                 R.li
@@ -33,6 +35,8 @@ module Menu =
             | None ->
                 R.li
                     [ ClassName "divider" ] []
+
+        let ƒ = build
 
     [<RequireQualifiedAccess>]
     module Trigger =
@@ -65,7 +69,7 @@ module Menu =
             let y = (rect.bottom |> int) + (Browser.window.scrollY |> int)
             Message.Click (x, y)
 
-        let ƒ (trigger: T) =
+        let build (trigger: T) =
             let props, children = trigger
             let cProps, cChildren = children
             let withClick =
@@ -74,6 +78,8 @@ module Menu =
                 ( { cProps with
                       HTMLProps = withClick },
                   cChildren )
+
+        let ƒ = build
 
     [<RequireQualifiedAccess>]
     module Container =
@@ -95,7 +101,7 @@ module Menu =
               Props.Opened = false
               Props.Position = 0, 0 }
 
-        let ƒ (container: T) =
+        let build (container: T) =
             let props, children = container
             let (x, y) = props.Position
             if props.Opened then
@@ -109,13 +115,16 @@ module Menu =
                 |> R.ul <| children
             else R.ofOption None
 
-    [<RequireQualifiedAccess>]
-    type Child =
-    | Item of ReactElement list
-    | Divider of Divider.T
+        let ƒ = build
 
     [<RequireQualifiedAccess>]
-    type Children = Child list
+    type Child<'Item, 'Divider> =
+    | Item of 'Item
+    | Divider of 'Divider
+
+    [<RequireQualifiedAccess>]
+    type Children<'Item, 'Divider> =
+        Child<'Item, 'Divider> list
 
     type Props =
         { HTMLProps: HTMLProps
@@ -123,19 +132,12 @@ module Menu =
           Opened: bool }
 
     [<RequireQualifiedAccess>]
-    type T = Props * Children
+    type T<'Item, 'Divider> =
+        Props * Children<'Item, 'Divider>
 
     type State =
         { Opened: bool
           Position: int * int }
-                
-    let private renderChild =
-        function
-        | Child.Item elements -> Item.ƒ elements
-        | Child.Divider divider -> Divider.ƒ divider
-
-    let private renderChildren children =
-        List.map renderChild children
 
     let private init (props: Props) =
         { Opened = props.Opened
@@ -163,7 +165,7 @@ module Menu =
           Trigger = Trigger.children
           Opened = Container.props.Opened }
 
-    let ƒ (menu: T) =
+    let build itemƒ dividerƒ (menu: T<'Item, 'Divider>) =
         let props, children = menu
         R.reactiveCom
             init
@@ -171,4 +173,10 @@ module Menu =
             view
             ""
             props
-            (renderChildren children)
+            (Seq.map
+                (function
+                 | Child.Item elements -> itemƒ elements
+                 | Child.Divider divider -> dividerƒ divider)
+                children)
+
+    let ƒ = build Item.ƒ Divider.ƒ

@@ -69,7 +69,7 @@ module Bar =
             [style]
             |> List.cast<IHTMLProp>
 
-        let ƒ (item: T) =
+        let build (item: T) =
             let props, children = item
             props.HTMLProps
             @ tooltipData (props.Tooltip, props.Value)
@@ -78,6 +78,8 @@ module Bar =
                 [ ClassName "bar-item"
                   tooltip props.Tooltip ]
             |> R.div <| children
+
+        let ƒ = build
 
     [<RequireQualifiedAccess>]
     type Small = bool
@@ -88,10 +90,10 @@ module Bar =
           HTMLProps: HTMLProps }
 
     [<RequireQualifiedAccess>]
-    type Children = Item.T list
+    type Children<'Item> = 'Item list
 
     [<RequireQualifiedAccess>]
-    type T = Props * Children
+    type T<'Item> = Props * Children<'Item>
     
     let props =
         { Props.Small = false
@@ -103,33 +105,37 @@ module Bar =
         | false -> ""
         >> ClassName
 
-    let ƒ (bar: T) =
+    let build itemƒ (bar: T<'Item>) =
         let props, children = bar
         props.HTMLProps
         |> addProps
             [ ClassName "bar"
               small props.Small ]
         |> R.div
-        <| Seq.map Item.ƒ children
+        <| Seq.map itemƒ children
+
+    let ƒ = build Item.ƒ
 
     [<RequireQualifiedAccess>]
     module Slider =
 
         let props = props
 
-        let private item (child: Item.T) =
-            let props, children = child
-            Item.ƒ
-                (props,
-                  [ Button.ƒ
-                      ({ Button.props with
-                            HTMLProps = [ ClassName "bar-slider-btn" ] }, []) ])
-
-        let ƒ (slider: T) =
+        let build (slider: T<Item.T>) =
             let props, children = slider
             props.HTMLProps
             |> addProps
                 [ ClassName "bar bar-slider"
                   small props.Small ]
             |> R.div
-            <| Seq.map item children
+            <| Seq.map
+                (fun item ->
+                    let props, children = item
+                    Item.ƒ
+                        (props,
+                         [ Button.ƒ
+                             ({ Button.props with
+                                  HTMLProps = [ ClassName "bar-slider-btn" ] }, []) ]))
+                children
+
+        let ƒ = build

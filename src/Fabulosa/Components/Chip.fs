@@ -25,18 +25,28 @@ module Chip =
                      OnClick remove.OnRemove ] }, [])
             |> Anchor.ƒ
 
+    module ChipAvatar =
+        
+        let build (avatar: Avatar.T) =
+            Avatar.ƒ
+                { avatar with
+                    Size = Avatar.Size.Small }
+
+        let ƒ = build
+
     [<RequireQualifiedAccess>]
     type Props =
         { HTMLProps: HTMLProps
           OnRemove: (MouseEvent -> unit) option }
 
     [<RequireQualifiedAccess>]
-    type Children =
+    type Children<'Avatar> =
         { Text: string
-          Avatar: Avatar.T option }
+          Avatar: 'Avatar option }
 
     [<RequireQualifiedAccess>]
-    type T = Props * Children
+    type T<'Avatar> =
+        Props * Children<'Avatar>
 
     let props =
         { Props.HTMLProps = []
@@ -51,19 +61,19 @@ module Chip =
         | Some fn -> Remove.ƒ { OnRemove = fn }
         | None -> R.ofOption None
 
-    let private avatar =
+    let private avatar avatarƒ =
         function
         | Some avatar ->
-            Avatar.ƒ
-                { avatar with
-                    Size = Avatar.Size.Small }
+            avatarƒ avatar
         | None -> R.ofOption None
 
-    let ƒ (chip: T) =
+    let build avatarƒ (chip: T<'Avatar>) =
         let props, children = chip
         props.HTMLProps
         |> addProp (ClassName "chip")
         |> R.div <|
-        [ avatar children.Avatar
+        [ avatar avatarƒ children.Avatar
           R.str children.Text
           remove props.OnRemove ]
+
+    let ƒ = build ChipAvatar.ƒ

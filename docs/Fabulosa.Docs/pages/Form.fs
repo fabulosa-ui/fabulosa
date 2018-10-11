@@ -136,7 +136,7 @@ let validation =
            Group.Child.Label
              (Label.props, "Invalid Input")
            Group.Child.Validation
-             (Validation.Kind.Success "This input is valid",
+             (Validation.Kind.Error "This input is invalid",
               Validation.Children.Input
                 { Input.props with
                     HTMLProps = [Placeholder "Please enter a value"] }) ])

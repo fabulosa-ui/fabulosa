@@ -66,15 +66,17 @@ module Table =
               HTMLProps: HTMLProps }
 
         [<RequireQualifiedAccess>]
-        type Child =
-        | Column of Column.T
-        | TitleColumn of TitleColumn.T
+        type Child<'Column, 'TitleColumn> =
+        | Column of 'Column
+        | TitleColumn of 'TitleColumn
 
         [<RequireQualifiedAccess>]
-        type Children = Child list
+        type Children<'Column, 'TitleColumn> =
+            Child<'Column, 'TitleColumn> list
 
         [<RequireQualifiedAccess>]
-        type T = Props * Children
+        type T<'Column, 'TitleColumn> =
+            Props * Children<'Column, 'TitleColumn>
 
         let props =
             { Props.Active = false
@@ -91,12 +93,18 @@ module Table =
             | Child.Column column -> Column.ƒ column
             | Child.TitleColumn column -> TitleColumn.ƒ column
 
-        let ƒ (row: T) =
+        let build columnƒ titleColumnƒ (row: T<'Column, 'TitleColumn>) =
             let props, children = row
             props.HTMLProps
             |> addProp (active props.Active)
             |> R.tr
-            <| List.map columns children
+            <| List.map
+                (function
+                 | Child.Column column -> columnƒ column
+                 | Child.TitleColumn column -> titleColumnƒ column)
+                children
+
+        let ƒ = build Column.ƒ TitleColumn.ƒ
 
     [<RequireQualifiedAccess>]
     module Head =
@@ -106,21 +114,21 @@ module Table =
             { HTMLProps: HTMLProps }
 
         [<RequireQualifiedAccess>]
-        type Children = Row.T list
+        type Children<'Row> = 'Row list
 
         [<RequireQualifiedAccess>]
-        type T = Props * Children
+        type T<'Row> = Props * Children<'Row>
 
         let props =
             { Props.HTMLProps = [] }
 
-        let ƒ (head: T) =
+        let build rowƒ (head: T<'Row>) =
             let props, children = head
             props.HTMLProps
             |> R.thead
-            <| List.map Row.ƒ children
+            <| List.map rowƒ children
 
-        let render = ƒ
+        let ƒ = build Row.ƒ
 
     [<RequireQualifiedAccess>]
     module Body =
@@ -130,21 +138,21 @@ module Table =
             { HTMLProps: HTMLProps }
 
         [<RequireQualifiedAccess>]
-        type Children = Row.T list
+        type Children<'Row> = 'Row list
 
         [<RequireQualifiedAccess>]
-        type T = Props * Children
+        type T<'Row> = Props * Children<'Row>
 
         let props =
             { Props.HTMLProps = [] }
 
-        let ƒ (body: T) =
+        let build rowƒ (body: T<'Row>) =
             let props, children = body
             props.HTMLProps
             |> R.tbody
-            <| List.map Row.ƒ children
+            <| List.map rowƒ children
 
-        let render = ƒ
+        let ƒ = build Row.ƒ
 
     [<RequireQualifiedAccess>]
     type Kind =
@@ -158,15 +166,17 @@ module Table =
           HTMLProps: HTMLProps }
 
     [<RequireQualifiedAccess>]
-    type Child =
-    | Head of Head.T
-    | Body of Body.T
+    type Child<'Head, 'Body> =
+    | Head of 'Head
+    | Body of 'Body
 
     [<RequireQualifiedAccess>]
-    type Children = Child list
+    type Children<'Head, 'Body> =
+        Child<'Head, 'Body> list
 
     [<RequireQualifiedAccess>]
-    type T = Props * Children
+    type T<'Head, 'Body> =
+        Props * Children<'Head, 'Body>
 
     let props =
         { Props.Kind = Kind.Unset
@@ -179,18 +189,17 @@ module Table =
         | Kind.Unset -> ""
         >> ClassName
 
-    let private child =
-        function
-        | Child.Head head -> Head.ƒ head
-        | Child.Body body -> Body.ƒ body
-
-    let ƒ (table: T) =
+    let build headƒ bodyƒ (table: T<'Head, 'Body>) =
         let props, children = table
         props.HTMLProps
         |> addProps
             [ ClassName "table"
               kind props.Kind ]
         |> R.table
-        <| List.map child children
+        <| List.map
+            (function
+             | Child.Head head -> headƒ head
+             | Child.Body body -> bodyƒ body)
+            children
 
-    let render = ƒ
+    let ƒ = build Head.ƒ Body.ƒ

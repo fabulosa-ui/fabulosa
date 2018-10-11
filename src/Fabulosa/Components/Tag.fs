@@ -49,8 +49,8 @@ module Tag =
         | true -> "label-rounded"
         | false -> ""
         >> ClassName
-        
-    let ƒ (tag: T) =
+
+    let build (tag: T) =
         let props, children = tag
         props.HTMLProps
         |> addProps
@@ -59,4 +59,4 @@ module Tag =
               rounded props.Rounded ]
         |> R.span <| [ R.str children ]
 
-    let render = ƒ
+    let ƒ = build

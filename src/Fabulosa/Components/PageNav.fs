@@ -69,10 +69,12 @@ module PageNav =
                         [ R.str item.Title ] ] ]
         | None -> R.ofOption None
 
-    let ƒ (pageNav: T) =
+    let build (pageNav: T) =
         let props, children = pageNav
         props.HTMLProps
         |> addProp (ClassName "pagination")
         |> R.ul
         <| [ child "prev" children.Prev
              child "next" children.Next ]
+
+    let ƒ = build

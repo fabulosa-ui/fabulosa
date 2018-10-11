@@ -48,8 +48,8 @@ module Responsive =
         | Size.XL -> "show-xl"
         | Size.Unset -> ""
         >> ClassName
-        
-    let ƒ (responsive: T) =
+
+    let build (responsive: T) =
         let props, children = responsive
         []
         |> addProps
@@ -58,6 +58,4 @@ module Responsive =
               show props.Show ]
         |> R.span <| children
 
-    let render = ƒ
-
-
+    let ƒ = build

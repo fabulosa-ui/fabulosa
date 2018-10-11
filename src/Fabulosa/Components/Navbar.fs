@@ -55,33 +55,39 @@ module Navbar =
         let render = ƒ
 
     [<RequireQualifiedAccess>]
-    type Child =
-    | Brand of Brand.T
-    | Section of Section.T
-    | Center of Center.T
+    type Child<'Brand, 'Section, 'Center> =
+    | Brand of 'Brand
+    | Section of 'Section
+    | Center of 'Center
 
     [<RequireQualifiedAccess>]
-    type private Children = Child list
+    type private Children<'Brand, 'Section, 'Center> =
+        Child<'Brand, 'Section, 'Center> list
 
     let props =
         { Props.HTMLProps = [] }
-
-    let private renderChild =
-        function
-        | Child.Brand (props, children) ->
-            Brand.ƒ (props, children)
-        | Child.Section (props, children) ->
-            Section.ƒ (props, children)
-        | Child.Center (props, children) ->
-            Center.ƒ (props, children)
-
+        
     [<RequireQualifiedAccess>]
-    type T = Props * Children
+    type T<'Brand, 'Section, 'Center> =
+        Props * Children<'Brand, 'Section, 'Center>
 
-    let ƒ (navbar: T) =
+    let build
+        brandƒ
+        sectionƒ
+        centerƒ
+        (navbar: T<'Brand, 'Section, 'Center>) =
         let props, children = navbar
         props.HTMLProps
         |> addProp (ClassName "navbar")
-        |> R.header <| Seq.map renderChild children
+        |> R.header
+        <| Seq.map
+            (function
+             | Child.Brand brand ->
+                 brandƒ brand
+             | Child.Section section ->
+                 sectionƒ section
+             | Child.Center center ->
+                 centerƒ center)
+            children
 
-    let render = ƒ
+    let ƒ = build Brand.ƒ Section.ƒ Center.ƒ

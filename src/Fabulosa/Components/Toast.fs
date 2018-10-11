@@ -54,7 +54,7 @@ module Toast =
         | None -> R.ofOption None
 
 
-    let ƒ (toast: T) =
+    let build (toast: T) =
         let props, children = toast
         props.HTMLProps
         |> addProps
@@ -64,3 +64,5 @@ module Toast =
         <| [ onRequestClose props.OnRequestClose
              R.str children ]
         |> Portal.ƒ "toast-container"
+
+    let ƒ = build

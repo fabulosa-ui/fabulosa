@@ -4,7 +4,9 @@ module rec Nav =
 
     open Fabulosa.Extensions
     open Fable.Helpers.React.Props
+    open Fable.Import.React
     module R =  Fable.Helpers.React
+
 
     module Item =
 
@@ -34,28 +36,30 @@ module rec Nav =
         { HTMLProps: HTMLProps }
 
     [<RequireQualifiedAccess>]
-    type Child =
-    | Item of Item.Props
-    | Nav of Props * Child seq
+    type Child<'Item> =
+    | Item of 'Item
+    | Nav of Props * Child<'Item> seq
               
     [<RequireQualifiedAccess>]
-    type Children = Child seq
+    type Children<'Item> = Child<'Item> seq
 
     [<RequireQualifiedAccess>]
-    type T = Props * Children
+    type T<'Item> = Props * Children<'Item>
 
     let props =
         { Props.HTMLProps = [] }
 
-    let private renderChildren =
-        function
-        | Child.Item props ->
-            Item.ƒ props
-        | Child.Nav (props, children) ->
-            ƒ (props, children)
-
-    let ƒ (nav: T) =
+    let build itemƒ (nav: T<'Item>) =
         let props, children = nav
         props.HTMLProps
         |> addProp (ClassName "nav")
-        |> R.ul <| Seq.map renderChildren children
+        |> R.ul
+        <| Seq.map
+            (function
+             | Child.Item props ->
+                 itemƒ props
+             | Child.Nav (props, children) ->
+                 build itemƒ (props, children))
+             children
+
+    let ƒ: T<Item.T> -> ReactElement = build Item.ƒ

@@ -6,13 +6,14 @@ open R.Props
 
 [<RequireQualifiedAccess>]
 module Code =
+
     type Props = {
         Code: DangerousHtml
         Language: string
     }
     
     let props = {
-        Code = { __html = ""}
+        Code = { __html = "" }
         Language = "F#"
     }
     

@@ -57,14 +57,15 @@ module Panel =
         { HTMLProps: HTMLProps }
 
     [<RequireQualifiedAccess>]
-    type Children =
-        { Header: Header.T option
-          Nav: Nav.T option
-          Body: Body.T option
-          Footer: Footer.T option }
+    type Children<'Header, 'Nav, 'Body, 'Footer> =
+        { Header: 'Header option
+          Nav: 'Nav option
+          Body: 'Body option
+          Footer: 'Footer option }
 
     [<RequireQualifiedAccess>]
-    type T = Props * Children
+    type T<'Header, 'Nav, 'Body, 'Footer> =
+        Props * Children<'Header, 'Nav, 'Body, 'Footer>
 
     let props =
         { Props.HTMLProps = [] }
@@ -81,12 +82,19 @@ module Panel =
             render elements
         | None -> R.ofOption None
 
-    let ƒ (panel: T) =
-        let props, children = panel
+    let build
+        headerƒ
+        navƒ
+        bodyƒ
+        footerƒ
+        (panel: T<'Header, 'Nav, 'Body, 'Footer>) =
+        let rops, children = panel
         props.HTMLProps
         |> addProp (ClassName "panel")
         |> R.div
-        <| [ child Header.ƒ children.Header
-             child Nav.ƒ children.Nav
-             child Body.ƒ children.Body
-             child Footer.ƒ children.Footer ]
+        <| [ child headerƒ children.Header
+             child navƒ children.Nav
+             child bodyƒ children.Body
+             child footerƒ children.Footer ]
+
+    let ƒ = build Header.ƒ Nav.ƒ Body.ƒ Footer.ƒ

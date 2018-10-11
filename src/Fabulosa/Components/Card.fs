@@ -8,6 +8,7 @@ module Card =
     module R = Fable.Helpers.React
     open R.Props
 
+    [<RequireQualifiedAccess>]
     module Header =
         
         [<RequireQualifiedAccess>]
@@ -29,6 +30,7 @@ module Card =
                     [ ClassName "card-subtitle text-gray" ]
                     [ R.str header.SubTitle ] ]
 
+    [<RequireQualifiedAccess>]
     module Body =
 
         [<RequireQualifiedAccess>]
@@ -45,6 +47,7 @@ module Card =
             else
                 R.ofOption None
 
+    [<RequireQualifiedAccess>]
     module Footer =
 
         [<RequireQualifiedAccess>]
@@ -66,14 +69,15 @@ module Card =
         { HTMLProps: HTMLProps }
 
     [<RequireQualifiedAccess>]
-    type Children =
+    type Children<'Header, 'Body, 'Footer> =
         { Image: Media.Image.Props
-          Header: Header.T
-          Body: Body.T
-          Footer: Footer.T }
+          Header: 'Header
+          Body: 'Body
+          Footer: 'Footer }
 
     [<RequireQualifiedAccess>]
-    type T = Props * Children
+    type T<'Header, 'Body, 'Footer> =
+        Props * Children<'Header, 'Body, 'Footer>
 
     let props =
         { Props.HTMLProps = [] }
@@ -84,12 +88,14 @@ module Card =
           Children.Footer = Footer.props
           Children.Image = Media.Image.props }
 
-    let ƒ (card: T) =
+    let build headerƒ bodyƒ footerƒ (card: T<'Header, 'Body, 'Footer>) =
         let props, children = card
         props.HTMLProps
         |> addProp (ClassName "card")
         |> R.div <|
-        [ Header.ƒ children.Header
+        [ headerƒ children.Header
           R.div [ ClassName "card-image" ] [ Media.Image.ƒ children.Image ]
-          Body.ƒ children.Body
-          Footer.ƒ children.Footer ]
+          bodyƒ children.Body
+          footerƒ children.Footer ]
+
+    let ƒ = build Header.ƒ Body.ƒ Footer.ƒ

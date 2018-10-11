@@ -9,17 +9,14 @@ module Empty =
     open R.Props
 
     [<RequireQualifiedAccess>]
-    module Icon =
-
-        [<RequireQualifiedAccess>]
-        type T = Icon.T
-
-        let props = Icon.props
-
-        let ƒ (icon: T) =
+    module EmptyIcon =
+       
+        let build (icon: Icon.T) =
             R.div
                 [ ClassName "empty-icon" ]
                 [ Icon.ƒ { icon with Size = Icon.Size.X3 } ]
+
+        let ƒ = build
 
     [<RequireQualifiedAccess>]
     module Title =
@@ -65,14 +62,15 @@ module Empty =
         { HTMLProps: HTMLProps }
 
     [<RequireQualifiedAccess>]
-    type Children =
-        { Icon: Icon.T
-          Title: Title.T
-          SubTitle: SubTitle.T
-          Action: Action.T }
+    type Children<'Icon, 'Title, 'SubTitle, 'Action> =
+        { Icon: 'Icon
+          Title: 'Title
+          SubTitle: 'SubTitle
+          Action: 'Action }
 
     [<RequireQualifiedAccess>]
-    type T = Props * Children
+    type T<'Icon, 'Title, 'SubTitle, 'Action> =
+        Props * Children<'Icon, 'Title, 'SubTitle, 'Action>
 
     let props =
         { Props.HTMLProps = [] }
@@ -82,13 +80,20 @@ module Empty =
           Children.Title = Title.children
           Children.SubTitle = SubTitle.children
           Children.Action = Action.children }
-          
-    let ƒ (empty: T) =
-        let props, children = empty
+
+    let build
+        emptyIconƒ
+        titleƒ
+        subTitleƒ
+        actionƒ
+        (empty: T<'Icon, 'Title, 'SubTitle, 'Action>) =
+        let prps,children = empty
         props.HTMLProps
         |> addProp (ClassName "empty")
         |> R.div <|
-        [ Icon.ƒ children.Icon
-          Title.ƒ children.Title
-          SubTitle.ƒ children.SubTitle
-          Action.ƒ children.Action ]
+        [ emptyIconƒ children.Icon
+          titleƒ children.Title
+          subTitleƒ children.SubTitle
+          actionƒ children.Action ]
+
+    let ƒ = build EmptyIcon.ƒ Title.ƒ SubTitle.ƒ Action.ƒ

@@ -25,7 +25,7 @@ module Pagination =
 
         let private (|Int|_|) str =
            match System.Int32.TryParse(str) with
-           | (true,int) -> Some int
+           | (true, int) -> Some int
            | _ -> None
 
         let onClick (e: MouseEvent) =
@@ -56,7 +56,7 @@ module Pagination =
               Props.Active = false
               Props.Disabled = false }
 
-        let ƒ (item: T) =
+        let build (item: T) =
             let props, children = item
             let onPageChanged =
                 onClick >> props.OnPageChanged
@@ -71,21 +71,25 @@ module Pagination =
                   disabled props.Disabled ]
             |> R.li <| [ anchor ]
 
+        let ƒ = build
+
     [<RequireQualifiedAccess>]
     type Props =
         { HTMLProps: HTMLProps }
 
     [<RequireQualifiedAccess>]
-    type Children = Item.T list
+    type Children<'Item> = 'Item list
 
     [<RequireQualifiedAccess>]
-    type T = Props * Children
+    type T<'Item> = Props * Children<'Item>
 
     let props =
         { Props.HTMLProps = [] }
 
-    let ƒ (pagination: T) =
+    let build itemƒ (pagination: T<'Item>) =
         let props, children = pagination
         props.HTMLProps
         |> addProp (ClassName "pagination")
-        |> R.ul <| Seq.map Item.ƒ children
+        |> R.ul <| Seq.map itemƒ children
+
+    let ƒ = build Item.ƒ

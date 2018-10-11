@@ -98,7 +98,7 @@ module Grid =
               Props.XLSize = 0
               Props.HTMLProps = [] }
 
-        let ƒ (column: T) =
+        let build (column: T) =
             let props, children = column
             props.HTMLProps
             |> addProps
@@ -112,7 +112,7 @@ module Grid =
                   xlSize props.XLSize ]
             |> R.div <| children
 
-        let render = ƒ
+        let ƒ = build
 
     [<RequireQualifiedAccess>]
     module Row =
@@ -130,7 +130,8 @@ module Grid =
               HTMLProps: IHTMLProp list }
 
         [<RequireQualifiedAccess>]
-        type T = Props * Column.T list
+        type T<'Column> =
+            Props * 'Column list
 
         let props =
             { Props.Gapless = false
@@ -149,7 +150,7 @@ module Grid =
             | false -> ""
             >> ClassName
 
-        let ƒ (row: T) =
+        let build columnƒ (row: T<'Column>) =
             let props, children = row
             props.HTMLProps
             |> addProps
@@ -157,25 +158,25 @@ module Grid =
                   gapless props.Gapless
                   oneLine props.OneLine ]
             |> R.div
-            <| Seq.map Column.ƒ children
+            <| Seq.map columnƒ children
 
-        let render = ƒ
+        let ƒ = build Column.ƒ
 
     [<RequireQualifiedAccess>]
     type Props =
         { HTMLProps: HTMLProps }
 
     [<RequireQualifiedAccess>]
-    type T = Props * Row.T list
+    type T<'Row> = Props * 'Row list
 
     let props =
         { Props.HTMLProps = [] }
 
-    let ƒ (grid: T) =
+    let build rowƒ (grid: T<'Row>) =
         let props, children = grid
         props.HTMLProps
         |> addProp (ClassName "container")
         |> R.div
-        <| Seq.map Row.ƒ children
+        <| Seq.map rowƒ children
 
-    let render = ƒ
+    let ƒ = build Row.ƒ
