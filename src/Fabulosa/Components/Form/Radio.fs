@@ -1,44 +1,42 @@
 ﻿namespace Fabulosa
 
-[<RequireQualifiedAccess>]
 module Radio =
 
     open Fabulosa.Extensions
     module R = Fable.Helpers.React
     open R.Props
 
-    [<RequireQualifiedAccess>]
-    type private Inline = bool
+    type RadioOptional =
+        | Inline
+        interface IHTMLProp
 
-    [<RequireQualifiedAccess>]
-    type Props =
-        { Inline: Inline
-          HTMLProps: IHTMLProp list }
+    type RadioChildren =
+        Text of string
 
-    [<RequireQualifiedAccess>]
-    type Children = string
+    type Radio = HTMLProps * RadioChildren
 
-    [<RequireQualifiedAccess>]
-    type T = Props * Children
+    let private isInline (prop: IHTMLProp) =
+        match prop with
+        | :? RadioOptional as opt ->
+            match opt with
+            | Inline -> true
+        | _ -> false
 
-    let props =
-        { Props.Inline = false
-          Props.HTMLProps = [] }
+    let propToClassName (prop: IHTMLProp) =
+        match prop with
+        | :? RadioOptional as opt ->
+            match opt with
+            | Inline -> className "form-inline"
+        | _ -> prop
 
-    let private inlineRadio =
-        function
-        | true -> "form-inline"
-        | false -> ""
-
-    let build (radio: T) =
-        let props, children = radio
-        let containerClass =
-            [ "form-radio"
-              inlineRadio props.Inline ]
-            |> concatStrings
-        R.label [ClassName containerClass]
-            [ R.input <| props.HTMLProps @ [Type "radio"]
-              R.i [ClassName "form-icon"] []
-              R.str children ]
-
-    let ƒ = build
+    let checkbox ((opt, Text txt): Radio) =
+        let withInline, withoutInline =
+            List.partition isInline opt
+        Unmerged withInline
+        |> addProp (ClassName "form-radio")
+        |> map propToClassName
+        |> merge
+        |> R.label
+        <| [ R.input (Type "radio" :> IHTMLProp :: withoutInline)
+             R.i [ClassName "form-icon"] []
+             R.str txt ]

@@ -1,29 +1,18 @@
 ﻿namespace Fabulosa
 
-[<RequireQualifiedAccess>]
 module Switch =
 
+    open Fabulosa.Extensions
     module R = Fable.Helpers.React
     open R.Props
 
-    [<RequireQualifiedAccess>]
-    type Props =
-        { HTMLProps: IHTMLProp list }
+    type SwitchChildren =
+        Text of string
 
-    [<RequireQualifiedAccess>]
-    type Children = string
+    type Switch = HTMLProps * SwitchChildren
 
-    [<RequireQualifiedAccess>]
-    type T = Props * Children
-
-    let props =
-        { Props.HTMLProps = [] }
-
-    let build (switch: T) =
-        let props, children = switch
+    let switch ((opt, (Text txt)): Switch) =
         R.label [ ClassName "form-switch" ]
-            [ R.input <| props.HTMLProps @ [ Type "checkbox" ]
+            [ R.input (Type "checkbox" :> IHTMLProp :: opt)
               R.i [ ClassName "form-icon" ] []
-              R.str children ]
-
-    let ƒ = build
+              R.str txt ]
