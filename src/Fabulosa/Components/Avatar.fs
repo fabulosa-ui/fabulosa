@@ -75,8 +75,7 @@ module Avatar =
             R.img [ Src url ]
         | _ -> R.ofOption None
 
-    let avatar (comp: Avatar) =
-        let opt, chi = comp
+    let avatar ((opt, chi): Avatar) =
         Unmerged opt
         |> addProp (ClassName "avatar")
         |> map size

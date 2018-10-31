@@ -6,25 +6,18 @@ module Radio =
     module R = Fable.Helpers.React
     open R.Props
 
-    type RadioOptional =
-        | Inline
-        interface IHTMLProp
-
-    type RadioChildren =
-        Text of string
-
-    type Radio = HTMLProps * RadioChildren
+    type Radio = HTMLProps * FabulosaText
 
     let private isInline (prop: IHTMLProp) =
         match prop with
-        | :? RadioOptional as opt ->
+        | :? FabulosaFormInline as opt ->
             match opt with
             | Inline -> true
         | _ -> false
 
     let propToClassName (prop: IHTMLProp) =
         match prop with
-        | :? RadioOptional as opt ->
+        | :? FabulosaFormInline as opt ->
             match opt with
             | Inline -> className "form-inline"
         | _ -> prop

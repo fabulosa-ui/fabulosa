@@ -6,22 +6,11 @@ module Label =
     module R = Fable.Helpers.React
     module P = R.Props
 
-    type Size =
-        | Small
-        | Large
-
-    type LabelOptional =
-        | Size of Size
-        interface P.IHTMLProp
-
-    type LabelChildren =
-        Text of string
-
-    type Label = P.HTMLProps * LabelChildren
+    type Label = P.HTMLProps * FabulosaText
 
     let private propToClassName (prop: P.IHTMLProp) =
         match prop with
-        | :? LabelOptional as opt ->
+        | :? FabulosaFormSize as opt ->
             match opt with
             | Size Small -> "label-sm"
             | Size Large -> "label-lg"

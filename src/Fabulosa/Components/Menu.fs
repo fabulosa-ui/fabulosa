@@ -58,8 +58,7 @@ module Menu =
         let y = (rect.bottom |> int) + (Browser.window.scrollY |> int)
         TriggerMessage.Click (x, y)
 
-    let menuTrigger (comp: Trigger) =
-        let req, (Button btn) = comp
+    let menuTrigger ((req, (Button btn)): Trigger) =
         let btnOpt, btnChi = btn
         let withClick =
            P.Unmerged btnOpt
@@ -145,8 +144,7 @@ module Menu =
                  model.children)
               |> Portal.ƒ "menu-container" ]
 
-    let menu (comp: Menu) =
-        let opt, req, children = comp
+    let menu ((opt, req, chi): Menu) =
         R.reactiveCom
             init
             update
@@ -157,5 +155,5 @@ module Menu =
                 (function
                  | Item elements -> menuItem elements
                  | Divider divider -> menuDivider divider)
-                children)
+                chi)
                 

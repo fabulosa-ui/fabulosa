@@ -4,7 +4,7 @@ module Bar =
 
     open Fabulosa.Extensions
     module R = Fable.Helpers.React
-    open R.Props
+    module P = R.Props
 
     type Color =
         | Primary
@@ -19,48 +19,44 @@ module Bar =
     type BarItemOptional =
         | Tooltip
         | Color of Color
-        interface IHTMLProp
-
-    type BarItemRequired =
-        Value of int
+        interface P.IHTMLProp
 
     type private BarItem =
-        HTMLProps * BarItemRequired
+        P.HTMLProps * FabulosaValue
 
     let private toPercent =
         string >> (+) >> (|>) "%"
 
-    let private tooltip value (prop: IHTMLProp) =
+    let private tooltip value (prop: P.IHTMLProp) =
         match prop with
         | :? BarItemOptional as opt ->
             match opt with
             | Tooltip ->
-                Unmerged []
-                |> addProps
-                    [ ClassName "tooltip"
-                      Data ("tooltip", toPercent value) ]
-                |> merge
+                P.Unmerged []
+                |> P.addProps
+                    [ P.ClassName "tooltip"
+                      P.Data ("tooltip", toPercent value) ]
+                |> P.merge
             | _ -> []
         | _ -> []
 
     let private style value =
         let width = R.Props.CSSProp.Width (toPercent value)
         Fable.Helpers.React.Props.Style [width]
-        :> IHTMLProp
+        :> P.IHTMLProp
 
-    let barItem (comp: BarItem) =
-        let opt, (Value value) = comp
-        Unmerged opt
-        |> addProps
-            (ClassName "bar-item" :> IHTMLProp
+    let barItem ((opt, (Value value)): BarItem) =
+        P.Unmerged opt
+        |> P.addProps
+            (P.ClassName "bar-item" :> P.IHTMLProp
             :: style value
             :: (List.collect (tooltip value) opt))
-        |> merge
+        |> P.merge
         |> R.div <| []
 
     type BarOptional =
         | Small
-        interface IHTMLProp
+        interface P.IHTMLProp
 
     type BarChild =
         Item of BarItem
@@ -68,23 +64,21 @@ module Bar =
     type private BarChildren =
         BarChild list
 
-    type private Bar = HTMLProps * BarChildren
+    type private Bar = P.HTMLProps * BarChildren
 
-    let private small (prop: IHTMLProp) =
+    let private small (prop: P.IHTMLProp) =
         match prop with
         | :? BarOptional as opt ->
             match opt with
             | Small -> "bar-sm"
-            |> ClassName
-            :> IHTMLProp
+            |> P.className
         | _ -> prop
 
-    let bar (comp: Bar) =
-        let opt, chi = comp
-        Unmerged opt
-        |> addProp (ClassName "bar")
-        |> map small
-        |> merge
+    let bar ((opt, chi): Bar) =
+        P.Unmerged opt
+        |> P.addProp (P.ClassName "bar")
+        |> P.map small
+        |> P.merge
         |> R.div
         <| Seq.map
             (fun (Item item) -> barItem item)

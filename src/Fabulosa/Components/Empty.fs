@@ -8,8 +8,7 @@ module Empty =
     module R = Fable.Helpers.React
     module P = R.Props
 
-    let emptyIcon (comp: Icon) =
-        let opt, req = comp
+    let emptyIcon ((opt, req): Icon) =
         R.div
             [ P.ClassName "empty-icon" ]
             [ icon ([ Size X3 ], req) ]
@@ -53,8 +52,7 @@ module Empty =
     type Empty =
         P.HTMLProps * EmptyChildren
 
-    let empty (comp: Empty) =
-        let opt, (Icon i, Title t, Subtitle s, Action a) = comp
+    let empty ((opt, (Icon i, Title t, Subtitle s, Action a)): Empty) =
         P.Unmerged opt
         |> P.addProp (P.ClassName "empty")
         |> P.merge

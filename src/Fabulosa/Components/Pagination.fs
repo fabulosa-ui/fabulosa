@@ -9,24 +9,17 @@ module Pagination =
     module P = R.Props
 
     type PaginationItemOptional =
-        | Active
         | Disabled
         interface P.IHTMLProp
 
     type OnPageChanged =
         | OnPageChanged of (int -> unit)
 
-    type Value =
-        | Value of int
-
     type PaginationItemRequired =
-        OnPageChanged * Value
-
-    type PaginationItemChildren =
-        Text of string
+        OnPageChanged * FabulosaValue
 
     type PaginationItem =
-        P.HTMLProps * PaginationItemRequired * PaginationItemChildren
+        P.HTMLProps * PaginationItemRequired * FabulosaText
 
     let private (|Int|_|) str =
        match System.Int32.TryParse(str) with
@@ -43,8 +36,10 @@ module Pagination =
         match prop with
         | :? PaginationItemOptional as opt ->
             match opt with
-            | Active -> P.className "active"
             | Disabled -> P.className "disabled"
+        | :? FabulosaActive as opt ->
+            match opt with
+            | Active -> P.className "active"
         | _ -> prop
 
     let paginationItem ((opt, (OnPageChanged pc, Value v), (Text txt)): PaginationItem) =

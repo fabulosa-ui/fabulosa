@@ -5,7 +5,7 @@ module Button =
     open Fable.Import.React
     open Fabulosa.Extensions
     module R = Fable.Helpers.React
-    open R.Props
+    module P = R.Props
 
     type Kind =
         | Default
@@ -15,10 +15,6 @@ module Button =
     type Color =
         | Success
         | Error
-
-    type Size =
-        | Small
-        | Large
 
     type State =
         | Disabled
@@ -32,18 +28,17 @@ module Button =
     type ButtonOptional =
         | Kind of Kind
         | Color of Color
-        | Size of Size
         | State of State
         | Shape of Shape
-        interface IHTMLProp
+        interface P.IHTMLProp
 
     type Button =
-        HTMLProps * ReactElement list
+        P.HTMLProps * ReactElement list
 
     type Nested =
         Button of Button
 
-    let private propToClassName (prop: IHTMLProp) =
+    let private propToClassName (prop: P.IHTMLProp) =
         match prop with
         | :? ButtonOptional as opt ->
             match opt with
@@ -52,23 +47,24 @@ module Button =
             | Kind Link -> "btn-link"
             | Color Success -> "btn-success"
             | Color Error -> "btn-error"
-            | Size Small -> "btn-sm"
-            | Size Large -> "btn-lg"
             | State Disabled -> "disabled"
             | State Loading -> "loading"
             | State Active -> "active"
             | Shape Squared -> "btn-action"
             | Shape Round -> "btn-action circle"
-            |> ClassName
-            :> IHTMLProp
+            |> P.className
+        | :? FabulosaFormSize as opt ->
+            match opt with
+            | Size Small -> "btn-sm"
+            | Size Large -> "btn-lg"
+            |> P.className
         | _ -> prop
 
-    let private createButton renderer (comp: Button) =
-        let opt, chi = comp
-        Unmerged opt
-        |> addProp (ClassName "btn")
-        |> map propToClassName
-        |> merge
+    let private createButton renderer ((opt, chi): Button) =
+        P.Unmerged opt
+        |> P.addProp (P.ClassName "btn")
+        |> P.map propToClassName
+        |> P.merge
         |> renderer <| chi
 
     let button = createButton R.button
@@ -102,8 +98,7 @@ module ButtonGroup =
             :> IHTMLProp
         | _ -> prop
 
-    let buttonGroup (comp: ButtonGroup) =
-        let opt, chi = comp
+    let buttonGroup ((opt, chi): ButtonGroup) =
         Unmerged opt
         |> addProp (ClassName "btn-group")
         |> map propToClassName

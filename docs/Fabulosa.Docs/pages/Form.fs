@@ -1,86 +1,84 @@
 ﻿module FormPage
 
-open Fabulosa
-open Fabulosa.Icon
 module R = Fable.Helpers.React
 open R.Props
 open Fable.Import.React
-open Renderer
+open Fabulosa
 open Fabulosa.Group
-open Fabulosa.Label
 open Fabulosa.Select
+open Renderer
 
 (*** define: form-checkbox-sample ***)
 let checkbox =
     group ([],
-      [ Label ([], Label.Text "Login Preferences")
-        Checkbox ([ Name "remember-me" ], Checkbox.Text "Remember me") ])
+      [ Label ([], Text "Login Preferences")
+        Checkbox ([ Name "remember-me" ], Text "Remember me") ])
 (*** define: form-input-sample ***)
 let input =
     group ([],
-      [ Label ([], Label.Text "Name")
+      [ Label ([], Text "Name")
         Input [ Placeholder "Please enter your name" ] ])
 (*** hide ***)
 open Fabulosa.InputGroup
 (*** define: form-input-group-sample ***)
 let inputGroup =
     group ([],
-      [ Label ([], Label.Text "Email Address")
+      [ Label ([], Text "Email Address")
         InputGroup ([],
-          (InputGroup.Text None,
+          (OptText None,
            [ Input [ Placeholder "Please enter email address" ]
              Select ([],
-                [ Option ([], Select.Text "@gmail.com")
-                  Option ([], Select.Text "@hotmail.com") ]) ],
-           Button None))
-        Label ([], Label.Text "Website")
+                [ Option ([], Text "@gmail.com")
+                  Option ([], Text "@hotmail.com") ]) ],
+           OptButton None))
+        Label ([], Text "Website")
         InputGroup ([],
-           (Text (Some "https://"),
+           (OptText (Some "https://"),
             [ Input [ Placeholder "Please enter website address" ] ],
-            Button (Some ([], [ R.str "Save"; R.RawText "\n"; icon ([], Icon.Kind Check) ])))) ])
+            OptButton (Some ([], [ R.str "Save" ])))) ])
 (*** define: form-radio-sample ***)
 let radio =
     group ([],
-      [ Label ([], Label.Text "Gender")
-        Radio ([ Name "gender" ], Radio.Text "Male")
-        Radio ([ Name "gender"], Radio.Text "Female") ])
+      [ Label ([], Text "Gender")
+        Radio ([ Name "gender" ], Text "Male")
+        Radio ([ Name "gender"], Text "Female") ])
 (*** hide ***)
 open Fabulosa.Group
 (*** define: form-select-sample ***)
 let select =
     group ([],
-      [ Label ([], Label.Text "Language")
+      [ Label ([], Text "Language")
         Select ([],
-          [ Option ([], SelectOptionChild.Text "English")
-            Option ([], SelectOptionChild.Text "Spanish")
-            Option ([], SelectOptionChild.Text "Assembly") ]) ])
+          [ Option ([], Text "English")
+            Option ([], Text "Spanish")
+            Option ([], Text "Assembly") ]) ])
 (*** define: form-sizes-sample ***)
 let sizes =
     group ([],
-      [ Label ([ Label.Size Label.Small ], Label.Text "Small")
-        Input ([ Placeholder "Please enter a value"; Input.Size Input.Small ])
-        Label ([ Label.Size Label.Large ], Label.Text "Large")
+      [ Label ([ Size Small ], Text "Small")
+        Input ([ Placeholder "Please enter a value"; Size Small ])
+        Label ([ Size Large ], Text "Large")
         Select ([ Size Large ],
-          [ Option ([], SelectOptionChild.Text "Large") ]) ])
+          [ Option ([], Text "Large") ]) ])
 (*** define: form-switch-sample ***)
 let switch =
     group ([],
-      [ Label ([], Label.Text "Email Preferences")
-        Switch ([], Switch.Text "Send me promotional emails") ])
+      [ Label ([], Text "Email Preferences")
+        Switch ([], Text "Send me promotional emails") ])
 (*** define: form-textarea-sample ***)
 let textarea =
     group ([],
-      [ Label ([], Label.Text "Description")
-        Textarea ([ Placeholder "Please enter a description" ], Textarea.Text "") ])
+      [ Label ([], Text "Description")
+        Textarea ([ Placeholder "Please enter a description" ], Text "") ])
 (*** hide ***)
 open Fabulosa.Validation
 (*** define: form-validation-sample ***)
 let validation =
     group ([],
-      [ Label ([], Label.Text "Valid Input")
+      [ Label ([], Text "Valid Input")
         Validation ([ Success "This input is valid"],
           Input [ Placeholder "Please enter a value" ])
-        Group.Label ([], Label.Text "Invalid Input")
+        Label ([], Text "Invalid Input")
         Validation ([ Error "This input is invalid" ],
           Input [ Placeholder "Please enter a value"]) ])
 (*** hide ***)

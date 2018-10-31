@@ -41,8 +41,7 @@ module Accordion =
               |> merge, iconReq))
         |> Option.get
 
-    let private item (comp: AccordionItem) =
-        let opt, (Header header, Body body) = comp
+    let private item ((opt, (Header header, Body body)): AccordionItem) =
         let icn = createIcon opt
         R.details
             [ ClassName "accordion" ]

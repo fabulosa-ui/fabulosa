@@ -1,6 +1,7 @@
 ﻿module BadgeTests
 
 open Expecto
+open Fabulosa
 open Fabulosa.Badge
 open Fabulosa.Avatar
 module R = Fable.Helpers.React

@@ -1,6 +1,7 @@
 ﻿module TagTests
 
 open Expecto
+open Fabulosa
 open Expect
 open Fabulosa.Tag
 module R = Fable.Helpers.React

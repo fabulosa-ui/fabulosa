@@ -1,10 +1,12 @@
 ﻿module BarTests
 
 open Expecto
+open Fabulosa
 open Fabulosa.Bar
 module R = Fable.Helpers.React
 module P = R.Props
 open Expect
+
 
 [<Tests>]
 let tests =

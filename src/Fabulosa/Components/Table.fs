@@ -17,10 +17,6 @@ module Table =
     let tableTitleColumn ((opt, chi): TableTitleColumn) =
         R.th opt chi
 
-    type TableRowOptional =
-        | Active
-        interface IHTMLProp
-
     type TableRowChild =
         | Column of TableColumn
         | TitleColumn of TableTitleColumn
@@ -33,7 +29,7 @@ module Table =
 
     let private rowPropToClassName (prop: IHTMLProp) =
         match prop with
-        | :? TableRowOptional as opt ->
+        | :? FabulosaActive as opt ->
             match opt with
             | Active -> className "active"
         | _ -> prop

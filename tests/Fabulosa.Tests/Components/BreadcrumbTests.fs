@@ -1,6 +1,7 @@
 ﻿module BreadcrumbTests
 
 open Expecto
+open Fabulosa
 open Fabulosa.Breadcrumb
 module R = Fable.Helpers.React
 module P = R.Props

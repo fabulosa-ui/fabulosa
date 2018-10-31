@@ -7,19 +7,16 @@ module Badge =
     open Fabulosa.Avatar
     open Fable.Import.React
     module R = Fable.Helpers.React
-    open R.Props
+    module P = R.Props
 
     let private combine props badge =
-        Unmerged props
-        |> addProps
-            [ ClassName "badge"
-              Data ("badge", badge) ]
-        |> merge
-        
-    type BadgeRequired =
-        Value of int
+        P.Unmerged props
+        |> P.addProps
+            [ P.ClassName "badge"
+              P.Data ("badge", badge) ]
+        |> P.merge
 
-    type private Element = HTMLProps * ReactElement list
+    type private Element = P.HTMLProps * ReactElement list
     
     type BadgeChildren =
         | Avatar of Avatar
@@ -29,10 +26,9 @@ module Badge =
         | Span of Element
 
     type Badge =
-        HTMLProps * BadgeRequired * BadgeChildren
+        P.HTMLProps * FabulosaValue * BadgeChildren
 
-    let badge (c: Badge) =
-        let optional, (Value value), children = c
+    let badge ((optional, (Value value), children): Badge) =
         match children with
         | Avatar (opt, children) ->
             avatar (combine opt value, children)

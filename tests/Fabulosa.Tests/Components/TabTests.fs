@@ -1,6 +1,7 @@
 ﻿module TabTests
 
 open Expecto
+open Fabulosa
 open Fabulosa.Tab
 module R = Fable.Helpers.React
 open R.Props

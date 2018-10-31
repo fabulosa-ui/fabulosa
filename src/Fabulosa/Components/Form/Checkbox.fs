@@ -6,22 +6,18 @@ module Checkbox =
     module R = Fable.Helpers.React
     open R.Props
 
-    type CheckboxOptional =
-        | Inline
-        interface IHTMLProp
-
     type Checkbox = HTMLProps * FabulosaText
 
     let private isInline (prop: IHTMLProp) =
         match prop with
-        | :? CheckboxOptional as opt ->
+        | :? FabulosaFormInline as opt ->
             match opt with
             | Inline -> true
         | _ -> false
 
     let propToClassName (prop: IHTMLProp) =
         match prop with
-        | :? CheckboxOptional as opt ->
+        | :? FabulosaFormInline as opt ->
             match opt with
             | Inline -> className "form-inline"
         | _ -> prop

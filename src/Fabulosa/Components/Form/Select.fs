@@ -29,7 +29,7 @@ module Select =
 
     let private propToClassName (prop: P.IHTMLProp) =
         match prop with
-        | :? FabulosaFormInputSizeHTMLProp as opt ->
+        | :? FabulosaFormSize as opt ->
             match opt with
             | Size Small -> "select-sm"
             | Size Large -> "select-lg"

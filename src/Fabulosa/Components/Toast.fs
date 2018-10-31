@@ -19,10 +19,7 @@ module Toast =
         | OnRequestClose of (MouseEvent -> unit)
         interface IHTMLProp
 
-    type ToastChildren =
-        Text of string
-
-    type Toast = HTMLProps * ToastChildren
+    type Toast = HTMLProps * FabulosaText
 
     let private color (prop: IHTMLProp) =
         match prop with

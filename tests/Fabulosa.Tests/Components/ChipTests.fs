@@ -1,6 +1,7 @@
 ﻿module ChipTests
 
 open Expecto
+open Fabulosa
 open Fabulosa.Chip
 open Fabulosa.Avatar
 module R = Fable.Helpers.React

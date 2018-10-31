@@ -18,10 +18,7 @@ module Tag =
         | Color of Color
         interface IHTMLProp
 
-    type TagChildren =
-        Text of string
-
-    type Tag = HTMLProps * TagChildren
+    type Tag = HTMLProps * FabulosaText
 
     let private propToClassName (prop: IHTMLProp) =
         match prop with

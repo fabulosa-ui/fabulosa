@@ -13,6 +13,18 @@ module Global =
         | Small
         | Large
 
-    type FabulosaFormInputSizeHTMLProp =
+    type FabulosaFormSize =
         | Size of FabulosaFormFieldSize
+        interface IHTMLProp
+
+    type FabulosaFormInline =
+        | Inline
+        interface IHTMLProp
+
+    type FabulosaActive =
+        | Active
+        interface IHTMLProp
+
+    type FabulosaValue =
+        | Value of int
         interface IHTMLProp

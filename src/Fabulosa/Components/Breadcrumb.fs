@@ -6,22 +6,16 @@ module Breadcrumb =
     module R = Fable.Helpers.React
     open Fable.Import.React
     module P = R.Props
-
-    type Text = string
-
+    
     type Href = string
         
     type BreadcrumbLinkRequired =
         | Href of Href
 
-    type BreadcrumbItemChildren =
-        | Text of Text
-
     type BreadcrumbLink =
-        P.HTMLProps * BreadcrumbLinkRequired * BreadcrumbItemChildren
-               
-    let breadcrumbLink (comp: BreadcrumbLink) =
-        let opt, (Href hrf), (Text txt) = comp
+        P.HTMLProps * BreadcrumbLinkRequired * FabulosaText
+
+    let breadcrumbLink ((opt, (Href hrf), (Text txt)): BreadcrumbLink) =
         P.Unmerged opt
         |> P.addProp (P.ClassName "breadcrumb-item")
         |> P.merge
@@ -31,10 +25,9 @@ module Breadcrumb =
     type BreadcrumbTextOptional = P.HTMLProps
     
     type BreadcrumbText =
-        BreadcrumbTextOptional * BreadcrumbItemChildren
+        BreadcrumbTextOptional * FabulosaText
 
-    let breadcrumbText (comp: BreadcrumbText) =
-        let opt, (Text txt) = comp
+    let breadcrumbText ((opt, (Text txt)): BreadcrumbText) =
         P.Unmerged opt
         |> P.addProp (P.ClassName "breadcrumb-item")
         |> P.merge
@@ -48,8 +41,7 @@ module Breadcrumb =
     type BreadcrumbElements =
         BreadcrumbElementsOptional * BreadcrumbElementsChildren
 
-    let breadcrumbElements (comp: BreadcrumbElements) =
-        let opt, chi = comp
+    let breadcrumbElements ((opt, chi): BreadcrumbElements) =
         P.Unmerged opt
         |> P.addProp (P.ClassName "breadcrumb-item")
         |> P.merge
@@ -66,8 +58,7 @@ module Breadcrumb =
     type Breadcrumb =
         BreadcrumbOptional * BreadcrumbChildren list
 
-    let breadcrumb (comp: Breadcrumb) =
-        let opt, chi = comp
+    let breadcrumb ((opt, chi): Breadcrumb) =
         P.Unmerged opt
         |> P.addProp (P.ClassName "breadcrumb")
         |> P.merge

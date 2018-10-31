@@ -4,32 +4,24 @@ module Input =
 
     open Fabulosa.Extensions
     module R = Fable.Helpers.React
-    open R.Props
+    module P = R.Props
 
-    type Size =
-        | Small
-        | Large
+    type Input = P.HTMLProps
 
-    type InputOptional =
-        | Size of Size
-        interface IHTMLProp
-
-    type Input = HTMLProps
-
-    let private propToClassName (prop: IHTMLProp) =
+    let private propToClassName (prop: P.IHTMLProp) =
         match prop with
-        | :? InputOptional as opt ->
+        | :? FabulosaFormSize as opt ->
             match opt with
             | Size Small -> "input-sm"
             | Size Large -> "input-lg"
-            |> className
+            |> P.className
         | _ -> prop
 
     let input (opt: Input) =
-        Unmerged opt
-        |> addProp (ClassName "form-input")
-        |> map propToClassName
-        |> merge
+        P.Unmerged opt
+        |> P.addProp (P.ClassName "form-input")
+        |> P.map propToClassName
+        |> P.merge
         |> R.input
 
 module IconInput =
@@ -84,15 +76,11 @@ module InputGroup =
     open Fabulosa.Select
     
     type InputGroupAddonRight =
-        | Button of Button option
+        | OptButton of Button option
 
     type InputGroupAddonLeft =
-        | Text of string option
+        | OptText of string option
         
-    type InputGroupOptional =
-        | Inline
-        interface IHTMLProp
-
     type InputGroupChild =
         | Input of Input
         | Select of Select
@@ -102,7 +90,7 @@ module InputGroup =
 
     let private btn =
         function
-        | Button (Some (opt, chi)) ->
+        | OptButton (Some (opt, chi)) ->
             button
                 (Unmerged opt
                 |> addProp (ClassName "input-group-btn")
@@ -111,7 +99,7 @@ module InputGroup =
 
     let private txt =
         function
-        | Text (Some text) ->
+        | OptText (Some text) ->
             R.span
                 [ ClassName "input-group-addon" ]
                 [ R.str text ]
@@ -119,7 +107,7 @@ module InputGroup =
 
     let private propToClassName (prop: IHTMLProp) =
         match prop with
-        | :? InputGroupOptional as opt ->
+        | :? FabulosaFormInline as opt ->
             match opt with
             | Inline -> className "input-inline"
         | _ -> prop

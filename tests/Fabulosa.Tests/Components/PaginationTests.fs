@@ -1,6 +1,7 @@
 module PaginationTests
 
 open Expecto
+open Fabulosa
 open Fabulosa.Pagination
 module R = Fable.Helpers.React
 module P = R.Props

@@ -10,22 +10,22 @@ open R.Props
 let tests =
     testList "Textarea tests" [
 
-        test "Textarea default" {
-            Textarea.ƒ
-                (Textarea.props, "Text")
-            |> ReactNode.unit
-            |>! hasUniqueClass "form-input"
-            |> hasText "Text"
-        }
+        //test "Textarea default" {
+        //    Textarea.ƒ
+        //        (Textarea.props, "Text")
+        //    |> ReactNode.unit
+        //    |>! hasUniqueClass "form-input"
+        //    |> hasText "Text"
+        //}
 
-        test "Textarea html props" {
-            Textarea.ƒ
-                ({ Textarea.props with
-                     HTMLProps = [ ClassName "custom" ] },
-                 "Text")
-            |> ReactNode.unit
-            |>! hasClass "custom"
-            |> hasText "Text"
-        }
+        //test "Textarea html props" {
+        //    Textarea.ƒ
+        //        ({ Textarea.props with
+        //             HTMLProps = [ ClassName "custom" ] },
+        //         "Text")
+        //    |> ReactNode.unit
+        //    |>! hasClass "custom"
+        //    |> hasText "Text"
+        //}
 
     ]

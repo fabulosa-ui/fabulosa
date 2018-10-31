@@ -6,11 +6,8 @@ module rec Nav =
     open Fable.Helpers.React.Props
     module R = Fable.Helpers.React
 
-    type NavItemChild =
-        Text of string
-
     type NavItem =
-        HTMLProps * NavItemChild
+        HTMLProps * FabulosaText
 
     let navItem ((opt, (Text txt)): NavItem) =
         R.li

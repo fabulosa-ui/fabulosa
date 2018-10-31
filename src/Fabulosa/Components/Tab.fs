@@ -7,16 +7,12 @@ module Tab =
     open R.Props
     open Fable.Import.React
 
-    type TabItemOptional =
-        | Active
-        interface IHTMLProp
-
     type TabItem =
         HTMLProps * ReactElement list
 
     let private itemPropToClassName (prop: IHTMLProp) =
         match prop with
-        | :? TabItemOptional as opt ->
+        | :? FabulosaActive as opt ->
             match opt with
             | Active -> className "active"
         | _ -> prop

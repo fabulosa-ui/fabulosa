@@ -116,8 +116,7 @@ module Icon =
             :> IHTMLProp
         | _ -> prop
 
-    let icon (comp: Icon) =
-        let opt, (Kind req) = comp
+    let icon ((opt, (Kind req)): Icon) =
         Unmerged opt
         |> addProps
             [ ClassName "icon"

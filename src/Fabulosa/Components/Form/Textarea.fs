@@ -6,10 +6,7 @@ module Textarea =
     module R = Fable.Helpers.React
     open R.Props
 
-    type TextareaChild =
-        | Text of string
-
-    type Textarea = HTMLProps * TextareaChild
+    type Textarea = HTMLProps * FabulosaText
 
     let textarea ((opt, (Text txt)): Textarea) =
         Unmerged opt

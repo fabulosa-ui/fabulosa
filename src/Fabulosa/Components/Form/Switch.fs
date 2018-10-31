@@ -6,10 +6,7 @@ module Switch =
     module R = Fable.Helpers.React
     open R.Props
 
-    type SwitchChildren =
-        Text of string
-
-    type Switch = HTMLProps * SwitchChildren
+    type Switch = HTMLProps * FabulosaText
 
     let switch ((opt, (Text txt)): Switch) =
         R.label [ ClassName "form-switch" ]

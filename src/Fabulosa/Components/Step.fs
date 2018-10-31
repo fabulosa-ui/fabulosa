@@ -7,23 +7,19 @@ module Step =
     open R.Props
     open Fable.Import.React
 
-    type StepItemOptional =
-        | Active
-        interface IHTMLProp
-
     type StepItem =
         HTMLProps * ReactElement list
 
     let private hasActive (prop: IHTMLProp) =
         match prop with
-        | :? StepItemOptional as opt ->
+        | :? FabulosaActive as opt ->
             match opt with
             | Active -> true
         | _ -> false
 
     let private itemPropToClassName (prop: IHTMLProp) =
         match prop with
-        | :? StepItemOptional as opt ->
+        | :? FabulosaActive as opt ->
             match opt with
             | Active -> className "active"
         | _ -> prop

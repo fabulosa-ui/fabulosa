@@ -1,6 +1,7 @@
 ﻿module StepTests
 
 open Expecto
+open Fabulosa
 open Fabulosa.Step
 module R = Fable.Helpers.React
 module P = R.Props

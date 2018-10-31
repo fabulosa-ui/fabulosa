@@ -43,8 +43,7 @@ module Grid =
             :> P.IHTMLProp
         | _ -> prop
 
-    let gridColumn (comp: GridColumn) =
-        let opt, chi = comp
+    let gridColumn ((opt, chi): GridColumn) =
         P.Unmerged opt
         |> P.addProp (P.ClassName "column")
         |> P.map colPropToClassName
@@ -73,8 +72,7 @@ module Grid =
             :> P.IHTMLProp
         | _ -> prop
 
-    let gridRow (comp: GridRow) =
-        let opt, chi = comp
+    let gridRow ((opt, chi): GridRow) =
         P.Unmerged opt
         |> P.addProp (P.ClassName "columns")
         |> P.map rowPropToClassName
@@ -92,8 +90,7 @@ module Grid =
 
     type Grid = P.HTMLProps * GridChildren
 
-    let grid (comp: Grid) =
-        let opt, chi = comp
+    let grid ((opt, chi): Grid) =
         P.Unmerged opt
         |> P.addProp (P.ClassName "container")
         |> P.merge

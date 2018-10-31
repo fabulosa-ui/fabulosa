@@ -13,11 +13,8 @@ module Chip =
         | Avatar of AvatarChildren
         interface P.IHTMLProp
 
-    type ChipChildren =
-        Text of string
-
     type Chip =
-        P.HTMLProps * ChipChildren
+        P.HTMLProps * FabulosaText
 
     let private pick fn (props: P.HTMLProps) =
         props |> List.tryPick fn
@@ -42,13 +39,12 @@ module Chip =
             | :? ChipOptional as opt ->
                 match opt with
                 | Avatar chi ->
-                    Some (avatar ([ Avatar.Size Avatar.Small ], chi))
+                    Some (avatar ([ Size Small ], chi))
                 | _ -> None
             | _ -> None
         |> pick
 
-    let chip (c: Chip) =
-        let opt, (Text text) = c
+    let chip ((opt, (Text text)): Chip) =
         P.Unmerged opt
         |> P.addProp (P.ClassName "chip")
         |> P.merge

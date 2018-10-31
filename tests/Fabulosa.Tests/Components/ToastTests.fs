@@ -1,6 +1,7 @@
 ﻿module ToastTests
 
 open Expecto
+open Fabulosa
 open Fabulosa.Toast
 module R = Fable.Helpers.React
 open Fable.Import.React

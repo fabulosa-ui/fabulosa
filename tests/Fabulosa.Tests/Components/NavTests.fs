@@ -1,6 +1,7 @@
 ﻿module NavTests
 
 open Expecto
+open Fabulosa
 open Fabulosa.Nav
 module R = Fable.Helpers.React
 open R.Props
