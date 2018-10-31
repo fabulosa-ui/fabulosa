@@ -4,6 +4,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Types/BoundingRect.fs" />
+    <Compile Include="Types/Global.fs" />
     <Compile Include="Extensions/ListExtension.fs" />
     <Compile Include="Extensions/SeqExtension.fs" />
     <Compile Include="Extensions/StringExtension.fs" />

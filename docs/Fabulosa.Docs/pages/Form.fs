@@ -6,141 +6,83 @@ module R = Fable.Helpers.React
 open R.Props
 open Fable.Import.React
 open Renderer
+open Fabulosa.Group
+open Fabulosa.Label
+open Fabulosa.Select
 
 (*** define: form-checkbox-sample ***)
 let checkbox =
-    Group.ƒ
-        (Group.props,
-         [ Group.Child.Label
-             (Label.props, "Login Preferences")
-           Group.Child.Checkbox
-             ({ Checkbox.props with
-                 HTMLProps = [Name "remember-me"] },
-              "Remember me") ])
+    group ([],
+      [ Label ([], Label.Text "Login Preferences")
+        Checkbox ([ Name "remember-me" ], Checkbox.Text "Remember me") ])
 (*** define: form-input-sample ***)
 let input =
-    Group.ƒ
-        (Group.props,
-         [ Group.Child.Label
-             (Label.props, "Name")
-           Group.Child.Input
-             { Input.props with
-                 HTMLProps =
-                   [ Placeholder "Please enter your name" ] } ])
+    group ([],
+      [ Label ([], Label.Text "Name")
+        Input [ Placeholder "Please enter your name" ] ])
+(*** hide ***)
+open Fabulosa.InputGroup
 (*** define: form-input-group-sample ***)
 let inputGroup =
-    Group.ƒ
-        (Group.props,
-         [ Group.Child.Label
-             (Label.props, "Email Address")
-           Group.Child.InputGroup
-             (InputGroup.props,
-              [ InputGroup.Child.Input
-                  { Input.props with
-                      HTMLProps = [ Placeholder "Please enter email address" ] }
-                InputGroup.Child.Select
-                  (Select.props,
-                   [ Select.Child.Option
-                       (Select.Option.props, "@gmail.com")
-                     Select.Child.Option
-                       (Select.Option.props, "@hotmail.com") ]) ])
-           Group.Child.Label
-               (Label.props, "Website")
-           Group.Child.InputGroup
-             ({ InputGroup.props with
-                  AddonLeft = InputGroup.AddonLeft.Text "https://"                                        
-                  AddonRight =
-                    InputGroup.AddonRight.Button
-                      ([],
-                       [ R.str "Save"
-                         R.RawText "\n"
-                         icon ([], Icon.Kind Check) ]) },
-                [ InputGroup.Child.Input
-                    ({ Input.props with
-                         HTMLProps = [Placeholder "Please enter website address"] }) ]) ])
+    group ([],
+      [ Label ([], Label.Text "Email Address")
+        InputGroup ([],
+          (InputGroup.Text None,
+           [ Input [ Placeholder "Please enter email address" ]
+             Select ([],
+                [ Option ([], Select.Text "@gmail.com")
+                  Option ([], Select.Text "@hotmail.com") ]) ],
+           Button None))
+        Label ([], Label.Text "Website")
+        InputGroup ([],
+           (Text (Some "https://"),
+            [ Input [ Placeholder "Please enter website address" ] ],
+            Button (Some ([], [ R.str "Save"; R.RawText "\n"; icon ([], Icon.Kind Check) ])))) ])
 (*** define: form-radio-sample ***)
 let radio =
-    Group.ƒ
-        (Group.props,
-         [ Group.Child.Label
-             (Label.props, "Gender")
-           Group.Child.Radio
-             ({ Radio.props with
-                 HTMLProps = [Name "gender"] }, "Male")
-           Group.Child.Radio
-             ({ Radio.props with
-                 HTMLProps = [Name "gender"] }, "Female") ])
+    group ([],
+      [ Label ([], Label.Text "Gender")
+        Radio ([ Name "gender" ], Radio.Text "Male")
+        Radio ([ Name "gender"], Radio.Text "Female") ])
+(*** hide ***)
+open Fabulosa.Group
 (*** define: form-select-sample ***)
 let select =
-    Group.ƒ
-        (Group.props,
-         [ Group.Child.Label
-             (Label.props, "Language")
-           Group.Child.Select
-             (Select.props,
-              [ Select.Child.Option
-                  (Select.Option.props, "English")
-                Select.Child.Option
-                  (Select.Option.props, "Spanish")
-                Select.Child.Option
-                  (Select.Option.props, "Assembly") ]) ])
+    group ([],
+      [ Label ([], Label.Text "Language")
+        Select ([],
+          [ Option ([], SelectOptionChild.Text "English")
+            Option ([], SelectOptionChild.Text "Spanish")
+            Option ([], SelectOptionChild.Text "Assembly") ]) ])
 (*** define: form-sizes-sample ***)
 let sizes =
-    Group.ƒ
-        (Group.props,
-         [ Group.Child.Label
-             ({ Label.props with
-                 Size = Label.Size.Small }, "Small")
-           Group.Child.Input
-             { Input.props with
-                 HTMLProps =
-                    [ Placeholder "Please enter a value" ]
-                 Size = Input.Size.Small }
-           Group.Child.Label
-             ({ Label.props with
-                 Size = Label.Size.Large }, "Large")
-           Group.Child.Select
-             ({ Select.props with
-                  Size = Select.Size.Large },
-              [ Select.Child.Option
-                  (Select.Option.props, "Large") ]) ])
+    group ([],
+      [ Label ([ Label.Size Label.Small ], Label.Text "Small")
+        Input ([ Placeholder "Please enter a value"; Input.Size Input.Small ])
+        Label ([ Label.Size Label.Large ], Label.Text "Large")
+        Select ([ Size Large ],
+          [ Option ([], SelectOptionChild.Text "Large") ]) ])
 (*** define: form-switch-sample ***)
 let switch =
-    Group.ƒ
-        (Group.props,
-         [ Group.Child.Label
-             (Label.props, "Email Preferences")
-           Group.Child.Switch
-             (Switch.props, "Send me promotional emails") ])
+    group ([],
+      [ Label ([], Label.Text "Email Preferences")
+        Switch ([], Switch.Text "Send me promotional emails") ])
 (*** define: form-textarea-sample ***)
 let textarea =
-    Group.ƒ
-        (Group.props,
-         [ Group.Child.Label
-             (Label.props, "Description")
-           Group.Child.Textarea
-             ({ Textarea.props with
-                  HTMLProps =
-                    [ Placeholder "Please enter a description" ] },
-              "") ])
+    group ([],
+      [ Label ([], Label.Text "Description")
+        Textarea ([ Placeholder "Please enter a description" ], Textarea.Text "") ])
+(*** hide ***)
+open Fabulosa.Validation
 (*** define: form-validation-sample ***)
 let validation =
-    Group.ƒ
-        (Group.props,
-         [ Group.Child.Label
-             (Label.props, "Valid Input")
-           Group.Child.Validation
-             (Validation.Kind.Success "This input is valid",
-              Validation.Children.Input
-                { Input.props with
-                    HTMLProps = [ Placeholder "Please enter a value" ] })
-           Group.Child.Label
-             (Label.props, "Invalid Input")
-           Group.Child.Validation
-             (Validation.Kind.Error "This input is invalid",
-              Validation.Children.Input
-                { Input.props with
-                    HTMLProps = [Placeholder "Please enter a value"] }) ])
+    group ([],
+      [ Label ([], Label.Text "Valid Input")
+        Validation ([ Success "This input is valid"],
+          Input [ Placeholder "Please enter a value" ])
+        Group.Label ([], Label.Text "Invalid Input")
+        Validation ([ Error "This input is invalid" ],
+          Input [ Placeholder "Please enter a value"]) ])
 (*** hide ***)
 let render () =
     tryMount "form-input-demo" input

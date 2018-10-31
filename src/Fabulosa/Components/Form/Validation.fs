@@ -26,14 +26,19 @@ module Validation =
     type Validation =
         HTMLProps * ValidationChild
 
-    let private propToMessage (prop: IHTMLProp) =
-        match prop with
-        | :? ValidationOptional as opt ->
-            match opt with
-            | Success message -> [ R.str message ]
-            | Error message -> [ R.str message ]
-            |> R.p [ ClassName "form-input-hint" ]
-        | _ -> R.ofOption None
+    let private propToMessage (props: HTMLProps) =
+        List.tryPick
+            (fun (prop: IHTMLProp) ->
+                match prop with
+                | :? ValidationOptional as opt ->
+                    match opt with
+                    | Success message -> [ R.str message ]
+                    | Error message -> [ R.str message ]
+                    |> R.p [ ClassName "form-input-hint" ]
+                    |> Some
+                | _ -> None)
+            props
+        |> R.ofOption
 
     let private propToClassName (prop: IHTMLProp) =
         match prop with
@@ -54,4 +59,5 @@ module Validation =
                | Input i -> input i
                | Radio r -> radio r
                | Select s -> select s
-               | Switch s -> switch s) ]
+               | Switch s -> switch s)
+             propToMessage opt]

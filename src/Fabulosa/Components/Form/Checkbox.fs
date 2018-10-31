@@ -10,10 +10,7 @@ module Checkbox =
         | Inline
         interface IHTMLProp
 
-    type CheckboxChildren =
-        Text of string
-
-    type Checkbox = HTMLProps * CheckboxChildren
+    type Checkbox = HTMLProps * FabulosaText
 
     let private isInline (prop: IHTMLProp) =
         match prop with

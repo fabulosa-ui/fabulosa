@@ -9,6 +9,7 @@ module P = R.Props
 open Fable.Import.React
 open Renderer
 open Microsoft.FSharp.Core
+open Fabulosa.InputGroup
 
 let header =
     [ R.str "Comments" ]
@@ -37,15 +38,10 @@ let body =
           too big for any one hero to tackle..." ] ] ]
 
 let footer =
-    [ InputGroup.ƒ
-        ({ InputGroup.props with
-             AddonRight =
-               InputGroup.AddonRight.Button
-                 ([ Kind Primary ], [ R.str "Send" ]) },
-           [ InputGroup.Child.Input
-               ({ Input.props with
-                    HTMLProps =
-                       [ P.Placeholder "Say Hello!" ] }) ]) ]
+    [ inputGroup ([],
+        (Text None,
+         [ Input [ P.Placeholder "Say Hello!" ] ],
+         Button (Some([ Kind Primary ], [ R.str "Send" ])))) ]
 
 (*** define: panel-default-sample ***)
 let def =

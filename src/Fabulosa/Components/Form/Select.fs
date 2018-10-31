@@ -4,12 +4,9 @@ module Select =
 
     open Fabulosa.Extensions
     module R = Fable.Helpers.React
-    open R.Props
+    module P = R.Props
 
-    type SelectOptionChild =
-        | Text of string
-
-    type SelectOption = HTMLProps * SelectOptionChild
+    type SelectOption = P.HTMLProps * FabulosaText
 
     let selectOption ((opt, (Text txt)): SelectOption) =
         R.option opt [ R.str txt ]
@@ -18,40 +15,32 @@ module Select =
         | Option of SelectOption
 
     type SelectOptionGroup =
-        HTMLProps * SelectOptionGroupChild list
+        P.HTMLProps * SelectOptionGroupChild list
 
     let selectOptionGroup ((opt, chi): SelectOptionGroup) =
         R.optgroup opt (Seq.map (fun (Option opt) -> selectOption opt) chi)
 
-    type Size =
-        | Small
-        | Large
-
-    type SelectOptional =
-        | Size of Size
-        interface IHTMLProp
-
     type SelectChild =
-    | Group of SelectOptionGroup
-    | Option of SelectOption
+        | Group of SelectOptionGroup
+        | Option of SelectOption
 
     type Select =
-        HTMLProps * SelectChild list
+        P.HTMLProps * SelectChild list
 
-    let private propToClassName (prop: IHTMLProp) =
+    let private propToClassName (prop: P.IHTMLProp) =
         match prop with
-        | :? SelectOptional as opt ->
+        | :? FabulosaFormInputSizeHTMLProp as opt ->
             match opt with
             | Size Small -> "select-sm"
             | Size Large -> "select-lg"
-            |> className
+            |> P.className
         | _ -> prop
 
     let select ((opt, chi): Select) =
-        Unmerged opt
-        |> addProp (ClassName "form-select")
-        |> map propToClassName
-        |> merge
+        P.Unmerged opt
+        |> P.addProp (P.ClassName "form-select")
+        |> P.map propToClassName
+        |> P.merge
         |> R.select
         <| Seq.map
             (function
