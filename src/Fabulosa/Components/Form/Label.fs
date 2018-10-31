@@ -1,47 +1,37 @@
 ﻿namespace Fabulosa
 
-[<RequireQualifiedAccess>]
 module Label =
 
     open Fabulosa.Extensions
     module R = Fable.Helpers.React
-    open R.Props
+    module P = R.Props
 
-    [<RequireQualifiedAccess>]
     type Size =
-    | Small
-    | Large
-    | Unset
+        | Small
+        | Large
 
-    [<RequireQualifiedAccess>]
-    type Props =
-        { Size: Size
-          HTMLProps: IHTMLProp list }
+    type LabelOptional =
+        | Size of Size
+        interface P.IHTMLProp
 
-    [<RequireQualifiedAccess>]
-    type Children = string
+    type LabelChildren =
+        Text of string
 
-    [<RequireQualifiedAccess>]
-    type T = Props * Children
+    type Label = P.HTMLProps * LabelChildren
 
-    let props =
-        { Props.Size = Size.Unset
-          Props.HTMLProps = [] }
+    let private propToClassName (prop: P.IHTMLProp) =
+        match prop with
+        | :? LabelOptional as opt ->
+            match opt with
+            | Size Small -> "label-sm"
+            | Size Large -> "label-lg"
+            |> P.className
+        | _ -> prop
 
-    let private size =
-        function
-        | Size.Small -> "label-sm"
-        | Size.Large -> "label-lg"
-        | Size.Unset -> ""
-
-    let build (label: T) =
-        let props, children = label
-        props.HTMLProps
-        |> addPropsOld
-            [ ClassName "form-label"
-              ClassName <| size props.Size ]
+    let label ((opt, (Text txt)): Label) =
+        P.Unmerged opt
+        |> P.addProp (P.ClassName "form-label")
+        |> P.map propToClassName
+        |> P.merge
         |> R.label
-        <| [ R.str children ]
-
-    let ƒ = build
-    
+        <| [ R.str txt ]

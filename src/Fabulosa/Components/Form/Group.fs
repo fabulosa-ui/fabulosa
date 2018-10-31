@@ -1,76 +1,48 @@
 ﻿namespace Fabulosa
 
-[<RequireQualifiedAccess>]
 module Group =
 
     open Fabulosa.Extensions
     module R = Fable.Helpers.React
     open R.Props
+    open Fabulosa.Checkbox
+    open Fabulosa.Radio
+    open Fabulosa.Label
+    open Fabulosa.Switch
+    open Fabulosa.Input
+    open Fabulosa.Select
+    open Fabulosa.InputGroup
+    open Fabulosa.Validation
+    open Fabulosa.Textarea
 
-    [<RequireQualifiedAccess>]
-    type Props =
-        { HTMLProps: IHTMLProp list }
+    type GroupChild =
+        | Checkbox of Checkbox
+        | Input of Input
+        | InputGroup of InputGroup
+        | Label of Label
+        | Radio of Radio
+        | Select of Select
+        | Switch of Switch
+        | Textarea of Textarea
+        | Validation of Validation
 
-    [<RequireQualifiedAccess>]
-    type Child<'Checkbox, 'Input, 'InputGroup, 'Label, 'Radio, 'Select, 'Switch, 'Textarea, 'Validation> =
-        | Checkbox of 'Checkbox
-        | Input of 'Input
-        | InputGroup of 'InputGroup
-        | Label of 'Label
-        | Radio of 'Radio
-        | Select of 'Select
-        | Switch of 'Switch
-        | Textarea of 'Textarea
-        | Validation of 'Validation
+    type Group =
+        HTMLProps * GroupChild list
 
-
-    [<RequireQualifiedAccess>]
-    type Children<'Checkbox, 'Input, 'InputGroup, 'Label, 'Radio, 'Select, 'Switch, 'Textarea, 'Validation> =
-        Child<'Checkbox, 'Input, 'InputGroup, 'Label, 'Radio, 'Select, 'Switch, 'Textarea, 'Validation> list
-
-    [<RequireQualifiedAccess>]
-    type T<'Checkbox, 'Input, 'InputGroup, 'Label, 'Radio, 'Select, 'Switch, 'Textarea, 'Validation> =
-        Props * Children<'Checkbox, 'Input, 'InputGroup, 'Label, 'Radio, 'Select, 'Switch, 'Textarea, 'Validation>
-
-    let props =
-        { Props.HTMLProps = [] }
-        
-    let build
-        checkboxƒ
-        inputƒ
-        inputGroupƒ
-        labelƒ
-        radioƒ
-        selectƒ
-        switchƒ
-        textareaƒ
-        validationƒ
-        (group: T<'Checkbox, 'Input, 'InputGroup, 'Label, 'Radio, 'Select, 'Switch, 'Textarea, 'Validation>) =
-        let props, children = group
-        props.HTMLProps
-        |> addPropOld (ClassName "form-group")
+    let group ((opt, chi): Group) =
+        Unmerged opt
+        |> addProp (ClassName "form-group")
+        |> merge
         |> R.div
         <| Seq.map
             (function
-             | Child.Checkbox checkbox -> checkboxƒ checkbox
-             | Child.Input input -> inputƒ input
-             | Child.InputGroup inputGroup -> inputGroupƒ inputGroup
-             | Child.Label label -> labelƒ label
-             | Child.Radio radio -> radioƒ radio
-             | Child.Select select -> selectƒ select
-             | Child.Switch switch -> switchƒ switch
-             | Child.Textarea textarea -> textareaƒ textarea
-             | Child.Validation validation -> validationƒ validation)
-             children
-
-    let ƒ =
-        build
-            Checkbox.ƒ
-            Input.ƒ
-            InputGroup.ƒ
-            Label.ƒ
-            Radio.ƒ
-            Select.ƒ
-            Switch.ƒ
-            Textarea.ƒ
-            Validation.ƒ
+             | Checkbox c -> checkbox c
+             | Input i -> input i
+             | InputGroup i -> inputGroup i
+             | Label l -> label l
+             | Radio r -> radio r
+             | Select s -> select s
+             | Switch s -> switch s
+             | Textarea t -> textarea t
+             | Validation v -> validation v)
+             chi

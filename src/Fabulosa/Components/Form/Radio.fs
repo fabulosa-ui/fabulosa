@@ -29,7 +29,7 @@ module Radio =
             | Inline -> className "form-inline"
         | _ -> prop
 
-    let checkbox ((opt, Text txt): Radio) =
+    let radio ((opt, Text txt): Radio) =
         let withInline, withoutInline =
             List.partition isInline opt
         Unmerged withInline

@@ -1,60 +1,57 @@
 namespace Fabulosa
 
-[<RequireQualifiedAccess>]
 module Validation =
 
+    open Fabulosa.Extensions
     module R = Fable.Helpers.React
     open R.Props
+    open Fabulosa.Checkbox
+    open Fabulosa.Input
+    open Fabulosa.Radio
+    open Fabulosa.Select
+    open Fabulosa.Switch
 
-    [<RequireQualifiedAccess>]
-    type Kind =
-    | Error of string
-    | Success of string
+    type ValidationOptional =
+        | Error of string
+        | Success of string
+        interface IHTMLProp
 
-    [<RequireQualifiedAccess>]
-    type Children<'Checkbox, 'Input, 'Radio, 'Select, 'Switch> =
-        | Checkbox of 'Checkbox
-        | Input of 'Input
-        | Radio of 'Radio
-        | Select of 'Select
-        | Switch of 'Switch
+    type ValidationChild =
+        | Checkbox of Checkbox
+        | Input of Input
+        | Radio of Radio
+        | Select of Select
+        | Switch of Switch
 
-    [<RequireQualifiedAccess>]
-    type T<'Checkbox, 'Input, 'Radio, 'Select, 'Switch> =
-        Kind * Children<'Checkbox, 'Input, 'Radio, 'Select, 'Switch>
+    type Validation =
+        HTMLProps * ValidationChild
 
-    let private message =
-        function
-        | Kind.Success message -> message 
-        | Kind.Error message -> message
+    let private propToMessage (prop: IHTMLProp) =
+        match prop with
+        | :? ValidationOptional as opt ->
+            match opt with
+            | Success message -> [ R.str message ]
+            | Error message -> [ R.str message ]
+            |> R.p [ ClassName "form-input-hint" ]
+        | _ -> R.ofOption None
 
-    let private kind =
-        function
-        | Kind.Success _ -> "has-success"
-        | Kind.Error _ -> "has-error"
+    let private propToClassName (prop: IHTMLProp) =
+        match prop with
+        | :? ValidationOptional as opt ->
+            match opt with
+            | Success _ -> "has-success"
+            | Error _ -> "has-error"
+            |> className
+        | _ -> prop
 
-    let build
-        checkboxƒ
-        inputƒ
-        radioƒ
-        selectƒ
-        switchƒ
-        (validation: T<'Checkbox, 'Input, 'Radio, 'Select, 'Switch>) =
-        let props, children = validation
-        R.span
-            [ ClassName <| kind props ]
-            [ (match children with
-               | Children.Checkbox checkbox -> checkboxƒ checkbox
-               | Children.Input input -> inputƒ input
-               | Children.Radio radio -> radioƒ radio
-               | Children.Select select -> selectƒ select
-               | Children.Switch switch -> switchƒ switch)
-              R.p [ ClassName "form-input-hint" ] [ R.str <| message props ] ]
-
-    let ƒ =
-        build
-            Checkbox.ƒ
-            Input.ƒ
-            Radio.ƒ
-            Select.ƒ
-            Switch.ƒ
+    let validation ((opt, chi): Validation) =
+        Unmerged opt
+        |> map propToClassName
+        |> merge
+        |> R.span
+        <| [ (match chi with
+               | Checkbox c -> checkbox c
+               | Input i -> input i
+               | Radio r -> radio r
+               | Select s -> select s
+               | Switch s -> switch s) ]
