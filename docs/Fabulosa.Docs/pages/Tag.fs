@@ -1,5 +1,6 @@
 ﻿module TagPage
 
+open Fabulosa
 open Fabulosa.Tag
 module R = Fable.Helpers.React
 module P = R.Props

@@ -39,9 +39,9 @@ let body =
 
 let footer =
     [ inputGroup ([],
-        (Text None,
+        (OptText None,
          [ Input [ P.Placeholder "Say Hello!" ] ],
-         Button (Some([ Kind Primary ], [ R.str "Send" ])))) ]
+         OptButton (Some([ Kind Primary ], [ R.str "Send" ])))) ]
 
 (*** define: panel-default-sample ***)
 let def =

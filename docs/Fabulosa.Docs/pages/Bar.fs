@@ -1,5 +1,6 @@
 ﻿module BarPage
 
+open Fabulosa
 open Fabulosa.Bar
 open Fabulosa.Docs
 module R = Fable.Helpers.React

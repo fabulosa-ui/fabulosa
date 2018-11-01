@@ -1,8 +1,10 @@
 ﻿module ButtonPage
 
+
 open Fabulosa.Docs
 open Fabulosa.Icon
 open Fabulosa.Button
+open Fabulosa
 module R = Fable.Helpers.React
 open Renderer
 
@@ -31,7 +33,7 @@ let round = button ([ Shape Round; Kind Primary ], [ icon ])
 (*** define: button-state-sample ***)
 let disabled = button ([ State Disabled ], [ R.str "Disabled" ])
 
-let active = button ([ State Active ], [ R.str "Active" ])
+let active = button ([ State Button.Active ], [ R.str "Active" ])
 
 let loading = button ([ State Loading ], [ R.str "-------" ])
 (*** hide ***)

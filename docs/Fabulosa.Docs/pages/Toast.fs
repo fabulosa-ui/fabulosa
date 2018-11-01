@@ -1,5 +1,6 @@
 ﻿module ToastPage
 
+open Fabulosa
 open Fabulosa.Button
 open Fabulosa.Toast
 module R = Fable.Helpers.React
@@ -7,7 +8,6 @@ module P = R.Props
 open Fable.Import.React
 open Renderer
 open Microsoft.FSharp.Core
-open Fable.Import.JS
 open Fable.Helpers.React.ReactiveComponents
 
 type State =

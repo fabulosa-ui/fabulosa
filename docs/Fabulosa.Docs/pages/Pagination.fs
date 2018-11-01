@@ -1,7 +1,7 @@
 ﻿module PaginationPage
 
+open Fabulosa
 open Fabulosa.Pagination
-open Fabulosa.Docs
 module R = Fable.Helpers.React
 module P = R.Props
 open Fable.Import.React

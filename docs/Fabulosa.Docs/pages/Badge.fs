@@ -1,5 +1,6 @@
 ﻿module BadgePage
 
+open Fabulosa
 open Fabulosa.Badge
 open Fabulosa.Avatar
 open Fabulosa.Docs
@@ -22,8 +23,8 @@ let render () =
     tryMount "badge-span-demo" span
     tryMount "badge-button-demo" button
     tryMount "badge-avatar-demo" avatar
-    tryMount "badge-props-table"
-        (PropTable.unionPropTable typeof<BadgeRequired>)
+    //tryMount "badge-props-table"
+        //(PropTable.unionPropTable typeof<BadgeRequired>)
     tryMount "badge-child-table"
         (PropTable.unionPropTable typeof<BadgeChildren>)
 (**

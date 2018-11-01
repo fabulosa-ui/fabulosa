@@ -1,7 +1,7 @@
 ﻿module StepPage
 
+open Fabulosa
 open Fabulosa.Step
-open Fabulosa.Docs
 module R = Fable.Helpers.React
 open Fable.Import.React
 open Renderer

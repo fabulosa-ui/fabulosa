@@ -1,5 +1,6 @@
 ﻿module BreadcrumbPage
 
+open Fabulosa
 open Fabulosa.Breadcrumb
 open Fabulosa.Docs
 module R = Fable.Helpers.React
@@ -18,12 +19,12 @@ let render () =
     tryMount "breadcrumbs-demo" element
     tryMount "breadcrumb-children-table"
         (PropTable.unionPropTable typeof<BreadcrumbChildren>)
-    tryMount "breadcrumb-text-children-table"
-        (PropTable.unionPropTable typeof<BreadcrumbItemChildren>)
+    //tryMount "breadcrumb-text-children-table"
+        //(PropTable.unionPropTable typeof<BreadcrumbItemChildren>)
     tryMount "breadcrumb-link-required-table"
         (PropTable.unionPropTable typeof<BreadcrumbLinkRequired>)
-    tryMount "breadcrumb-link-children-table"
-        (PropTable.unionPropTable typeof<BreadcrumbItemChildren>)
+    //tryMount "breadcrumb-link-children-table"
+        //(PropTable.unionPropTable typeof<BreadcrumbItemChildren>)
 (**
 
 <div id="breadcrumbs">

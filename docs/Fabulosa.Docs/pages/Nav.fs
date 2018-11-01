@@ -1,5 +1,6 @@
 ﻿module NavPage
 
+open Fabulosa
 open Fabulosa.Nav
 open Fabulosa.Docs
 open Renderer

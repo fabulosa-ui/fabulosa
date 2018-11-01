@@ -1,5 +1,6 @@
 ﻿module TabPage
 
+open Fabulosa
 open Fabulosa.Badge
 open Fabulosa.Tab
 module R = Fable.Helpers.React

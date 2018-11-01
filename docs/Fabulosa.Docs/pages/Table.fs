@@ -1,5 +1,6 @@
 ﻿module TablePage
 
+open Fabulosa
 open Fabulosa.Table
 module R = Fable.Helpers.React
 open Fable.Import.React

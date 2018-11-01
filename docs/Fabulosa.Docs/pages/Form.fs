@@ -6,6 +6,7 @@ open Fable.Import.React
 open Fabulosa
 open Fabulosa.Group
 open Fabulosa.Select
+open Fabulosa.Extensions.Fable.Helpers.React.Props
 open Renderer
 
 (*** define: form-checkbox-sample ***)

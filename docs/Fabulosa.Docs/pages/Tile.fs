@@ -1,7 +1,6 @@
 ﻿module TilePage
 
 open Fabulosa.Tile
-open Fabulosa.Docs
 open Fabulosa.Button
 open Fabulosa.Icon
 module R = Fable.Helpers.React
